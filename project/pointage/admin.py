@@ -6,6 +6,7 @@ from pointage.models import Employe,Shift
 # Register your models here.
 
 class UserAdmin(UserAdmin):
+    list_display = ('username', 'email', 'last_name', 'first_name', 'role',)
     add_fieldsets = (
         (None, {
             'classes': ('wide','extrapretty'),
