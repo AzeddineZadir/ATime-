@@ -3,17 +3,19 @@ from django.contrib.auth.models import User, AbstractUser
 
 # Create your models here.
 
+
 class User(AbstractUser):
     EMPLOYE = 1
     MANAGER = 2
     BOSS = 3
-      
+
     ROLE_CHOICES = (
         (EMPLOYE, 'Employé'),
         (MANAGER, 'Manager'),
         (BOSS, 'Chef de projet'),
     )
-    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True)
+    role = models.PositiveSmallIntegerField(
+        choices=ROLE_CHOICES, blank=True, null=True)
 
 
 class Employe(models.Model):
@@ -30,6 +32,7 @@ class Employe(models.Model):
 
     def __str__(self):
         return self.user.username
+
 
 class Shift(models.Model):
     employe = models.ForeignKey('Employe', on_delete=models.CASCADE)
