@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block nav %} {% endblock %}
+{% block title %}Ma page d'accueil{% endblock %}
+{% block content %}
+    <h1>
+        <center>AUTHENTIFICATION YA JEDEK</center>
+    </h1>
+
+    <div>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label>Nom d'utilisateur</label>
+            {{ form.username }}
+            <label>Mot de passe</label>
+            {{ form.password }}
+            <input type="submit" value="Se connecter"/>
+        </form>
+    </div>
+{% endblock %}
