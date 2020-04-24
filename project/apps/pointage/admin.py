@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin 
-from pointage.models import Employe,Shift
+from .models import Employe,Shift
 
 # Register your models here.
 
