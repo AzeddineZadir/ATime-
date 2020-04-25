@@ -9,6 +9,24 @@ from django.http import Http404
 
 # Create your views here.
 
+class Login(LoginView):
+    template_name = 'authentification/login.html'
+
+    def get_success_url(self):  # if username and password are correct
+        role = self.request.user.role
+
+        if role == 1:
+            print("Je suis un employé")
+            return reverse('pointage:dash_emp')
+        elif role == 2:
+            print("Je suis un manager")
+            return reverse('pointage:dash_man')
+        elif role == 3:
+            print("Je suis un chef de projet")
+            return reverse('pointage:dash_pro_man')
+        else:
+            print("Je suis abehri")
+
 @login_required(redirect_field_name='login') # Require auth
 def dash(request): # Check role of user
         role = request.user.role 
