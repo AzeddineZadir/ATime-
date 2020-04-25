@@ -126,3 +126,5 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'pointage.User'
+
+LOGIN_REDIRECT_URL = 'dash'
