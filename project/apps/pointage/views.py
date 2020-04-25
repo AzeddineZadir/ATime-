@@ -93,3 +93,14 @@ def getid(request):
                 return HttpResponse(str(id_finger))
 
             return HttpResponse(str(id_finger))
+
+
+def dash(request):
+    return render(request, 'pointage/dash_emp.html')
+
+
+def dash_man(request):
+    return render(request, 'pointage/dash_man.html')
+
+def dash_man_pro(request):
+    return render(request, 'pointage/dash_man_pro.html')
