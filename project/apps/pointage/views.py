@@ -28,6 +28,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 #     return HttpResponse(id_e)
 
+def emp_dash(request):
+
+    return render(request, 'pointage/emp_dash.html', locals())
+
 
 @csrf_exempt
 def getid(request):
@@ -42,7 +46,8 @@ def getid(request):
             if emp.iwssad:
                 emp.iwssad = False
                 emp.save()
-                shift = Shift.objects.filter(employe=emp).latest('date_heure_e')
+                shift = Shift.objects.filter(
+                    employe=emp).latest('date_heure_e')
                 shift.date_heure_s = timezone.now()
                 shift.save()
             else:  # Outside / Change the value of iwssad to True -> Employe is inside and create new checkpoint

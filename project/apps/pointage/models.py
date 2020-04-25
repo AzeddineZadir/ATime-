@@ -24,7 +24,7 @@ class Employe(models.Model):
     finger_id = models.PositiveSmallIntegerField()
     is_uploaded = models.BooleanField(default=False)
     is_delete = models.BooleanField(default=False)
-    birthdate = models.DateField(default=False)
+    birthdate = models.DateField(blank=True, null=True)
     birthplace = models.CharField(max_length=120, blank=True)
     address = models.CharField(max_length=200, blank=True)
     phone = models.CharField(max_length=18, blank=True)
