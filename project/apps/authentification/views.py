@@ -1,17 +1,14 @@
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from apps.pointage.views import emp_dash
+from apps.dash.views import dash_emp, dash_man, dash_pro_man
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
-<< << << < HEAD
-== == == =
->>>>>> > jimmy2
-
 
 # Create your views here.
+
 
 class Login(LoginView):
     template_name = 'authentification/login.html'
@@ -21,14 +18,13 @@ class Login(LoginView):
 
         if role == 1:
             print("Je suis un employé")
-
-            return reverse('pointage:dash_emp')
+            return reverse('dash:employe_dashbored')
         elif role == 2:
             print("Je suis un manager")
-            return reverse('pointage:dash_man')
+            return reverse('dash:manager_dashbored')
         elif role == 3:
             print("Je suis un chef de projet")
-            return reverse('pointage:dash_pro_man')
+            return reverse('dash:project_manager_dashbored')
         else:
             print("Je suis abehri")
 

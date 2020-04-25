@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.pointage',
     'apps.authentification',
+    'apps.dash',
 ]
 
 MIDDLEWARE = [
@@ -126,4 +127,3 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'pointage.User'
-
