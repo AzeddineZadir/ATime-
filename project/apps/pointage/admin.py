@@ -7,6 +7,21 @@ from .models import Employe,Shift
 
 class UserAdmin(UserAdmin):
     list_display = ('username', 'email', 'last_name', 'first_name', 'role',)
+    fieldsets = (
+        (None, {
+            'classes': ('wide','extrapretty'),
+            'fields': ( 'username', 'password'),
+        }),
+        ('Informations personnelles', {
+            'classes': ('wide','extrapretty'),
+            'fields': ( 'last_name', 'first_name', 'email', 'role',),
+        }),
+        ('Options avancées', {
+            'classes': ('collapse', 'wide'),
+            'fields': ('groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser'),
+        }),
+    )
+
     add_fieldsets = (
         (None, {
             'classes': ('wide','extrapretty'),
