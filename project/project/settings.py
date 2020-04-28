@@ -127,3 +127,7 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'pointage.User'
+
+LOGOUT_REDIRECT_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

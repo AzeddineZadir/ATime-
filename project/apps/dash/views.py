@@ -12,4 +12,4 @@ def dash_man(request):
 
 
 def dash_pro_man(request):
-    return render(request, 'dash/dash_man_pro.html')
+    return render(request, 'dash/dash_pro_man.html')
