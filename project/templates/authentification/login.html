@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block nav %} {% endblock %}
 {% block title %}Ma page d'accueil{% endblock %}
 {% block content %}
@@ -9,11 +10,9 @@
     <div>
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
-            <label>Nom d'utilisateur</label>
-            {{ form.username }}
-            <label>Mot de passe</label>
-            {{ form.password }}
-            <input type="submit" value="Se connecter"/>
+            {{ form|crispy }}
+         <button type="submit" class="btn btn-primary"> se connecter</button>  
         </form>
+        <a href="{% url 'password_reset' %}"> j'ai oublier mon mot de passe </a>
     </div>
 {% endblock %}
