@@ -46,7 +46,7 @@ class ShiftAdmin(admin.ModelAdmin):
 
 class EmployeAdmin(admin.ModelAdmin):
     
-    list_display = ('id', 'email', 'username', 'iwssad', 'finger_id', 'is_uploaded', 'is_delete')
+    list_display = ('id', 'email', 'username', 'iwssad', 'finger_id', 'is_uploaded', 'is_delete', 'team_id')
     actions = ['delete_employe']
  
     def id(self, employe):
