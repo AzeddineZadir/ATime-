@@ -13,8 +13,13 @@ class EmployeManManager(models.Manager):
         filter=Q(iwssad=True)),
         nb_emp_out=Count(
         'user', 
-        filter=Q(iwssad=False)
+        filter=Q(iwssad=False)),
+        nb_emp=Count(
+        'user'
         ))
+    
+    def get_my_employe(self, team_id, user_emp):
+        return super().get_queryset().filter(Q(team_id__name__contains = team_id), ~Q(user = user_emp))
 
 
 class User(AbstractUser):
@@ -42,6 +47,7 @@ class Employe(models.Model):
     address = models.CharField(max_length=200, blank=True)
     phone = models.CharField(max_length=200, blank=True)
     observation = models.CharField(max_length=300, blank=True)
+    picture = models.ImageField(null=True, blank=True)
     team_id = models.ForeignKey('dash.Team', on_delete=models.CASCADE, null=True, blank=True)
 
     objects = models.Manager()

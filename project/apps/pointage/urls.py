@@ -5,6 +5,6 @@ app_name = 'pointage'
 urlpatterns = [
     # path('check', views.check),
     path('getid', views.getid),
-    path('test', views.test),
+    path('test', views.test, name='test'),
 
 ]

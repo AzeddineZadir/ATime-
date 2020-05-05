@@ -95,5 +95,5 @@ def test(request):
     test = Employe.manager.get_my_employe_stats(team_id=emp.team_id, user_emp=request.user)
     print()
 
-    return HttpResponse("nombre d'employés in: "+str(test[0]['nb_emp_in'])+" nombre d'employés out: "+str(test[0]['nb_emp_out']))
+    return HttpResponse("nombre d'employés total: "+str(test[0]['nb_emp'])+"nombre d'employés in: "+str(test[0]['nb_emp_in'])+" nombre d'employés out: "+str(test[0]['nb_emp_out']))
 

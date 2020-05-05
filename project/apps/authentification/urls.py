@@ -2,11 +2,11 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
 
-
+app_name = 'authentification'
 urlpatterns = [
     path('', views.Login.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(
-        template_name='authentification/login.html'), name='logout'),
+        template_name='authentification/login.html', next_page='authentification:login'), name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(
         template_name='authentification/password_change_form.html'), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeView.as_view(

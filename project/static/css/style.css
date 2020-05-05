@@ -105,15 +105,15 @@
 .liToggle {
   font-size: 24px;
   margin-top: 60vh;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 @media (min-width: 992px) {
@@ -127,5 +127,10 @@
   .wrapper .content {
     margin-left: 12.5rem;
   }
+}
+
+.profile-pic {
+  width: 46px;
+  height: 46px;
 }
 /*# sourceMappingURL=style.css.map */
