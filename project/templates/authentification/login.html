@@ -8,11 +8,11 @@
     </h1>
 
     <div>
-        <form method="POST" action="{% url 'login' %}">
+        <form method="POST" action="{% url 'authentification:login' %}">
             {% csrf_token %}
             {{ form|crispy }}
          <button type="submit" class="btn btn-primary"> se connecter</button>  
         </form>
-        <a href="{% url 'password_reset' %}"> j'ai oublier mon mot de passe </a>
+        <a href="{% url 'authentification:password_reset' %}"> j'ai oublier mon mot de passe </a>
     </div>
 {% endblock %}

@@ -1,11 +1,54 @@
-{% extends "base.html" %}
+{% extends "dash/base_man.html" %}
 {% block nav %} {% endblock %}
 {% block title %}Manager dashbored {% endblock %}
 {% block content %}
-    <h1>
-        <center>Manager</center>
-        
-    </h1>
 
-    
+    <div class="card mt-4 ml-2">
+        <div class="card-header">
+            Statistique de présence
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">{{team_name|capfirst}}</h3>
+            <p class="card-text">Nombre d'employés {{man_employe_stats.nb_emp}}</p>
+            <p class="card-text">Nombre d'employés présents {{man_employe_stats.nb_emp_in}}</p>
+            <p class="card-text">Nombre d'employés sortie {{man_employe_stats.nb_emp_out}}</p>
+        </div>
+    </div>
+
+    <div class="card mt-2 ml-2">
+        <div class="card-header">
+            Vos employés
+        </div>
+            <div class="card-body p-0">
+                <table class="table">
+                    <thead>
+                        <tr class="card-title">
+                            <th scope="col">#</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Présence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for emp in man_employe %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ emp.user.last_name|capfirst }}</td>
+                            <td>{{ emp.user.first_name|capfirst }}</td>
+                            <td>{{ emp.iwssad }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+
+
+  
+
+
+
+
+
 {% endblock %}
