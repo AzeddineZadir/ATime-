@@ -23,6 +23,6 @@ urlpatterns = [
     path('pointage/', include('apps.pointage.urls', namespace='pointage')),
     path('dash/', include('apps.dash.urls', namespace='dash')),
     path('', include('apps.authentification.urls', namespace='authentification')),
+    path('', include('django.contrib.auth.urls')),
 ]
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
