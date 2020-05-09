@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
 
-    'apps.pointage',
+    'apps.pointage.apps.PointageConfig',
 
     'apps.authentification',
 

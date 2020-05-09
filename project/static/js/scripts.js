@@ -7,9 +7,7 @@ $(document).ready(function (){
         }else{
             icon.removeClass("fa-chevron-circle-right").toggleClass("fa-chevron-circle-left");
         }
-    });
-
-   
+    }); 
 });
 
 

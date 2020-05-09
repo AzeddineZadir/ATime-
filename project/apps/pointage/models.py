@@ -8,15 +8,15 @@ from django.db.models import Count, Q
 
 class EmployeManManager(models.Manager):
     def get_my_employe_stats(self, team_id, user_emp):
-        return super().get_queryset().filter(Q(team_id__name__contains = team_id), ~Q(user = user_emp)).values('team_id').annotate(nb_emp_in=Count(
-        'user', 
-        filter=Q(iwssad=True)),
-        nb_emp_out=Count(
-        'user', 
-        filter=Q(iwssad=False)),
-        nb_emp=Count(
-        'user'
-        ))
+            return super().get_queryset().filter(Q(team_id__name__contains = team_id), ~Q(user = user_emp)).values('team_id').annotate(nb_emp_in=Count(
+            'user', 
+            filter=Q(iwssad=True)),
+            nb_emp_out=Count(
+            'user', 
+            filter=Q(iwssad=False)),
+            nb_emp=Count(
+            'user'
+            ))
     
     def get_my_employe(self, team_id, user_emp):
         return super().get_queryset().filter(Q(team_id__name__contains = team_id), ~Q(user = user_emp))
@@ -39,7 +39,7 @@ class User(AbstractUser):
 class Employe(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     iwssad = models.BooleanField(default=False)
-    finger_id = models.PositiveSmallIntegerField()
+    finger_id = models.PositiveSmallIntegerField(blank=True, null=True)
     is_uploaded = models.BooleanField(default=False)
     is_delete = models.BooleanField(default=False)
     birthdate = models.DateField(auto_now=False, blank=True, null=True)
@@ -47,7 +47,7 @@ class Employe(models.Model):
     address = models.CharField(max_length=200, blank=True)
     phone = models.CharField(max_length=200, blank=True)
     observation = models.CharField(max_length=300, blank=True)
-    picture = models.ImageField(null=True, blank=True)
+    picture = models.ImageField(upload_to='images/', default='images/nounours.png')
     team_id = models.ForeignKey('dash.Team', on_delete=models.CASCADE, null=True, blank=True)
 
     objects = models.Manager()

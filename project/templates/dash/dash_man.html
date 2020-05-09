@@ -8,10 +8,15 @@
             Statistique de présence
         </div>
         <div class="card-body">
-            <h3 class="card-title">{{team_name|capfirst}}</h3>
-            <p class="card-text">Nombre d'employés {{man_employe_stats.nb_emp}}</p>
-            <p class="card-text">Nombre d'employés présents {{man_employe_stats.nb_emp_in}}</p>
-            <p class="card-text">Nombre d'employés sortie {{man_employe_stats.nb_emp_out}}</p>
+            {% if man_employe_stats != none %}
+                <h3 class="card-title">{{team_name|capfirst}}</h3>
+                <p class="card-text">Nombre d'employés {{man_employe_stats.nb_emp}}</p>
+                <p class="card-text">Nombre d'employés présents {{man_employe_stats.nb_emp_in}}</p>
+                <p class="card-text">Nombre d'employés sortie {{man_employe_stats.nb_emp_out}}</p>
+            {% else %}
+                <h3 class="card-title">Makanwalou<h3>
+            {% endif %}
+
         </div>
     </div>
 
