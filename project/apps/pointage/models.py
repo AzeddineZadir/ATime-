@@ -51,7 +51,7 @@ class Employe(models.Model):
     team_id = models.ForeignKey('dash.Team', on_delete=models.CASCADE, null=True, blank=True)
 
     objects = models.Manager()
-    manager= EmployeManManager()
+    manager = EmployeManManager()
 
     def __str__(self):
         return self.user.username
