@@ -7,6 +7,21 @@ from .models import Employe,Shift
 
 class UserAdmin(UserAdmin):
     list_display = ('username', 'email', 'last_name', 'first_name', 'role',)
+    fieldsets = (
+        (None, {
+            'classes': ('wide','extrapretty'),
+            'fields': ( 'username', 'password'),
+        }),
+        ('Informations personnelles', {
+            'classes': ('wide','extrapretty'),
+            'fields': ( 'last_name', 'first_name', 'email', 'role',),
+        }),
+        ('Options avancées', {
+            'classes': ('collapse', 'wide'),
+            'fields': ('groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser'),
+        }),
+    )
+
     add_fieldsets = (
         (None, {
             'classes': ('wide','extrapretty'),
@@ -31,7 +46,7 @@ class ShiftAdmin(admin.ModelAdmin):
 
 class EmployeAdmin(admin.ModelAdmin):
     
-    list_display = ('id', 'email', 'username', 'iwssad', 'finger_id', 'is_uploaded', 'is_delete')
+    list_display = ('id', 'email', 'username', 'iwssad', 'finger_id', 'is_uploaded', 'is_delete', 'team_id')
     actions = ['delete_employe']
  
     def id(self, employe):

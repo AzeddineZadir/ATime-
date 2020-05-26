@@ -1,0 +1,136 @@
+.bg-primaryy {
+  background-color: #1BBC9B;
+}
+
+.text-primaryy, .nav-link:hover .icon, .nav-link:hover .text, .nav-link:active .icon, .nav-link:active .text {
+  color: #1BBC9B;
+}
+
+.bg-secondaryy {
+  background-color: #2D3E50;
+}
+
+.text-secondaryy {
+  color: #2D3E50;
+}
+
+.bg-background, body {
+  background-color: #EFF0F3;
+}
+
+.text-background {
+  color: #EFF0F3;
+}
+
+.wrapper .sideMenu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  -webkit-transition: all ease 0.1s;
+  transition: all ease 0.1s;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  z-index: 2000;
+}
+
+.wrapper .sideMenu .nav-link .text {
+  display: none;
+}
+
+.wrapper .sideMenu .navbar-nav {
+  margin-top: 56px;
+}
+
+.wrapper .content {
+  width: 100%;
+  margin-left: 0rem;
+  -webkit-transition: all ease 0.1s;
+  transition: all ease 0.1s;
+}
+
+.wrapper.active .sideMenu {
+  width: 70px;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+
+.wrapper.active .sideMenu .nav-link {
+  text-align: center;
+}
+
+.wrapper.active .sideMenu .nav-link .text {
+  display: none;
+}
+
+.wrapper.active .sideMenu .nav-link .icon {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.wrapper.active .content {
+  margin-left: 4.375rem;
+}
+
+.nav-link {
+  display: block;
+  white-space: nowrap;
+}
+
+.nav-link .icon {
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
+  font-size: 1.5rem;
+  color: white;
+  vertical-align: middle;
+  height: 2rem;
+  width: 2rem;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nav-link .text {
+  font-size: 0.875rem;
+  color: white;
+}
+
+.liToggle {
+  font-size: 24px;
+  margin-top: 60vh;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+@media (min-width: 992px) {
+  .wrapper .sideMenu {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  .wrapper .sideMenu .nav-link .text {
+    display: inline;
+  }
+  .wrapper .content {
+    margin-left: 12.5rem;
+  }
+}
+
+.profile-pic {
+  width: 46px;
+  height: 46px;
+}
+/*# sourceMappingURL=style.css.map */

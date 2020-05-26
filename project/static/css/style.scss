@@ -1,0 +1,142 @@
+@function rem($value){
+    @return unquote(($value/1px)/16+"rem");
+}
+
+$easeTime: 0.1s;
+$margin-top: 56px;
+
+$colors: (
+    "primaryy": "#1BBC9B",
+    "secondaryy": "#2D3E50",
+    "background": "#EFF0F3"
+);
+
+@each $colorName,$colorValue in $colors{
+    .bg-#{$colorName}{
+        background-color: #{$colorValue};
+    }
+    .text-#{$colorName}{
+        color: #{$colorValue};
+    }
+}
+
+body{
+    @extend .bg-background;
+}
+
+.wrapper{
+    .sideMenu{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 200px;
+        transition: all ease $easeTime;
+        transform: translateX(-100%);
+        z-index: 2000;
+
+        .nav-link{
+            .text{
+                display: none;
+            }  
+        }
+
+        .navbar-nav{
+            margin-top: 56px;
+        }
+    }
+    .content{
+        width: 100%;
+        margin-left:  rem(0px);
+        transition:  all ease $easeTime;
+    }
+
+    &.active{
+        .sideMenu{
+            width: 70px;
+            .nav-link{
+                text-align: center;
+                .text{
+                    display: none;
+                }
+                .icon{
+                    margin-right: 0;
+                    margin-left: 0;
+                }
+                              
+            }
+            transform: translateX(0);
+        }
+        .content{
+            margin-left: rem(70px);
+        }
+
+         
+    }
+}
+
+
+
+.nav-link{
+    display: block;
+    white-space: nowrap;
+    .icon{
+        margin-right: rem(12px);
+        margin-left: rem(12px);
+        font-size: rem(24px);
+        color: white;
+        vertical-align: middle;
+        height: rem(32px);
+        width: rem(32px);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .text{
+        font-size: rem(14px);
+        color: white;
+    }
+    &:hover,
+    &:active{
+        .icon,.text{
+            @extend .text-primaryy;
+        }
+    }
+}
+
+.liToggle{
+    font-size: 24px;
+    margin-top: 60vh;
+    justify-content: center;
+    align-items: center;   
+    display: inline-flex;
+}
+
+
+
+
+@media (min-width:992px){
+    .wrapper{
+        .sideMenu {
+            transform: translateX(0);
+            .nav-link{
+                .text{
+                    display: inline;
+                }  
+            }
+        }
+        .content {
+            margin-left: rem(200px);
+        }
+
+        
+    }
+
+}
+
+
+.profile-pic{
+    width: 46px;
+    height: 46px;
+}
