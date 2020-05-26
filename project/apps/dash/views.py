@@ -14,7 +14,7 @@ def dash_emp(request):
 @manger_required
 def dash_man(request):
     # Get current user manager
-    emp_man = Employe.objects.filter(user=request.user).get()
+    # emp_man = Employe.objects.filter(user=request.user).get()
     # Get number of employe --> total/inside/outside
     if emp_man.team_id != None:
         man_employe_stats = Employe.manager.get_my_employe_stats(team_id=emp_man.team_id, user_emp=request.user).get()
@@ -32,5 +32,3 @@ def dash_man(request):
 @project_manger_required
 def dash_pro_man(request):
     return render(request, 'dash/dash_pro_man.html')
-
-    
