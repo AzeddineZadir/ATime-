@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin 
 from .models import Employe,Shift
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 # Register your models here.
 
@@ -57,9 +59,18 @@ class EmployeAdmin(admin.ModelAdmin):
 
     def username(self, employe):
         return employe.user.username
+    
 
-    def delete_employe(modeladmin, request, queryset):
-        queryset.update(is_delete=True)
+   
+    # Admin action to delete fingerprint --> Employe
+    def delete_employe(self, request, queryset):
+        # Check if admin confirm delete and update is_delete to true
+        if request.POST.get('valider'):
+            queryset.update(is_delete=True)
+            self.message_user(request, "La suppression de {} empreintes a réussi.".format(queryset.count()))
+            return HttpResponseRedirect(request.get_full_path()) 
+        # Return delete confirmation template with queryset to display employe                  
+        return render(request, 'admin/delete_finger.html', context={'objects':queryset, 'opts': User._meta})
     delete_employe.short_description = "Supprimer les empreintes des employes sélectionnés"
 
 
