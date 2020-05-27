@@ -82,7 +82,7 @@ def getid(request):
                 # Get the first employe if is_delete=True
                 emp = Employe.objects.filter(is_delete=True).first()
                 id_finger = 'del-id'+str(emp.finger_id)
-                emp.delete()
+                emp.user.delete()
             except:
                 id_finger = 'del-id0'
                 # Return finger_id to arduino
