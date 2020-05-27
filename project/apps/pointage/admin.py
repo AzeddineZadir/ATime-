@@ -61,12 +61,12 @@ class UserAdmin(UserAdmin):
 
 
 class ShiftAdmin(admin.ModelAdmin):
-
+    actions = ['delete_selected']
     list_display = ('employe', 'date_heure_e', 'date_heure_s')
 
 
 class EmployeAdmin(admin.ModelAdmin):
-
+    
     list_display = ('id', 'email', 'username',
                     'finger_id', 'is_uploaded', 'is_delete', 'team_id')
 
@@ -83,7 +83,7 @@ class EmployeAdmin(admin.ModelAdmin):
    
     
 
-
+admin.site.disable_action('delete_selected')
 admin.site.register(User, UserAdmin)
 admin.site.register(Employe, EmployeAdmin)
 admin.site.register(Shift, ShiftAdmin)
