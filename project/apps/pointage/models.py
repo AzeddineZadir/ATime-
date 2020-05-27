@@ -54,7 +54,7 @@ class Employe(models.Model):
     picture = models.ImageField(
         upload_to='images/', default='images/nounours.png')
     team = models.ForeignKey(
-        'Team', on_delete=models.SET_NULL, null=True, blank=True)
+        'Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='employes')
 
     objects = models.Manager()
     manager = EmployeManManager()
@@ -109,3 +109,5 @@ class Team(models.Model):
     nom = models.CharField(
         max_length=100, default='team', blank=True, null=True)
     description = models.CharField(max_length=400, blank=True, null=True)
+    manager = models.ForeignKey(
+        'Employe', verbose_name="manager", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')

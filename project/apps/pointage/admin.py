@@ -81,8 +81,13 @@ class EmployeAdmin(admin.ModelAdmin):
         return employe.user.username
 
 
+class TeamAdmin(admin.ModelAdmin):
+    actions = ['delete_selected']
+    list_display = ['nom', 'manager', 'description']
+
+
 admin.site.disable_action('delete_selected')
 admin.site.register(User, UserAdmin)
 admin.site.register(Employe, EmployeAdmin)
 admin.site.register(Shift, ShiftAdmin)
-admin.site.register(Team)
+admin.site.register(Team, TeamAdmin)
