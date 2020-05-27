@@ -46,11 +46,15 @@ class Employe(models.Model):
     birthdate = models.DateField(auto_now=False, blank=True, null=True)
     birthplace = models.CharField(max_length=120, blank=True)
     address = models.CharField(max_length=200, blank=True)
-    phone = models.CharField(max_length=200, blank=True,
-                             verbose_name="telephone 1")
+    phone1 = models.CharField(max_length=200, blank=True, null=True,
+                              verbose_name="telephone 1")
+    phone2 = models.CharField(max_length=200, blank=True, null=True,
+                              verbose_name="telephone 2")
     observation = models.CharField(max_length=300, blank=True)
-    picture = models.ImageField(upload_to='images/', default='images/nounours.png')
-    team_id = models.ForeignKey('dash.Team', on_delete=models.CASCADE, null=True, blank=True)
+    picture = models.ImageField(
+        upload_to='images/', default='images/nounours.png')
+    team_id = models.ForeignKey(
+        'dash.Team', on_delete=models.CASCADE, null=True, blank=True)
 
     objects = models.Manager()
     manager = EmployeManManager()
