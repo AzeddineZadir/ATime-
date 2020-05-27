@@ -1,14 +1,7 @@
 from django.contrib import admin
 from .models import User
-<<<<<<< HEAD
-from django.contrib.auth.admin import UserAdmin 
-from .models import Employe,Shift
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-=======
 from django.contrib.auth.admin import UserAdmin
 from .models import Employe, Shift
->>>>>>> 18d335493ef8898b2cf55a8d90026816e390b598
 
 # Register your models here.
 
