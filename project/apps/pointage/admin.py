@@ -2,6 +2,9 @@ from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin
 from .models import Employe, Shift
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+
 
 # Register your models here.
 
@@ -13,6 +16,7 @@ class EmployeInline(admin.StackedInline):
 
 class UserAdmin(UserAdmin):
     list_display = ('username', 'email', 'last_name', 'first_name', 'role',)
+    actions = ['delete_employe']
     fieldsets = (
         ('Informations du compte', {
             'classes': ('wide', 'extrapretty'),
@@ -42,6 +46,19 @@ class UserAdmin(UserAdmin):
 
     inlines = [EmployeInline]
 
+    # Admin action to delete fingerprint --> Employe
+    def delete_employe(self, request, queryset):
+        # Check if admin confirm delete and update is_delete to true
+        if request.POST.get('valider'):
+            for user in queryset:
+                user.employe.delete_employe()
+            #queryset.update(is_delete=True)
+            self.message_user(request, "La suppression de {} empreintes a réussi.".format(queryset.count()))
+            return HttpResponseRedirect(request.get_full_path()) 
+        # Return delete confirmation template with queryset to display employe                  
+        return render(request, 'admin/delete_finger.html', context={'objects':queryset, 'opts': User._meta})
+    delete_employe.short_description = "Supprimer les empreintes des employes sélectionnés"
+
 
 class ShiftAdmin(admin.ModelAdmin):
 
@@ -52,7 +69,6 @@ class EmployeAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'email', 'username',
                     'finger_id', 'is_uploaded', 'is_delete', 'team_id')
-    actions = ['delete_employe']
 
     def id(self, employe):
         return employe.user.id
@@ -65,16 +81,7 @@ class EmployeAdmin(admin.ModelAdmin):
     
 
    
-    # Admin action to delete fingerprint --> Employe
-    def delete_employe(self, request, queryset):
-        # Check if admin confirm delete and update is_delete to true
-        if request.POST.get('valider'):
-            queryset.update(is_delete=True)
-            self.message_user(request, "La suppression de {} empreintes a réussi.".format(queryset.count()))
-            return HttpResponseRedirect(request.get_full_path()) 
-        # Return delete confirmation template with queryset to display employe                  
-        return render(request, 'admin/delete_finger.html', context={'objects':queryset, 'opts': User._meta})
-    delete_employe.short_description = "Supprimer les empreintes des employes sélectionnés"
+    
 
 
 admin.site.register(User, UserAdmin)

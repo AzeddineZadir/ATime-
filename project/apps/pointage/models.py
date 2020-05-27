@@ -91,6 +91,10 @@ class Employe(models.Model):
        # print(my_id_list)
         return my_id_list
 
+    def delete_employe(self):
+        self.is_delete = True
+        self.save()
+
 
 class Shift(models.Model):
     employe = models.ForeignKey('Employe', on_delete=models.CASCADE)

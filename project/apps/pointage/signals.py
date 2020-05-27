@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 @receiver(post_save, sender=User)
 def user_is_saved(sender, instance, created, **kwargs):
+    print(instance)
     # If user role is not define
     if instance.role != None:
         # If a new record was created
