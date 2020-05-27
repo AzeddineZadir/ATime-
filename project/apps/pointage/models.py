@@ -53,8 +53,8 @@ class Employe(models.Model):
     observation = models.CharField(max_length=300, blank=True)
     picture = models.ImageField(
         upload_to='images/', default='images/nounours.png')
-    team_id = models.ForeignKey(
-        'dash.Team', on_delete=models.CASCADE, null=True, blank=True)
+    team = models.ForeignKey(
+        'Team', on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = models.Manager()
     manager = EmployeManManager()
@@ -103,3 +103,9 @@ class Shift(models.Model):
 
     def __str__(self):
         return str(self.employe)
+
+
+class Team(models.Model):
+    nom = models.CharField(
+        max_length=100, default='team', blank=True, null=True)
+    description = models.CharField(max_length=400, blank=True, null=True)
