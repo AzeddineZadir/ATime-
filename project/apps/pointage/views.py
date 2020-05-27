@@ -40,15 +40,12 @@ def getid(request):
             emp = Employe.objects.get(finger_id=id)
             # Check if employe is inside then change the value of iwssad to False -> Employe is outside and find the last checkpoint and add date_heure_s
             if emp.iwssad:
-                emp.iwssad = False
-                emp.save()
+                emp.check(False)
                 shift = Shift.objects.filter(
                     employe=emp).latest('date_heure_e')
-                shift.date_heure_s = timezone.now()
-                shift.save()
+                shift.set_heure_s()
             else:  # Outside / Change the value of iwssad to True -> Employe is inside and create new checkpoint
-                emp.iwssad = True
-                emp.save()
+                emp.check(True)
                 Shift(employe=emp).save()
 
             return HttpResponse(id)

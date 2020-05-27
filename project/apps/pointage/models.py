@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 from django.db.models import Count, Q
 from random import choice
-
+from django.utils import timezone
 
 # Create your models here.
 
@@ -95,6 +95,10 @@ class Employe(models.Model):
         self.is_delete = True
         self.save()
 
+    def check_employe(self, is_iwssad):
+        self.iwssad = is_iwssad
+        self.save()
+
 
 class Shift(models.Model):
     employe = models.ForeignKey('Employe', on_delete=models.CASCADE)
@@ -103,3 +107,7 @@ class Shift(models.Model):
 
     def __str__(self):
         return str(self.employe)
+
+    def set_heure_s(self):
+        self.date_heure_s = timezone.now()
+        self.save()
