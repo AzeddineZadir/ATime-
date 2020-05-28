@@ -99,7 +99,6 @@ class EmployeAdmin(admin.ModelAdmin):
 
 
 class TeamAdmin(admin.ModelAdmin):
-    actions = ['delete_selected']
     list_display = ['nom', 'manager', 'description']
 
 
