@@ -59,11 +59,24 @@ class UserAdmin(UserAdmin):
         return render(request, 'admin/delete_finger.html', context={'objects':queryset, 'opts': User._meta})
     delete_employe.short_description = "Supprimer les empreintes des employes sélectionnés"
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    
+
 
 class ShiftAdmin(admin.ModelAdmin):
-    actions = ['delete_selected']
+  
     list_display = ('employe', 'date_heure_e', 'date_heure_s')
 
+    def has_add_permission(self, request):
+        return False
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
 
 class EmployeAdmin(admin.ModelAdmin):
     
@@ -78,12 +91,15 @@ class EmployeAdmin(admin.ModelAdmin):
 
     def username(self, employe):
         return employe.user.username
+
+    def has_delete_permission(self, request, obj=None):
+        return False
     
 
    
     
 
-admin.site.disable_action('delete_selected')
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Employe, EmployeAdmin)
 admin.site.register(Shift, ShiftAdmin)
