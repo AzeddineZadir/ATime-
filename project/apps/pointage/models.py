@@ -53,8 +53,8 @@ class Employe(models.Model):
     observation = models.CharField(max_length=300, blank=True)
     picture = models.ImageField(
         upload_to='images/', default='images/nounours.png')
-    team_id = models.ForeignKey(
-        'dash.Team', on_delete=models.CASCADE, null=True, blank=True)
+    team = models.ForeignKey(
+        'Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='employes')
 
     objects = models.Manager()
     manager = EmployeManManager()
@@ -111,3 +111,10 @@ class Shift(models.Model):
     def set_heure_s(self):
         self.date_heure_s = timezone.now()
         self.save()
+
+class Team(models.Model):
+    nom = models.CharField(
+        max_length=100, default='team', blank=True, null=True)
+    description = models.CharField(max_length=400, blank=True, null=True)
+    manager = models.ForeignKey(
+        'Employe', verbose_name="manager", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin
-from .models import Employe, Shift
+from .models import Employe, Shift, Team
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
@@ -52,11 +52,12 @@ class UserAdmin(UserAdmin):
         if request.POST.get('valider'):
             for user in queryset:
                 user.employe.delete_employe()
-            #queryset.update(is_delete=True)
-            self.message_user(request, "La suppression de {} empreintes a réussi.".format(queryset.count()))
-            return HttpResponseRedirect(request.get_full_path()) 
-        # Return delete confirmation template with queryset to display employe                  
-        return render(request, 'admin/delete_finger.html', context={'objects':queryset, 'opts': User._meta})
+            # queryset.update(is_delete=True)
+            self.message_user(
+                request, "La suppression de {} empreintes a réussi.".format(queryset.count()))
+            return HttpResponseRedirect(request.get_full_path())
+        # Return delete confirmation template with queryset to display employe
+        return render(request, 'admin/delete_finger.html', context={'objects': queryset, 'opts': User._meta})
     delete_employe.short_description = "Supprimer les empreintes des employes sélectionnés"
 
     def has_delete_permission(self, request, obj=None):
@@ -79,9 +80,9 @@ class ShiftAdmin(admin.ModelAdmin):
         return False
 
 class EmployeAdmin(admin.ModelAdmin):
-    
+
     list_display = ('id', 'email', 'username',
-                    'finger_id', 'is_uploaded', 'is_delete', 'team_id')
+                    'finger_id', 'is_uploaded', 'is_delete', )
 
     def id(self, employe):
         return employe.user.id
@@ -96,10 +97,14 @@ class EmployeAdmin(admin.ModelAdmin):
         return False
     
 
-   
-    
+
+class TeamAdmin(admin.ModelAdmin):
+    actions = ['delete_selected']
+    list_display = ['nom', 'manager', 'description']
+
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Employe, EmployeAdmin)
 admin.site.register(Shift, ShiftAdmin)
+admin.site.register(Team, TeamAdmin)
