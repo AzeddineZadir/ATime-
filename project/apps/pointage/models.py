@@ -8,8 +8,8 @@ from django.utils import timezone
 
 
 class EmployeManManager(models.Manager):
-    def get_my_employe_stats(self, team_id, user_emp):
-        return super().get_queryset().filter(Q(team_id__name__contains=team_id), ~Q(user=user_emp)).values('team_id').annotate(nb_emp_in=Count(
+    def get_my_employe_stats(self, team, user_emp):
+        return super().get_queryset().filter(Q(team__nom__contains=team), ~Q(user=user_emp)).values('team').annotate(nb_emp_in=Count(
             'user',
             filter=Q(iwssad=True)),
             nb_emp_out=Count(
@@ -19,8 +19,8 @@ class EmployeManManager(models.Manager):
             'user'
         ))
 
-    def get_my_employe(self, team_id, user_emp):
-        return super().get_queryset().filter(Q(team_id__name__contains=team_id), ~Q(user=user_emp))
+    def get_my_employe(self, team, user_emp):
+        return super().get_queryset().filter(Q(team__nom__contains=team), ~Q(user=user_emp))
 
 
 class User(AbstractUser):
@@ -118,3 +118,6 @@ class Team(models.Model):
     description = models.CharField(max_length=400, blank=True, null=True)
     manager = models.ForeignKey(
         'Employe', verbose_name="manager", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')
+
+    def __str__(self):
+        return self.nom

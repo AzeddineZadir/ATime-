@@ -22,6 +22,7 @@ $colors: (
 
 body{
     @extend .bg-background;
+    :focus {outline:0 !important;}
 }
 
 .wrapper{
@@ -38,12 +39,39 @@ body{
         .nav-link{
             .text{
                 display: none;
-            }  
+            }
+            
         }
 
         .navbar-nav{
             margin-top: 56px;
+            height: 100%;
         }
+
+        .dropdown{
+            outline: 0;
+            .dropdown-menu{
+                background-color: transparent;
+                border: transparent;
+                padding: 0;
+                margin: 0;
+                .dropdown-item{
+                    color: white;
+                    font-size: rem(12px);
+                }
+                
+                .icon{
+                    margin-right: rem(8px);
+                    margin-left: rem(12px);
+                    font-size: rem(24px);
+                }
+            }
+        }
+
+        
+
+    
+        
     }
     .content{
         width: 100%;
@@ -62,10 +90,20 @@ body{
                 .icon{
                     margin-right: 0;
                     margin-left: 0;
+                    font-size: rem(24px);
+                    height: rem(34px);
                 }
                               
             }
             transform: translateX(0);
+
+            .dropdown-toggle::after{
+                display: none;
+            }
+
+            .dropdown-menu{
+                display: none;
+            }
         }
         .content{
             margin-left: rem(70px);
@@ -81,20 +119,20 @@ body{
     display: block;
     white-space: nowrap;
     .icon{
-        margin-right: rem(12px);
+        font-size: rem(22px);
+        height: rem(24px);
+        width: rem(24px);
         margin-left: rem(12px);
-        font-size: rem(24px);
+        margin-right: rem(8px);
         color: white;
         vertical-align: middle;
-        height: rem(32px);
-        width: rem(32px);
         display: inline-flex;
         justify-content: center;
         align-items: center;
         
     }
     .text{
-        font-size: rem(14px);
+        font-size: rem(12px);
         color: white;
     }
     &:hover,
@@ -107,10 +145,10 @@ body{
 
 .liToggle{
     font-size: 24px;
-    margin-top: 60vh;
     justify-content: center;
-    align-items: center;   
+    vertical-align: bottom;
     display: inline-flex;
+    margin-bottom: 0;
 }
 
 
