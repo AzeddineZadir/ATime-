@@ -45,7 +45,6 @@ body{
 
         .navbar-nav{
             margin-top: 56px;
-            height: 100%;
         }
 
         .dropdown{
@@ -91,7 +90,6 @@ body{
                     margin-right: 0;
                     margin-left: 0;
                     font-size: rem(24px);
-                    height: rem(34px);
                 }
                               
             }
@@ -119,8 +117,8 @@ body{
     display: block;
     white-space: nowrap;
     .icon{
-        font-size: rem(22px);
-        height: rem(24px);
+        font-size: rem(24px);
+        height: rem(34px);
         width: rem(24px);
         margin-left: rem(12px);
         margin-right: rem(8px);
@@ -146,9 +144,8 @@ body{
 .liToggle{
     font-size: 24px;
     justify-content: center;
-    vertical-align: bottom;
     display: inline-flex;
-    margin-bottom: 0;
+    padding-bottom: 20px;
 }
 
 
