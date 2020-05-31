@@ -33,4 +33,8 @@ def dash_man(request):
 
 @project_manger_required
 def dash_pro_man(request):
-    return render(request, 'dash/dash_pro_man.html')
+    return render(request, 'dash/dash_pro_man.html', {'test':4})
+
+
+def profile(request):
+    return render(request, 'dash/profile.html')

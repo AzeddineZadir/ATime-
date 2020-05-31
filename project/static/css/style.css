@@ -10,11 +10,11 @@
   background-color: #2D3E50;
 }
 
-.text-secondaryy {
+.text-secondaryy, .tabs .nav-link {
   color: #2D3E50;
 }
 
-.bg-background, body {
+.bg-background, body, .more {
   background-color: #EFF0F3;
 }
 
@@ -164,5 +164,161 @@ body :focus {
 .profile-pic {
   width: 46px;
   height: 46px;
+}
+
+.tabs {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.tabs .nav-tabs {
+  border-radius: O;
+}
+
+.row-dash {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.row-dash .card-b-mydash {
+  text-align: center;
+}
+
+canvas {
+  height: 100px;
+  width: 100px;
+}
+
+.card {
+  border-radius: 6px;
+}
+
+.row-stats {
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.row-stats p, .row-stats h6 {
+  line-height: 0.6;
+}
+
+.row-stats h6 {
+  font-size: 0.625rem;
+  font-weight: bold;
+}
+
+.row-stats p {
+  font-size: 0.875rem;
+}
+
+.myChartDiv {
+  width: 120px;
+  height: 120px;
+}
+
+.employe {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10px;
+}
+
+.employe .card-employe {
+  border: 8px;
+  margin-bottom: 16px;
+  border-left: 8px solid #2D3E50;
+}
+
+.employe .card-employe .employe-pic {
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 46px;
+  height: 46px;
+}
+
+.employe .card-employe .heure-e {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  line-height: 0.2;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.employe .card-employe .description-employe {
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-bottom: 14px;
+}
+
+.employe .card-employe .description-employe h5 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.employe .card-employe .description-employe p {
+  font-size: 0.75rem;
+  line-height: 0.1;
+}
+
+.employe .card-employe .more {
+  bottom: 20px;
+}
+
+.equipe {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10px;
+}
+
+.equipe .card-equipe {
+  border: 8px;
+  margin-bottom: 16px;
+  border-left: 8px solid #2D3E50;
+}
+
+.equipe .card-equipe .heure-e {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  line-height: 0.2;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.equipe .card-equipe .description-equipe {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.equipe .card-equipe .description-equipe h5 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.equipe .card-equipe .description-equipe p {
+  font-size: 0.75rem;
+  line-height: 0.1;
+}
+
+.equipe .card-equipe .nb-employe {
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.more {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  height: 30px;
+  width: 30px;
+  border-radius: 0.25rem;
+}
+
+.more .more-icon {
+  font-size: 0.625rem;
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

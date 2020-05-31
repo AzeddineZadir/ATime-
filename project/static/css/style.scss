@@ -150,7 +150,6 @@ body{
 
 
 
-
 @media (min-width:992px){
     .wrapper{
         .sideMenu {
@@ -175,3 +174,165 @@ body{
     width: 46px;
     height: 46px;
 }
+
+.tabs{
+    padding-left: 0px;
+    padding-right: 0px;
+    .nav-tabs{
+        border-radius: O;
+    }
+    .nav-link{
+        @extend .text-secondaryy;
+    }
+}
+
+// dashboard of all actor 
+.row-dash{
+    padding-top: 20px;
+    padding-left: 20px;
+        .card-b-mydash{
+            text-align: center;
+        }  
+}
+
+// Size of graph
+canvas{
+    height: 100px;
+    width: 100px;
+}
+
+.card{
+    border-radius: 6px;
+}
+
+// Row of employe stats
+.row-stats{
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    p, h6{
+        line-height: 0.6;
+    }
+    h6{
+        font-size: rem(10px);
+        font-weight: bold;
+    }
+    p{
+        font-size: rem(14px);
+    }
+}
+
+.myChartDiv {
+    width: 120px;
+    height: 120px;
+}
+
+
+// Conteneur employe
+.employe{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+
+    // Card employe
+    .card-employe{
+        border: 8px;
+        margin-bottom: 16px;
+        border-left: 8px solid #2D3E50;
+        .employe-pic{      
+            margin-top: 10px;
+            margin-left: 20px;
+            width: 46px;
+            height: 46px;
+        }
+        .heure-e{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            line-height: 0.2;
+            font-size: rem(12px);
+            font-weight: bold;
+        }
+        .description-employe{
+            margin-top: 10px;
+            margin-left: 20px;
+            margin-bottom: 14px;
+            h5{
+                font-size: rem(16px);
+                font-weight: bold;
+            }
+            p{
+                font-size: rem(12px);
+                line-height: 0.1;
+            }
+        }
+
+        .more{
+            bottom: 20px;
+        }
+    
+    }
+}
+
+// Conteneur team
+.equipe{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+
+    // Card team
+    .card-equipe{
+        border: 8px;
+        margin-bottom: 16px;
+        border-left: 8px solid #2D3E50;
+        
+        .heure-e{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            line-height: 0.2;
+            font-size: rem(12px);
+            font-weight: bold;
+        }
+
+        .description-equipe{
+            margin-top: 10px;
+            margin-left: 20px;
+            h5{
+                font-size: rem(16px);
+                font-weight: bold;
+            }
+            p{
+                font-size: rem(12px);
+                line-height: 0.1;
+            }
+        }
+
+        .nb-employe{
+            font-size: rem(12px);
+            font-weight: bold;
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        
+    
+    }
+}
+
+// Button of card employe and team
+.more{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    height: 30px;
+    width: 30px;
+    border-radius: rem(4px);
+    @extend .bg-background;
+    .more-icon{
+        font-size: rem(10px);
+        text-align: center;     
+    }
+}
+
+
