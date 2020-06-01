@@ -55,7 +55,8 @@ class Employe(models.Model):
         upload_to='images/', default='images/nounours.png')
     team = models.ForeignKey(
         'Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='employes')
-
+    planing = models.ForeignKey(
+        'Planing', on_delete=models.SET_NULL, blank=True, null=True)
     objects = models.Manager()
     manager = EmployeManManager()
 
@@ -96,6 +97,14 @@ class Employe(models.Model):
         self.save()
 
 
+class Team(models.Model):
+    titre = models.CharField(
+        max_length=150, default='team', blank=True, null=True)
+    description = models.CharField(max_length=400, blank=True, null=True)
+    manager = models.ForeignKey(
+        'Employe', verbose_name="manager", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')
+
+
 class Shift(models.Model):
     employe = models.ForeignKey('Employe', on_delete=models.CASCADE)
     date_heure_e = models.DateTimeField(auto_now_add=True)
@@ -105,9 +114,39 @@ class Shift(models.Model):
         return str(self.employe)
 
 
-class Team(models.Model):
-    nom = models.CharField(
-        max_length=100, default='team', blank=True, null=True)
+class Jour(models.Model):
+    SAMEDI = 1
+    DIMANCHE = 2
+    LUNDI = 3
+    MARDI = 4
+    MERCREDI = 5
+    JEUDI = 6
+    VENDREDI = 7
+    DAY_OF_WEEK = ((SAMEDI, 'Samedi'), (DIMANCHE, 'Dimanche'), (LUNDI, 'Lundi'),
+                   (MARDI, 'Mardi'), (MERCREDI, 'Mercredi'), (JEUDI, 'Jeudi'), (VENDREDI, 'Vendredi'))
+    jds = models.PositiveSmallIntegerField(
+        choices=DAY_OF_WEEK, blank=True, null=True)
+    he1 = models.TimeField(auto_now=False, auto_now_add=False)
+    hs1 = models.TimeField(auto_now=False, auto_now_add=False)
+    he2 = models.TimeField(auto_now=False, auto_now_add=False)
+    hs2 = models.TimeField(auto_now=False, auto_now_add=False)
+
+
+class Planing (models.Model):
+    titre = models.CharField(
+        max_length=150, unique=True, blank=False, null=False)
     description = models.CharField(max_length=400, blank=True, null=True)
-    manager = models.ForeignKey(
-        'Employe', verbose_name="manager", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')
+    jour1 = models.ForeignKey(
+        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    jour2 = models.ForeignKey(
+        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    jour3 = models.ForeignKey(
+        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    jour4 = models.ForeignKey(
+        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    jour5 = models.ForeignKey(
+        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    jour6 = models.ForeignKey(
+        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    jour7 = models.ForeignKey(
+        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
