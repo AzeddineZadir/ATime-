@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from .decorators import employe_required, manger_required, project_manger_required
-from apps.pointage.models import Employe
+from apps.pointage.models import Employe, User
 from django.core.exceptions import ObjectDoesNotExist
+from .forms import UserForm
+from django.urls import reverse
+from django.forms.models import inlineformset_factory
+from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 
@@ -37,4 +41,33 @@ def dash_pro_man(request):
 
 
 def profile(request):
-    return render(request, 'dash/profile.html')
+    # Get the user
+    user = request.user
+    # Prepopulate UserForm with data
+    user_form = UserForm(instance=user)
+    # Create grouped form User/Employe 
+    EmployeFormset = inlineformset_factory(User, Employe, fields=('birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture'), can_delete=False)
+    # Prepopulate EmployeForm with user pk
+    formset = EmployeFormset(instance=user)
+ 
+    if request.user.id == user.id:
+        if request.method == "POST":
+            # get data from POST method
+            user_form = UserForm(request.POST, request.FILES, instance=user)
+            formset = EmployeFormset(request.POST, request.FILES, instance=user)
+            # If user_form is valide save data
+            if user_form.is_valid():
+                created_user = user_form.save(commit=False)
+                formset = EmployeFormset(request.POST, request.FILES, instance=created_user)
+                if formset.is_valid():
+                    created_user.save()
+                    formset.save()
+                    return HttpResponseRedirect(reverse('dash:profile'))
+ 
+        return render(request, "dash/profile.html", {
+            "user_form": user_form,
+            "formset": formset,
+        })
+  
+
+  

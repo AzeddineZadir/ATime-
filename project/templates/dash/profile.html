@@ -1,8 +1,9 @@
 {% extends "base/base_pro_man.html" %}
 {% block nav %} {% endblock %}
 {% block title %}Mon profile{% endblock %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <div class="profile">
+    <div class="profile container-fluid">
         <div class="media">
             <img src="/media/images/nounours.png" class="profile-pic rounded-circle" alt="">
             <div class="media-body">
@@ -11,21 +12,76 @@
             </div>
         </div>
         
-        <div class="row">
-            <div class="col">
-                <h6>Information personnel</h6>
-                <div class="card">
-                   
-                </div>
-            </div>
+        
+        <form action="" method="POST" >
+            <div class="row">
+                {% csrf_token %}
+                <!--Information personnel-->
+                <div class="col-6">
+                    <h6>Information personnel</h6>
+                    <div class="card">             
+                        {{ user_form.username|as_crispy_field }} 
+                        <div class="form-row">
+                            <div class="form-group col-md-5 mb-0">
+                                {{ user_form.last_name|as_crispy_field }}
+                            </div> 
+                            <div class="form-group col-md-7 mb-0">
+                                {{ user_form.first_name|as_crispy_field }}
+                            </div>
+                        </div>
+                        {{ formset.management_form }}
+                        {% for form in formset %}
+                        {{ form.id|as_crispy_field }}
+                        <div class="form-row">
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.birthdate|as_crispy_field }}
+                            </div> 
 
-            <div class="col">
-                <h6>Coordonées</h6>
-                <div class="card">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Coordonnées-->
+                <div class="col-6">
+                    <h6>Coordonées</h6>
+                    <div class="card">
+                        {{ form.address|as_crispy_field }}
+                        <div class="form-row">
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.phone1|as_crispy_field }}
+                            </div>
+
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.phone2|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        {{ user_form.email|as_crispy_field }}   
+                
+                    </div>
+                </div>
+
+                <!--Information public-->
+                <div class="col-6">
+                    <h6>Information public</h6>
+                    <div class="card">
+                        {{ form.observation|as_crispy_field }}
+                        {{ form.picture|as_crispy_field }}
+                    </div>
                     
                 </div>
+                {% endfor %}  
+                <div class="col-6">
+                    <button type="submit" class="btn sauvgarder">Enregistrer</button>
+                </div>
             </div>
-        </div>
+            
+        </form>    
+        
 
+        
+       
+          
     </div>
+
 {% endblock %}

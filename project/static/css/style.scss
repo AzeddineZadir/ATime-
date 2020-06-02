@@ -335,4 +335,33 @@ canvas{
     }
 }
 
+.profile{
+    margin-left: 10px;
+    margin-right: 10px;
+    .media{
+        margin-top: 20px;
+        .media-body{
+            line-height: 0.2;
+            margin-left: 10px;
+        }
+    }
+    .row{
+        margin-top: 10px;
+        
+        .card{
+            padding-top: 14px;
+            padding-bottom: 14px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        button{
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+    }
+}
+
 

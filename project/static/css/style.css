@@ -321,4 +321,36 @@ canvas {
   font-size: 0.625rem;
   text-align: center;
 }
+
+.profile {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.profile .media {
+  margin-top: 20px;
+}
+
+.profile .media .media-body {
+  line-height: 0.2;
+  margin-left: 10px;
+}
+
+.profile .row {
+  margin-top: 10px;
+}
+
+.profile .row .card {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+
+.profile .row button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
 /*# sourceMappingURL=style.css.map */
