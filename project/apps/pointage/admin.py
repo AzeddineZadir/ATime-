@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin
-from .models import Employe, Shift, Team, Jour, Planing
+from .models import Employe, Shift, Team, Day, Planing
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
@@ -86,10 +86,19 @@ class TeamAdmin(admin.ModelAdmin):
     list_display = ['titre', 'manager', 'description']
 
 
+class DayAdmin(admin.ModelAdmin):
+    list_display = ('titre', 'he1', 'hs1', 'he2', 'hs2')
+
+
+class PlaningAdmin(admin.ModelAdmin):
+
+    list_display = ('titre', 'description')
+
+
 admin.site.disable_action('delete_selected')
 admin.site.register(User, UserAdmin)
 admin.site.register(Employe, EmployeAdmin)
 admin.site.register(Shift, ShiftAdmin)
 admin.site.register(Team, TeamAdmin)
-admin.site.register(Jour)
-admin.site.register(Planing)
+admin.site.register(Planing, PlaningAdmin)
+admin.site.register(Day, DayAdmin)

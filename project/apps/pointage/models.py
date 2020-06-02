@@ -114,39 +114,38 @@ class Shift(models.Model):
         return str(self.employe)
 
 
-class Jour(models.Model):
-    SAMEDI = 1
-    DIMANCHE = 2
-    LUNDI = 3
-    MARDI = 4
-    MERCREDI = 5
-    JEUDI = 6
-    VENDREDI = 7
-    DAY_OF_WEEK = ((SAMEDI, 'Samedi'), (DIMANCHE, 'Dimanche'), (LUNDI, 'Lundi'),
-                   (MARDI, 'Mardi'), (MERCREDI, 'Mercredi'), (JEUDI, 'Jeudi'), (VENDREDI, 'Vendredi'))
-    jds = models.PositiveSmallIntegerField(
-        choices=DAY_OF_WEEK, blank=True, null=True)
+class Day(models.Model):
+
+    DAY_OF_WEEK = (('SAMEDI', 'Samedi'), ('DIMANCHE', 'Dimanche'), ('LUNDI', 'Lundi'),
+                   ('MARDI', 'Mardi'), ('MERCREDI', 'Mercredi'), ('JEUDI', 'Jeudi'), ('VENDREDI', 'Vendredi'))
+    titre = models.CharField(max_length=150)
+
+    # jds = models.CharField(
+    #     choices=DAY_OF_WEEK, blank=True, null=True, max_length=50)
     he1 = models.TimeField(auto_now=False, auto_now_add=False)
     hs1 = models.TimeField(auto_now=False, auto_now_add=False)
     he2 = models.TimeField(auto_now=False, auto_now_add=False)
     hs2 = models.TimeField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return str(self.titre)
 
 
 class Planing (models.Model):
     titre = models.CharField(
         max_length=150, unique=True, blank=False, null=False)
     description = models.CharField(max_length=400, blank=True, null=True)
-    jour1 = models.ForeignKey(
-        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    jour2 = models.ForeignKey(
-        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    jour3 = models.ForeignKey(
-        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    jour4 = models.ForeignKey(
-        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    jour5 = models.ForeignKey(
-        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    jour6 = models.ForeignKey(
-        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    jour7 = models.ForeignKey(
-        'Jour', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    day1 = models.ForeignKey(
+        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    day2 = models.ForeignKey(
+        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    day3 = models.ForeignKey(
+        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    day4 = models.ForeignKey(
+        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    day5 = models.ForeignKey(
+        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    day6 = models.ForeignKey(
+        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    day7 = models.ForeignKey(
+        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
