@@ -86,13 +86,20 @@ class TeamAdmin(admin.ModelAdmin):
     list_display = ['titre', 'manager', 'description']
 
 
+class DayInline(admin.TabularInline):
+    model = Day
+    extra = 7
+    max_num = 7
+
+
 class DayAdmin(admin.ModelAdmin):
-    list_display = ('titre', 'he1', 'hs1', 'he2', 'hs2')
+    list_display = ('jds', 'he1', 'hs1', 'he2', 'hs2')
 
 
 class PlaningAdmin(admin.ModelAdmin):
 
     list_display = ('titre', 'description')
+    inlines = [DayInline]
 
 
 admin.site.disable_action('delete_selected')

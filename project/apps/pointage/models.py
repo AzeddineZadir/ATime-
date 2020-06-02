@@ -118,34 +118,25 @@ class Day(models.Model):
 
     DAY_OF_WEEK = (('SAMEDI', 'Samedi'), ('DIMANCHE', 'Dimanche'), ('LUNDI', 'Lundi'),
                    ('MARDI', 'Mardi'), ('MERCREDI', 'Mercredi'), ('JEUDI', 'Jeudi'), ('VENDREDI', 'Vendredi'))
-    titre = models.CharField(max_length=150)
+    #titre = models.CharField(max_length=150)
 
-    # jds = models.CharField(
-    #     choices=DAY_OF_WEEK, blank=True, null=True, max_length=50)
+    jds = models.CharField(choices=DAY_OF_WEEK,
+                           blank=True, null=True, max_length=50)
     he1 = models.TimeField(auto_now=False, auto_now_add=False)
     hs1 = models.TimeField(auto_now=False, auto_now_add=False)
     he2 = models.TimeField(auto_now=False, auto_now_add=False)
     hs2 = models.TimeField(auto_now=False, auto_now_add=False)
+    planing = models.ForeignKey(
+        'Planing', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
-        return str(self.titre)
+        return str(self.jds)
 
 
 class Planing (models.Model):
     titre = models.CharField(
         max_length=150, unique=True, blank=False, null=False)
     description = models.CharField(max_length=400, blank=True, null=True)
-    day1 = models.ForeignKey(
-        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    day2 = models.ForeignKey(
-        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    day3 = models.ForeignKey(
-        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    day4 = models.ForeignKey(
-        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    day5 = models.ForeignKey(
-        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    day6 = models.ForeignKey(
-        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
-    day7 = models.ForeignKey(
-        'Day', on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+
+    def __str__(self):
+        return str(self.titre)
