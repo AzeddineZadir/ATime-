@@ -43,16 +43,16 @@ class Employe(models.Model):
     finger_id = models.PositiveSmallIntegerField(unique=True, blank=True)
     is_uploaded = models.BooleanField(default=False)
     is_delete = models.BooleanField(default=False)
-    birthdate = models.DateField(auto_now=False, blank=True, null=True)
+    birthdate = models.DateField(auto_now=False, blank=True, null=True, verbose_name="Date naissance")
     birthplace = models.CharField(max_length=120, blank=True)
-    address = models.CharField(max_length=200, blank=True)
+    address = models.CharField(max_length=200, blank=True, verbose_name="Adresse")
     phone1 = models.CharField(max_length=200, blank=True, null=True,
-                              verbose_name="telephone 1")
+                              verbose_name="Numéro de téléphone professionnel")
     phone2 = models.CharField(max_length=200, blank=True, null=True,
-                              verbose_name="telephone 2")
-    observation = models.CharField(max_length=300, blank=True)
+                              verbose_name="Numéro de téléphone personnel")
+    observation = models.CharField(max_length=300, blank=True, verbose_name="Description")
     picture = models.ImageField(
-        upload_to='images/', default='images/nounours.png')
+        upload_to='images/', default='images/nounours.png', verbose_name="Photo de profil")
     team = models.ForeignKey(
         'Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='employes')
 

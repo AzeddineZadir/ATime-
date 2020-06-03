@@ -9,7 +9,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'dash:profile' %}" class="nav-link">
+                <a href="{% url 'dash:view_profile' pk=request.user.id %}" class="nav-link">
                     <i class="icon fas fa-user"></i>
                     <span class="text">Mon profile</span>
                 </a>
@@ -60,7 +60,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'dash:profile' %}" class="nav-link">
+                <a href="{% url 'dash:view_profile' pk=request.user.id %}" class="nav-link">
                     <i class="icon fas fa-user"></i>
                     <span class="text">Mon profile</span>
                 </a>
@@ -106,7 +106,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'dash:profile' %}" class="nav-link">
+                <a href="{% url 'dash:view_profile' pk=request.user.id %}" class="nav-link">
                     <i class="icon fas fa-user"></i>
                     <span class="text">Mon profile</span>
                 </a>

@@ -23,7 +23,6 @@ def dash_man(request):
     # Get number of employe --> total/inside/outside
     print(emp_man.team)
     if emp_man.team != None:
-        print("test")
         man_employe_stats = Employe.manager.get_my_employe_stats(team=emp_man.team, user_emp=request.user).get()
         team_name = emp_man.team.nom
     # Get all employe of current manager
@@ -56,7 +55,6 @@ def profile(request):
             # get data from POST method
             user_form = UserForm(request.POST, request.FILES, instance=user)
             formset = EmployeFormset(request.POST, request.FILES, instance=user)
-            print(formset)
             formset.picture = request.FILES.get('picture')
             # If user_form is valide save data
             if user_form.is_valid():
