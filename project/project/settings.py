@@ -140,6 +140,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'pointage.User'
 
+LOGIN_URL = '/'
+
 LOGOUT_REDIRECT_URL = 'login'
+
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

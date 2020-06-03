@@ -40,7 +40,7 @@ def dash_man(request):
 def dash_pro_man(request):
     return render(request, 'dash/dash_pro_man.html', {'test':4})
 
-
+@login_required
 def profile(request):
     # Get the user
     user = request.user
