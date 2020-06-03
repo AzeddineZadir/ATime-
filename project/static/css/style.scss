@@ -22,6 +22,7 @@ $colors: (
 
 body{
     @extend .bg-background;
+    :focus {outline:0 !important;}
 }
 
 .wrapper{
@@ -38,12 +39,38 @@ body{
         .nav-link{
             .text{
                 display: none;
-            }  
+            }
+            
         }
 
         .navbar-nav{
             margin-top: 56px;
         }
+
+        .dropdown{
+            outline: 0;
+            .dropdown-menu{
+                background-color: transparent;
+                border: transparent;
+                padding: 0;
+                margin: 0;
+                .dropdown-item{
+                    color: white;
+                    font-size: rem(12px);
+                }
+                
+                .icon{
+                    margin-right: rem(8px);
+                    margin-left: rem(12px);
+                    font-size: rem(24px);
+                }
+            }
+        }
+
+        
+
+    
+        
     }
     .content{
         width: 100%;
@@ -62,10 +89,19 @@ body{
                 .icon{
                     margin-right: 0;
                     margin-left: 0;
+                    font-size: rem(24px);
                 }
                               
             }
             transform: translateX(0);
+
+            .dropdown-toggle::after{
+                display: none;
+            }
+
+            .dropdown-menu{
+                display: none;
+            }
         }
         .content{
             margin-left: rem(70px);
@@ -81,20 +117,20 @@ body{
     display: block;
     white-space: nowrap;
     .icon{
-        margin-right: rem(12px);
-        margin-left: rem(12px);
         font-size: rem(24px);
+        height: rem(34px);
+        width: rem(24px);
+        margin-left: rem(12px);
+        margin-right: rem(8px);
         color: white;
         vertical-align: middle;
-        height: rem(32px);
-        width: rem(32px);
         display: inline-flex;
         justify-content: center;
         align-items: center;
         
     }
     .text{
-        font-size: rem(14px);
+        font-size: rem(12px);
         color: white;
     }
     &:hover,
@@ -107,12 +143,10 @@ body{
 
 .liToggle{
     font-size: 24px;
-    margin-top: 60vh;
     justify-content: center;
-    align-items: center;   
     display: inline-flex;
+    padding-bottom: 20px;
 }
-
 
 
 
@@ -140,3 +174,194 @@ body{
     width: 46px;
     height: 46px;
 }
+
+.tabs{
+    padding-left: 0px;
+    padding-right: 0px;
+    .nav-tabs{
+        border-radius: O;
+    }
+    .nav-link{
+        @extend .text-secondaryy;
+    }
+}
+
+// dashboard of all actor 
+.row-dash{
+    padding-top: 20px;
+    padding-left: 20px;
+        .card-b-mydash{
+            text-align: center;
+        }  
+}
+
+// Size of graph
+canvas{
+    height: 100px;
+    width: 100px;
+}
+
+.card{
+    border-radius: 6px;
+}
+
+// Row of employe stats
+.row-stats{
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    p, h6{
+        line-height: 0.6;
+    }
+    h6{
+        font-size: rem(10px);
+        font-weight: bold;
+    }
+    p{
+        font-size: rem(14px);
+    }
+}
+
+.myChartDiv {
+    width: 120px;
+    height: 120px;
+}
+
+
+// Conteneur employe
+.employe{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+
+    // Card employe
+    .card-employe{
+        border: 8px;
+        margin-bottom: 16px;
+        border-left: 8px solid #2D3E50;
+        .employe-pic{      
+            margin-top: 10px;
+            margin-left: 20px;
+            width: 46px;
+            height: 46px;
+        }
+        .heure-e{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            line-height: 0.2;
+            font-size: rem(12px);
+            font-weight: bold;
+        }
+        .description-employe{
+            margin-top: 10px;
+            margin-left: 20px;
+            margin-bottom: 14px;
+            h5{
+                font-size: rem(16px);
+                font-weight: bold;
+            }
+            p{
+                font-size: rem(12px);
+                line-height: 0.1;
+            }
+        }
+
+        .more{
+            bottom: 20px;
+        }
+    
+    }
+}
+
+// Conteneur team
+.equipe{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+
+    // Card team
+    .card-equipe{
+        border: 8px;
+        margin-bottom: 16px;
+        border-left: 8px solid #2D3E50;
+        
+        .heure-e{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            line-height: 0.2;
+            font-size: rem(12px);
+            font-weight: bold;
+        }
+
+        .description-equipe{
+            margin-top: 10px;
+            margin-left: 20px;
+            h5{
+                font-size: rem(16px);
+                font-weight: bold;
+            }
+            p{
+                font-size: rem(12px);
+                line-height: 0.1;
+            }
+        }
+
+        .nb-employe{
+            font-size: rem(12px);
+            font-weight: bold;
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        
+    
+    }
+}
+
+// Button of card employe and team
+.more{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    height: 30px;
+    width: 30px;
+    border-radius: rem(4px);
+    @extend .bg-background;
+    .more-icon{
+        font-size: rem(10px);
+        text-align: center;     
+    }
+}
+
+.profile{
+    margin-left: 10px;
+    margin-right: 10px;
+    .media{
+        margin-top: 20px;
+        .media-body{
+            line-height: 0.2;
+            margin-left: 10px;
+        }
+    }
+    .row{
+        margin-top: 10px;
+        
+        .card{
+            padding-top: 14px;
+            padding-bottom: 14px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        button{
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+    }
+}
+
+

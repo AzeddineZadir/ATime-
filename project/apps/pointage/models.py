@@ -2,14 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 from django.db.models import Count, Q
 from random import choice
-
+from django.utils import timezone
 
 # Create your models here.
 
 
 class EmployeManManager(models.Manager):
-    def get_my_employe_stats(self, team_id, user_emp):
-        return super().get_queryset().filter(Q(team_id__name__contains=team_id), ~Q(user=user_emp)).values('team_id').annotate(nb_emp_in=Count(
+    def get_my_employe_stats(self, team, user_emp):
+        return super().get_queryset().filter(Q(team__nom__contains=team), ~Q(user=user_emp)).values('team').annotate(nb_emp_in=Count(
             'user',
             filter=Q(iwssad=True)),
             nb_emp_out=Count(
@@ -19,8 +19,8 @@ class EmployeManManager(models.Manager):
             'user'
         ))
 
-    def get_my_employe(self, team_id, user_emp):
-        return super().get_queryset().filter(Q(team_id__name__contains=team_id), ~Q(user=user_emp))
+    def get_my_employe(self, team, user_emp):
+        return super().get_queryset().filter(Q(team__nom__contains=team), ~Q(user=user_emp))
 
 
 class User(AbstractUser):
@@ -43,16 +43,19 @@ class Employe(models.Model):
     finger_id = models.PositiveSmallIntegerField(unique=True, blank=True)
     is_uploaded = models.BooleanField(default=False)
     is_delete = models.BooleanField(default=False)
-    birthdate = models.DateField(auto_now=False, blank=True, null=True)
+    birthdate = models.DateField(
+        auto_now=False, blank=True, null=True, verbose_name="Date naissance")
     birthplace = models.CharField(max_length=120, blank=True)
-    address = models.CharField(max_length=200, blank=True)
+    address = models.CharField(
+        max_length=200, blank=True, verbose_name="Adresse")
     phone1 = models.CharField(max_length=200, blank=True, null=True,
-                              verbose_name="telephone 1")
+                              verbose_name="Numéro de téléphone professionnel")
     phone2 = models.CharField(max_length=200, blank=True, null=True,
-                              verbose_name="telephone 2")
-    observation = models.CharField(max_length=300, blank=True)
+                              verbose_name="Numéro de téléphone personnel")
+    observation = models.CharField(
+        max_length=300, blank=True, verbose_name="Description")
     picture = models.ImageField(
-        upload_to='images/', default='images/nounours.png')
+        upload_to='images/', default='images/nounours.png', verbose_name="Photo de profil")
     team = models.ForeignKey(
         'Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='employes')
     planing = models.ForeignKey(
@@ -96,6 +99,10 @@ class Employe(models.Model):
         self.is_delete = True
         self.save()
 
+    def check_employe(self, is_iwssad):
+        self.iwssad = is_iwssad
+        self.save()
+
 
 class Team(models.Model):
     titre = models.CharField(
@@ -112,6 +119,10 @@ class Shift(models.Model):
 
     def __str__(self):
         return str(self.employe)
+
+    def set_heure_s(self):
+        self.date_heure_s = timezone.now()
+        self.save()
 
 
 class Day(models.Model):

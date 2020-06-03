@@ -10,16 +10,20 @@
   background-color: #2D3E50;
 }
 
-.text-secondaryy {
+.text-secondaryy, .tabs .nav-link {
   color: #2D3E50;
 }
 
-.bg-background, body {
+.bg-background, body, .more {
   background-color: #EFF0F3;
 }
 
 .text-background {
   color: #EFF0F3;
+}
+
+body :focus {
+  outline: 0 !important;
 }
 
 .wrapper .sideMenu {
@@ -41,6 +45,28 @@
 
 .wrapper .sideMenu .navbar-nav {
   margin-top: 56px;
+}
+
+.wrapper .sideMenu .dropdown {
+  outline: 0;
+}
+
+.wrapper .sideMenu .dropdown .dropdown-menu {
+  background-color: transparent;
+  border: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper .sideMenu .dropdown .dropdown-menu .dropdown-item {
+  color: white;
+  font-size: 0.75rem;
+}
+
+.wrapper .sideMenu .dropdown .dropdown-menu .icon {
+  margin-right: 0.5rem;
+  margin-left: 0.75rem;
+  font-size: 1.5rem;
 }
 
 .wrapper .content {
@@ -67,6 +93,15 @@
 .wrapper.active .sideMenu .nav-link .icon {
   margin-right: 0;
   margin-left: 0;
+  font-size: 1.5rem;
+}
+
+.wrapper.active .sideMenu .dropdown-toggle::after {
+  display: none;
+}
+
+.wrapper.active .sideMenu .dropdown-menu {
+  display: none;
 }
 
 .wrapper.active .content {
@@ -79,13 +114,13 @@
 }
 
 .nav-link .icon {
-  margin-right: 0.75rem;
-  margin-left: 0.75rem;
   font-size: 1.5rem;
+  height: 2.125rem;
+  width: 1.5rem;
+  margin-left: 0.75rem;
+  margin-right: 0.5rem;
   color: white;
   vertical-align: middle;
-  height: 2rem;
-  width: 2rem;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -98,22 +133,19 @@
 }
 
 .nav-link .text {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: white;
 }
 
 .liToggle {
   font-size: 24px;
-  margin-top: 60vh;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  padding-bottom: 20px;
 }
 
 @media (min-width: 992px) {
@@ -132,5 +164,193 @@
 .profile-pic {
   width: 46px;
   height: 46px;
+}
+
+.tabs {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.tabs .nav-tabs {
+  border-radius: O;
+}
+
+.row-dash {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.row-dash .card-b-mydash {
+  text-align: center;
+}
+
+canvas {
+  height: 100px;
+  width: 100px;
+}
+
+.card {
+  border-radius: 6px;
+}
+
+.row-stats {
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.row-stats p, .row-stats h6 {
+  line-height: 0.6;
+}
+
+.row-stats h6 {
+  font-size: 0.625rem;
+  font-weight: bold;
+}
+
+.row-stats p {
+  font-size: 0.875rem;
+}
+
+.myChartDiv {
+  width: 120px;
+  height: 120px;
+}
+
+.employe {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10px;
+}
+
+.employe .card-employe {
+  border: 8px;
+  margin-bottom: 16px;
+  border-left: 8px solid #2D3E50;
+}
+
+.employe .card-employe .employe-pic {
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 46px;
+  height: 46px;
+}
+
+.employe .card-employe .heure-e {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  line-height: 0.2;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.employe .card-employe .description-employe {
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-bottom: 14px;
+}
+
+.employe .card-employe .description-employe h5 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.employe .card-employe .description-employe p {
+  font-size: 0.75rem;
+  line-height: 0.1;
+}
+
+.employe .card-employe .more {
+  bottom: 20px;
+}
+
+.equipe {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10px;
+}
+
+.equipe .card-equipe {
+  border: 8px;
+  margin-bottom: 16px;
+  border-left: 8px solid #2D3E50;
+}
+
+.equipe .card-equipe .heure-e {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  line-height: 0.2;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.equipe .card-equipe .description-equipe {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.equipe .card-equipe .description-equipe h5 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.equipe .card-equipe .description-equipe p {
+  font-size: 0.75rem;
+  line-height: 0.1;
+}
+
+.equipe .card-equipe .nb-employe {
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.more {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  height: 30px;
+  width: 30px;
+  border-radius: 0.25rem;
+}
+
+.more .more-icon {
+  font-size: 0.625rem;
+  text-align: center;
+}
+
+.profile {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.profile .media {
+  margin-top: 20px;
+}
+
+.profile .media .media-body {
+  line-height: 0.2;
+  margin-left: 10px;
+}
+
+.profile .row {
+  margin-top: 10px;
+}
+
+.profile .row .card {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+
+.profile .row button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 /*# sourceMappingURL=style.css.map */
