@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
 from .decorators import employe_required, manger_required, project_manger_required
+from django.contrib.auth.decorators import login_required
 from apps.pointage.models import Employe, User
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import UserForm
@@ -69,5 +70,35 @@ def profile(request):
             "formset": formset,
         })
   
+
+@login_required  
+def view_profile(request, pk):
+    # Get the user
+    user = User.objects.get(id=pk)
+    # Prepopulate UserForm with data
+    user_form = UserForm(instance=user)
+    # Create grouped form User/Employe 
+    EmployeFormset = inlineformset_factory(User, Employe, fields=('birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture'), can_delete=False)
+    # Prepopulate EmployeForm with user pk
+    formset = EmployeFormset(instance=user)
+ 
+    if request.user.id == user.id or request.user.role == 3:
+        if request.method == "POST":
+            # get data from POST method
+            user_form = UserForm(request.POST, request.FILES, instance=user)
+            formset = EmployeFormset(request.POST, request.FILES, instance=user)
+            # If user_form is valide save data
+            if user_form.is_valid():
+                created_user = user_form.save(commit=False)
+                formset = EmployeFormset(request.POST, request.FILES, instance=created_user)
+                if formset.is_valid():
+                    created_user.save()
+                    formset.save()
+                    return HttpResponseRedirect(reverse('dash:view_profile', kwargs={'pk': pk}))
+ 
+        return render(request, "dash/profile.html", {
+            "user_form": user_form,
+            "formset": formset,
+        })
 
   

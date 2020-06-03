@@ -7,4 +7,5 @@ urlpatterns = [
     path('dashboard_man', views.dash_man, name='manager_dashbored'),
     path('dashboard_pro_man', views.dash_pro_man, name='project_manager_dashbored'),
     path('profile', views.profile , name='profile'),
+    path('profile/<str:pk>', views.view_profile , name='view_profile'),
 ]
