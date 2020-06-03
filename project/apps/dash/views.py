@@ -56,6 +56,8 @@ def profile(request):
             # get data from POST method
             user_form = UserForm(request.POST, request.FILES, instance=user)
             formset = EmployeFormset(request.POST, request.FILES, instance=user)
+            print(formset)
+            formset.picture = request.FILES.get('picture')
             # If user_form is valide save data
             if user_form.is_valid():
                 created_user = user_form.save(commit=False)
@@ -100,5 +102,7 @@ def view_profile(request, pk):
             "user_form": user_form,
             "formset": formset,
         })
+    else:
+        return HttpResponseRedirect(reverse('authentification:logout'))
 
   
