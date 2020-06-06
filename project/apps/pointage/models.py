@@ -136,47 +136,52 @@ class Team(models.Model):
 
 
 class Shift(models.Model):
-    # il faut ajouter 1 champ date (pour récuper le dernier champs d'un employé) et 4 champs pour les heures de pointages
     employe = models.ForeignKey('Employe', on_delete=models.CASCADE)
-    date_heure_e = models.DateTimeField(auto_now_add=True)
-    date_heure_s = models.DateTimeField(auto_now=False, blank=True, null=True)
+    day = models.DateField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
+    he1 = models.TimeField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
+    hs1 = models.TimeField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
+    he2 = models.TimeField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
+    hs2 = models.TimeField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
 
     def __str__(self):
-        return str(self.employe)
+        return str(f"employé  : {self.employe}/joure  : {self.day}")
 
-    def set_heure_s(self):
-        self.date_heure_s = timezone.now()
+    def set_he1(self):
+        self.he1 = timezone.now()
+        self.save()
+
+    def set_hs1(self):
+        self.hs1 = timezone.now()
+        self.save()
+
+    def set_he2(self):
+        self.he2 = timezone.now()
+        self.save()
+
+    def set_hs1(self):
+        self.hs2 = timezone.now()
         self.save()
 
 
 class Day(models.Model):
-    LUNDI = 1
-    MARDI = 2
-    MERCREDI = 3
-    JEUDI = 4
-    VENDREDI = 5
-    SAMEDI = 6
-    DIMANCHE = 7
 
-    DAY_OF_WEEK = (
-        (LUNDI, 'Lundi'),
-        (MARDI, 'Mardi'),
-        (MERCREDI, 'Mercredi'),
-        (JEUDI, 'Jeudi'),
-        (VENDREDI, 'Vendredi'),
-        (SAMEDI, 'Samedi'),
-        (DIMANCHE, 'Dimanche')
-    )
+    DAY_OF_WEEK = ((5, 'Samedi'), (6, 'Dimanche'), (0, 'Lundi'),
+                   (1, 'Mardi'), (2, 'Mercredi'), (3, 'Jeudi'), (4, 'Vendredi'))
     #titre = models.CharField(max_length=150)
 
-    jds = models.PositiveSmallIntegerField(choices=DAY_OF_WEEK,
-                           blank=True, null=True)
-    he1 = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
-    hs1 = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
-    he2 = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
-    hs2 = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    jds = models.PositiveIntegerField(choices=DAY_OF_WEEK,
+                                      blank=True, null=True)
+    he1 = models.TimeField(auto_now=False, auto_now_add=False)
+    hs1 = models.TimeField(auto_now=False, auto_now_add=False)
+    he2 = models.TimeField(auto_now=False, auto_now_add=False)
+    hs2 = models.TimeField(auto_now=False, auto_now_add=False)
     planing = models.ForeignKey(
-        'Planing', on_delete=models.SET_NULL, blank=True, null=True)
+        'Planing', on_delete=models.SET_NULL, blank=True, null=True, related_name='planing_days')
 
     def __str__(self):
         return str(self.jds)
