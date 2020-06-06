@@ -115,7 +115,7 @@ class Team(models.Model):
 class Shift(models.Model):
     employe = models.ForeignKey('Employe', on_delete=models.CASCADE)
     day = models.DateField(
-        auto_now=False, auto_now_add=True, blank=True, null=True)
+        auto_now=False, auto_now_add=False, blank=True, null=True)
     he1 = models.TimeField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
     hs1 = models.TimeField(

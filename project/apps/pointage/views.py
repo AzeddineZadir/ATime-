@@ -48,19 +48,7 @@ def getid(request):
                 print(f"le planing :{planing}")
             except:
                 print("pas de planinig poour cette employé")
-
-        #  get the last shift if it exists
-            try:
-                print(timezone.now().date())
-                last_shift = Shift.objects.get(
-                    employe=emp, day=timezone.now().date())
-                print(f"the last shift {last_shift}")
-            except:
-                last_shift = Shift(employe=emp,)
-                last_shift.save()
-                print("pas de shift on la crrer ")
-
-        #  get todays hours
+         #  get todays hours
             today = get_today_planing(planing)
             # print(today)
             # print(today.he1)
@@ -68,12 +56,24 @@ def getid(request):
             # print(today.he2)
             # print(today.hs2)
 
-            if emp.iwssad:
-                print("iwssad ")
-                sortie(emp, today, last_shift)
-            else:
-                print("udyoussara")
-                entrée(emp, today, last_shift)
+            if (today.he1 != None):
+                #  get the last shift if it exists
+                try:
+                    print(timezone.now().date())
+                    last_shift = Shift.objects.get(
+                        employe=emp, day=timezone.now().date())
+                    print(f"the last shift {last_shift}")
+                except:
+                    last_shift = Shift(employe=emp, day=timezone.nom().date())
+                    last_shift.save()
+                    print("pas de shift on la crrer ")
+
+                if emp.iwssad:
+                    print(f"iwssad = {emp.iwssad}")
+                    sortie(emp, today, last_shift)
+                else:
+                    print(f"iwssad = {emp.iwssad}")
+                    entrée(emp, today, last_shift)
 
             return HttpResponse("ID"+id)
 
@@ -143,41 +143,44 @@ def entrée(emp, day, shift):
         shift.save()
         emp.check_employe(True)
         emp.save()
-    elif (now_time() > day.hs1)and (timezone.now().time() < day.hs2):
-        #print('(timezone.now().time()> day.hs1)and (timezone.now().time()< day.hs2) ============ TRUE ')
-        shift.he2 = now_time()
-        print(f'he2  {shift.he2}')
-        shift.save()
-        emp.check_employe(True)
-        emp.save()
+    elif (day.hs2 != non):
+
+        if (now_time() > day.hs1)and (timezone.now().time() < day.hs2):
+            #print('(timezone.now().time()> day.hs1)and (timezone.now().time()< day.hs2) ============ TRUE ')
+            shift.he2 = now_time()
+            print(f'he2  {shift.he2}')
+            shift.save()
+            emp.check_employe(True)
+            emp.save()
 
 
 def sortie(emp, day, shift):
-    # if now < day.he2  then shift.hs1 <-now
+    # if now < day.he2  then shift.hs1 <-now+
     # the exit in the first periode
-    if (now_time() < day.he2)and (shift.he1):
-        print('now_time() < day.he2 ============ TRUE ')
-        shift.hs1 = now_time()
-        print(f'hs1  {shift.hs1}')
-        shift.save()
-        emp.check_employe(False)
-        emp.save()
-    elif(shift.he2):
-        # exit in the second periode
-        print('shift.he2 ============ TRUE ')
-        shift.hs2 = now_time()
-        print(f'hs2  {shift.hs2}')
-        shift.save()
-        emp.check_employe(False)
-        emp.save()
-    elif(shift.he1)and(now_time() > day.hs2):
-        # exit in the seconde periode but without a pause
-        print('(shift.he1)and( now_time()> day.hs2 ')
-        shift.hs2 = now_time()
-        print(f'hs2  {shift.hs2}')
-        shift.save()
-        emp.check_employe(False)
-        emp.save()
+    if (he2 != None):
+        if (now_time() < day.he2)and (shift.he1):
+            print('now_time() < day.he2 ============ TRUE ')
+            shift.hs1 = now_time()
+            print(f'hs1  {shift.hs1}')
+            shift.save()
+            emp.check_employe(False)
+            emp.save()
+        elif(shift.he2):
+            # exit in the second periode
+            print('shift.he2 ============ TRUE ')
+            shift.hs2 = now_time()
+            print(f'hs2  {shift.hs2}')
+            shift.save()
+            emp.check_employe(False)
+            emp.save()
+        elif(shift.he1)and(now_time() > day.hs2):
+            # exit in the seconde periode but without a pause
+            print('(shift.he1)and( now_time()> day.hs2 ')
+            shift.hs2 = now_time()
+            print(f'hs2  {shift.hs2}')
+            shift.save()
+            emp.check_employe(False)
+            emp.save()
 
 
 def now_time():
