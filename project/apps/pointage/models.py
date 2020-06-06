@@ -118,9 +118,9 @@ class Employe(models.Model):
     # Get last shift time
     def get_start_time(self):
         if(self.iwssad):
-            shift=Shift.objects.filter(
-                    employe=self).latest('date_heure_e')
-            return shift.date_heure_e
+            shift=Shift.objects.get(
+                    employe=self, day=timezone.now().date())
+            return shift.he1
         
 
 

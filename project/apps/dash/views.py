@@ -7,8 +7,8 @@ from .forms import UserForm
 from django.urls import reverse
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
-
 from django.utils import timezone
+import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -28,7 +28,12 @@ def dash_emp(request):
     # Get date time when the employe begin work
     time=emp.get_start_time()
     # start time - time now
-    work_time =  timezone.now()-time
+    print("-----", time)
+    print("-----", timezone.now().time())
+    date = datetime.date(1, 1, 1)
+    datetime1 = datetime.datetime.combine(date, timezone.now().time())
+    datetime2 = datetime.datetime.combine(date, time)
+    work_time =  datetime1-datetime2
     # return template with context after convert work_time to hours and min
     return render(request, 'dash/dash_emp.html',{'time':time, 'work_time':convert_time(work_time)})
 

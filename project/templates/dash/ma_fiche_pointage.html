@@ -42,11 +42,11 @@
                     <tbody>
                         {% for item in shifts %}   
                             <tr>
-                                <td>{{ item.date_heure_e| date:"l"|capfirst  }} {{ item.date_heure_e }}</td>
-                                <td>{{ item.date_heure_e }}</td>
-                                <td>{{ item.date_heure_e }}</td>
-                                <td>{{ item.date_heure_s }}</td>
-                                <td>{{ item.date_heure_s }}</td> 
+                                <td>{{ item.day| date:"l"|capfirst  }} {{ item.day }}</td>
+                                <td>{{ item.he1 }}</td>
+                                <td>{{ item.hs1 }}</td>
+                                <td>{{ item.he2 }}</td>
+                                <td>{{ item.hs2 }}</td> 
                             </tr>               
                         {% endfor %}
 
