@@ -2,29 +2,34 @@
 {% block nav %} {% endblock %}
 {% block title %}Ma page d'accueil{% endblock %}
 {% block content %}
-   
         <!--Card start time-->
-        <div class="row row-dash">
-            <div class="col">
-                <div class="card text-justify" style="width: 18rem;">
-                    <div class="card-body card-b-mydash">
-                      <h5 class="card-title">Vous êtes arrivez a :</h5>
-                      <p class="card-text">08:05</p>
+        {% if time %}
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                        <h5 class="card-title">Vous êtes arrivez a :</h5>
+                        <p class="card-text">      
+                            {{ time|date:"G:i" }}
+                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--Card time of work-->
-        <div class="row row-dash">
-            <div class="col">
-                <div class="card text-justify" style="width: 18rem;">
-                    <div class="card-body card-b-mydash">
-                      <h5 class="card-title">En post depuis:</h5>
-                      <p class="card-text">3h05m</p>
+            <!--Card time of work-->
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                        <h5 class="card-title">En post depuis:</h5>
+                        <p class="card-text">
+                            {{ work_time }}
+                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
   
 
     

@@ -68,20 +68,20 @@ class ShiftAdmin(admin.ModelAdmin):
 
     list_display = ('employe', 'date_heure_e', 'date_heure_s')
 
-    def has_add_permission(self, request):
-        return False
+    #def has_add_permission(self, request):
+        #return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+    #def has_delete_permission(self, request, obj=None):
+        #return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
+    #def has_change_permission(self, request, obj=None):
+        #return False
 
 
 class EmployeAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'email', 'username',
-                    'finger_id', 'is_uploaded', 'is_delete', )
+                    'finger_id', 'is_uploaded', 'is_delete', 'iwssad' )
 
     def id(self, employe):
         return employe.user.id

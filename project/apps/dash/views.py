@@ -1,19 +1,36 @@
 from django.shortcuts import render, HttpResponseRedirect
 from .decorators import employe_required, manger_required, project_manger_required
 from django.contrib.auth.decorators import login_required
-from apps.pointage.models import Employe, User
+from apps.pointage.models import Employe, User, Planing, Shift
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import UserForm
 from django.urls import reverse
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 
+from django.utils import timezone
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 # Create your views here.
 
+# to convert naif datetime to number of hours and min
+def convert_time(time):
+    days, seconds = time.days, time.seconds
+    hours = days * 24 + seconds // 3600
+    minutes = (seconds % 3600) // 60
+    return "%sh%smin" % (hours, minutes)
 
 @employe_required
 def dash_emp(request):
-    return render(request, 'dash/dash_emp.html')
+    # Get employe with id
+    emp = Employe.objects.filter(user=request.user).get()
+    # Get date time when the employe begin work
+    time=emp.get_start_time()
+    # start time - time now
+    work_time =  timezone.now()-time
+    # return template with context after convert work_time to hours and min
+    return render(request, 'dash/dash_emp.html',{'time':time, 'work_time':convert_time(work_time)})
 
 
 @manger_required
@@ -46,7 +63,7 @@ def profile(request):
     # Prepopulate UserForm with data
     user_form = UserForm(instance=user)
     # Create grouped form User/Employe 
-    EmployeFormset = inlineformset_factory(User, Employe, fields=('birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture'), can_delete=False)
+    EmployeFormset = inlineformset_factory(User, Employe, fields=('birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture', 'gender'), can_delete=False)
     # Prepopulate EmployeForm with user pk
     formset = EmployeFormset(instance=user)
  
@@ -78,7 +95,7 @@ def view_profile(request, pk):
     # Prepopulate UserForm with data
     user_form = UserForm(instance=user)
     # Create grouped form User/Employe 
-    EmployeFormset = inlineformset_factory(User, Employe, fields=('birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture'), can_delete=False)
+    EmployeFormset = inlineformset_factory(User, Employe, fields=('birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture', 'gender'), can_delete=False)
     # Prepopulate EmployeForm with user pk
     formset = EmployeFormset(instance=user)
  
@@ -103,4 +120,22 @@ def view_profile(request, pk):
     else:
         return HttpResponseRedirect(reverse('authentification:logout'))
 
-  
+@login_required
+def ma_fiche_pointage(request):
+    emp = Employe.objects.filter(user=request.user).get()
+    # Get shifts of the current employe
+    shift_list = Shift.objects.filter(employe=emp)
+    # Pagginite my list by 7
+    paginator = Paginator(shift_list, 7)
+    # Get id of page from link if empty --> default=1
+    page = request.GET.get('page', 1)
+    # Get list shift with page number with exceptions if not integer get first page/ if page contains no results get the last page
+    try:
+        shifts = paginator.page(page)
+    except PageNotAnInteger:
+        shifts = paginator.page(1)
+    except EmptyPage:
+        shifts = paginator.page(paginator.num_pages)
+    return render(request, 'dash/ma_fiche_pointage.html', {'shifts': shifts})
+
+

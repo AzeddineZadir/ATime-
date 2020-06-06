@@ -38,6 +38,12 @@ class User(AbstractUser):
 
 
 class Employe(models.Model):
+    MAN = 'H'
+    WOMAN = 'F'
+    GENDER = (
+        (MAN, 'Homme'),
+        (WOMAN, 'Femme'),
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     iwssad = models.BooleanField(default=False)
     finger_id = models.PositiveSmallIntegerField(unique=True, blank=True)
@@ -49,9 +55,9 @@ class Employe(models.Model):
     address = models.CharField(
         max_length=200, blank=True, verbose_name="Adresse")
     phone1 = models.CharField(max_length=200, blank=True, null=True,
-                              verbose_name="Numéro de téléphone professionnel")
+                              verbose_name="Téléphone professionnel")
     phone2 = models.CharField(max_length=200, blank=True, null=True,
-                              verbose_name="Numéro de téléphone personnel")
+                              verbose_name="Téléphone personnel")
     observation = models.CharField(
         max_length=300, blank=True, verbose_name="Description")
     picture = models.ImageField(
@@ -60,6 +66,12 @@ class Employe(models.Model):
         'Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='employes')
     planing = models.ForeignKey(
         'Planing', on_delete=models.SET_NULL, blank=True, null=True)
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER,
+        blank=True, null=True,
+        verbose_name="Genre"
+    )
     objects = models.Manager()
     manager = EmployeManManager()
 
@@ -99,9 +111,17 @@ class Employe(models.Model):
         self.is_delete = True
         self.save()
 
-    def check_employe(self, is_iwssad):
+    def set_iwssad(self, is_iwssad):
         self.iwssad = is_iwssad
         self.save()
+    
+    # Get last shift time
+    def get_start_time(self):
+        if(self.iwssad):
+            shift=Shift.objects.filter(
+                    employe=self).latest('date_heure_e')
+            return shift.date_heure_e
+        
 
 
 class Team(models.Model):
@@ -111,8 +131,12 @@ class Team(models.Model):
     manager = models.ForeignKey(
         'Employe', verbose_name="manager", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')
 
+    def __str__(self):
+        return str(self.titre)
+
 
 class Shift(models.Model):
+    # il faut ajouter 1 champ date (pour récuper le dernier champs d'un employé) et 4 champs pour les heures de pointages
     employe = models.ForeignKey('Employe', on_delete=models.CASCADE)
     date_heure_e = models.DateTimeField(auto_now_add=True)
     date_heure_s = models.DateTimeField(auto_now=False, blank=True, null=True)
@@ -126,17 +150,31 @@ class Shift(models.Model):
 
 
 class Day(models.Model):
+    LUNDI = 1
+    MARDI = 2
+    MERCREDI = 3
+    JEUDI = 4
+    VENDREDI = 5
+    SAMEDI = 6
+    DIMANCHE = 7
 
-    DAY_OF_WEEK = (('SAMEDI', 'Samedi'), ('DIMANCHE', 'Dimanche'), ('LUNDI', 'Lundi'),
-                   ('MARDI', 'Mardi'), ('MERCREDI', 'Mercredi'), ('JEUDI', 'Jeudi'), ('VENDREDI', 'Vendredi'))
+    DAY_OF_WEEK = (
+        (LUNDI, 'Lundi'),
+        (MARDI, 'Mardi'),
+        (MERCREDI, 'Mercredi'),
+        (JEUDI, 'Jeudi'),
+        (VENDREDI, 'Vendredi'),
+        (SAMEDI, 'Samedi'),
+        (DIMANCHE, 'Dimanche')
+    )
     #titre = models.CharField(max_length=150)
 
-    jds = models.CharField(choices=DAY_OF_WEEK,
-                           blank=True, null=True, max_length=50)
-    he1 = models.TimeField(auto_now=False, auto_now_add=False)
-    hs1 = models.TimeField(auto_now=False, auto_now_add=False)
-    he2 = models.TimeField(auto_now=False, auto_now_add=False)
-    hs2 = models.TimeField(auto_now=False, auto_now_add=False)
+    jds = models.PositiveSmallIntegerField(choices=DAY_OF_WEEK,
+                           blank=True, null=True)
+    he1 = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    hs1 = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    he2 = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    hs2 = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     planing = models.ForeignKey(
         'Planing', on_delete=models.SET_NULL, blank=True, null=True)
 

@@ -353,4 +353,19 @@ canvas {
   bottom: 20px;
   right: 20px;
 }
+
+.form-filter {
+  padding-top: 0.75rem;
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+}
+
+.form-filter h5 {
+  font-size: 1.625rem;
+}
+
+.table-my-pointage {
+  background-color: white;
+  margin-top: 1.25rem;
+}
 /*# sourceMappingURL=style.css.map */

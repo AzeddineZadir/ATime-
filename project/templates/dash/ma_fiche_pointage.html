@@ -1,0 +1,119 @@
+{% extends "base_generic.html" %}
+{% block nav %} {% endblock %}
+{% block title %}Mon profile{% endblock %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row form-filter justify-content-between">
+            <div class="col-sm-12 col-lg-12 col-xl-4">
+                <h5>Ma fiche de pointage</h5>
+            </div>
+            <div class="col-sm-12 col-lg-12 col-xl-8">
+                    <form class="form-inline filtre  float-right">       
+                        <div id="inline" data-date="01/05/2020">
+                            <div id="range">                 
+                                <input type="text" name="start" class="form-control" placeholder="Date début">   
+                                <input type="text" name="end" class="form-control" placeholder="Date fin">            
+                            </div>
+                        </div>
+                        <select class="custom-select mr-2" id="inlineFormCustomSelectPref">
+                          <option selected>Filtre...</option>
+                          <option value="1">Par semaine</option>
+                          <option value="1">Par Mois</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Chercher</button>
+                    
+                    </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-my-pointage">
+                    <thead>
+                      <tr>
+                        <th scope="row">Date</th>
+                        <th scope="row">Entrée matin</th>
+                        <th scope="row">Sortie matin</th>
+                        <th scope="row">Entrée aprés-midi</th>
+                        <th scope="row">Sortie aprés-midi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in shifts %}   
+                            <tr>
+                                <td>{{ item.date_heure_e| date:"l"|capfirst  }} {{ item.date_heure_e }}</td>
+                                <td>{{ item.date_heure_e }}</td>
+                                <td>{{ item.date_heure_e }}</td>
+                                <td>{{ item.date_heure_s }}</td>
+                                <td>{{ item.date_heure_s }}</td> 
+                            </tr>               
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row float-right mr-2">
+            <div class="pagination">
+
+                {% if shifts.has_other_pages %}
+              <ul class="pagination">
+                {% if shifts.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ shifts.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Next</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for i in shifts.paginator.page_range %}
+                  {% if shifts.number == i %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            {{ i }} 
+                          <span class="sr-only">(current)</span>
+                        </span>
+                      </li>
+                  {% else %}
+                    <li class="page-item"><a href="?page={{ i }}" class="page-link" >{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if shifts.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ shifts.next_page_number }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% endif %}
+              </ul>
+            {% endif %}
+            </div>
+        </div>
+        
+        
+        
+    </div>
+
+
+    
+
+{% endblock %}
+
+
