@@ -120,7 +120,10 @@ class Employe(models.Model):
         if(self.iwssad):
             shift=Shift.objects.get(
                     employe=self, day=timezone.now().date())
-            return shift.he1
+            if shift.he2 != None:
+                return shift.he2
+            else:
+                return shift.he1
         
 
 
