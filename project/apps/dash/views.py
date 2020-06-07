@@ -172,3 +172,8 @@ def ma_fiche_pointage(request):
     return render(request, 'dash/ma_fiche_pointage.html', {'shifts': shifts})
 
 
+@manger_required
+def mes_collaborateurs(request):
+    return render(request, 'dash/mes_collaborateurs.html')
+
+

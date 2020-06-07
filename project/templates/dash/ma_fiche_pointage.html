@@ -41,38 +41,42 @@
                       </tr>
                     </thead>
                     <tbody>
-                        {% for item in shifts %}   
-                            <tr>
-                                <td>{{ item.day| date:"l"|capfirst  }} {{ item.day }}</td>
-                                <td>
-                                    {% if item.he1 != None %}
-                                        {{ item.he1 }}
-                                    {% else %}
-                                        /
-                                    {% endif%}
-                                </td>
-                                <td>
-                                    {% if item.hs1 != None %}
-                                        {{ item.hs1 }}
-                                    {% else %}
-                                        /
-                                    {% endif%}
-                                </td>
-                                <td>
-                                    {% if item.he2 != None %}
-                                        {{ item.he2 }}
-                                    {% else %}
-                                        /
-                                    {% endif%}
-                                </td>
-                                <td>
-                                    {% if item.hs2 != None %}
-                                        {{ item.hs2 }}
-                                    {% else %}
-                                        /
-                                    {% endif%}
-                                </td> 
-                            </tr>               
+                        {% for item in shifts %}  
+                            {% if item.day != None %}  
+                                <tr>
+                                    <td>{{ item.day| date:"l"|capfirst  }} {{ item.day }}</td>
+                                    <td>
+                                        {% if item.he1 != None %}
+                                            {{ item.he1 }}
+                                        {% else %}
+                                            /
+                                        {% endif%}
+                                    </td>
+                                    <td>
+                                        {% if item.hs1 != None %}
+                                            {{ item.hs1 }}
+                                        {% else %}
+                                            /
+                                        {% endif%}
+                                    </td>
+                                    <td>
+                                        {% if item.he2 != None %}
+                                            {{ item.he2 }}
+                                        {% else %}
+                                            /
+                                        {% endif%}
+                                    </td>
+                                    <td>
+                                        {% if item.hs2 != None %}
+                                            {{ item.hs2 }}
+                                        {% else %}
+                                            /
+                                        {% endif%}
+                                    </td> 
+                                </tr>
+                            {% else %}  
+                            
+                            {% endif %}
                         {% endfor %}
 
                     </tbody>

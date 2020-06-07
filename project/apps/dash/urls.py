@@ -9,4 +9,5 @@ urlpatterns = [
     path('profile', views.profile , name='profile'),
     path('profile/<str:pk>', views.view_profile , name='view_profile'),
     path('ma_fiche_pointage', views.ma_fiche_pointage , name='ma_fiche_pointage'),
+    path('mes_collaborateurs', views.mes_collaborateurs , name='mes_collaborateurs'),
 ]
