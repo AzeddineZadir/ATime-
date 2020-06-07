@@ -11,6 +11,8 @@ from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.db.models import  Q
+
 
 # Create your views here.
 
@@ -20,6 +22,10 @@ def convert_time(time):
     hours = days * 24 + seconds // 3600
     minutes = (seconds % 3600) // 60
     return "%sh%smin" % (hours, minutes)
+
+def is_valid(param):
+    if param != None and param != '':
+        return True
 
 @employe_required
 def dash_emp(request):
@@ -118,18 +124,39 @@ def view_profile(request, pk):
                     formset.save()
                     return HttpResponseRedirect(reverse('dash:view_profile', kwargs={'pk': pk}))
  
-        return render(request, "dash/profile.html", {
+        if request.GET.get('edit_profile') == pk:
+            return render(request, "dash/profile.html", {
             "user_form": user_form,
             "formset": formset,
-        })
+            "check": False,
+            })
+        else:
+            return render(request, "dash/profile.html", {
+            "user_form": user_form,
+            "formset": formset,
+            "check": pk,
+            })
+
     else:
         return HttpResponseRedirect(reverse('authentification:logout'))
 
 @login_required
-def ma_fiche_pointage(request):
+def ma_fiche_pointage(request):  
     emp = Employe.objects.filter(user=request.user).get()
     # Get shifts of the current employe
-    shift_list = Shift.objects.filter(employe=emp)
+    shift_list = Shift.objects.filter(employe=emp).order_by('-day')
+    # Check if request method is GET
+    if request.GET: 
+        # Get str data from fields start and end
+        start = request.GET.get('start')
+        end = request.GET.get('end')
+        # Check if not None or ''
+        if is_valid(start) and is_valid(end):
+            # Convert str to datetime
+            start = datetime.datetime.strptime(start, "%d/%m/%Y")
+            end = datetime.datetime.strptime(end, "%d/%m/%Y")
+            # Filter shift_list with date params
+            shift_list=shift_list.filter(Q(day__gte=start), Q(day__lte=end))
     # Pagginite my list by 7
     paginator = Paginator(shift_list, 7)
     # Get id of page from link if empty --> default=1
@@ -141,6 +168,7 @@ def ma_fiche_pointage(request):
         shifts = paginator.page(1)
     except EmptyPage:
         shifts = paginator.page(paginator.num_pages)
+    
     return render(request, 'dash/ma_fiche_pointage.html', {'shifts': shifts})
 
 

@@ -9,7 +9,8 @@
                 <h5>Ma fiche de pointage</h5>
             </div>
             <div class="col-sm-12 col-lg-12 col-xl-8">
-                    <form class="form-inline filtre  float-right">       
+                    <form class="form-inline filtre  float-right" method="GET">  
+                        {% csrf_token %}
                         <div id="inline" data-date="01/05/2020">
                             <div id="range">                 
                                 <input type="text" name="start" class="form-control" placeholder="Date début">   
@@ -43,10 +44,34 @@
                         {% for item in shifts %}   
                             <tr>
                                 <td>{{ item.day| date:"l"|capfirst  }} {{ item.day }}</td>
-                                <td>{{ item.he1 }}</td>
-                                <td>{{ item.hs1 }}</td>
-                                <td>{{ item.he2 }}</td>
-                                <td>{{ item.hs2 }}</td> 
+                                <td>
+                                    {% if item.he1 != None %}
+                                        {{ item.he1 }}
+                                    {% else %}
+                                        /
+                                    {% endif%}
+                                </td>
+                                <td>
+                                    {% if item.hs1 != None %}
+                                        {{ item.hs1 }}
+                                    {% else %}
+                                        /
+                                    {% endif%}
+                                </td>
+                                <td>
+                                    {% if item.he2 != None %}
+                                        {{ item.he2 }}
+                                    {% else %}
+                                        /
+                                    {% endif%}
+                                </td>
+                                <td>
+                                    {% if item.hs2 != None %}
+                                        {{ item.hs2 }}
+                                    {% else %}
+                                        /
+                                    {% endif%}
+                                </td> 
                             </tr>               
                         {% endfor %}
 

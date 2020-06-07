@@ -76,7 +76,11 @@
                 </div>
                 {% endfor %}  
                 <div class="col-6">
-                    <button type="submit" class="btn sauvgarder">Enregistrer</button>
+                    {% if check %}
+                        <a href="?edit_profile={{ check }}" class="btn btn-primary sauvgarder">Modifier mon profile</a>
+                    {% else %}
+                        <button type="submit" class="btn sauvgarder">Enregistrer</button>
+                    {% endif %}
                 </div>
             </div>
             
