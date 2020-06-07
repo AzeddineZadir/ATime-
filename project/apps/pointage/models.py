@@ -31,7 +31,7 @@ class User(AbstractUser):
     ROLE_CHOICES = (
         (EMPLOYE, 'Employé'),
         (MANAGER, 'Manager'),
-        (BOSS, 'Chef de projet'),
+        (BOSS, 'Responsable'),
     )
     role = models.PositiveSmallIntegerField(
         choices=ROLE_CHOICES, blank=True, null=True)
@@ -114,17 +114,16 @@ class Employe(models.Model):
     def set_iwssad(self, is_iwssad):
         self.iwssad = is_iwssad
         self.save()
-    
+
     # Get last shift time
     def get_start_time(self):
         if(self.iwssad):
-            shift=Shift.objects.get(
-                    employe=self, day=timezone.now().date())
+            shift = Shift.objects.get(
+                employe=self, day=timezone.now().date())
             if shift.he2 != None:
                 return shift.he2
             else:
                 return shift.he1
-        
 
 
 class Team(models.Model):
