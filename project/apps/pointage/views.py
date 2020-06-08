@@ -60,40 +60,22 @@ def getid(request):
 
             if (today.he1 != None):
                 #  get the last shift if it exists
-                try:
-                    print(timezone.now().date())
-                    # Get number of shift by employe
-                    count_shift = Shift.objects.filter(Q(employe=emp),Q(day=timezone.now().date())).count()
-                    print("Count-------------------------",count_shift)
-                    if(count_shift == 0):
-                        Shift(employe=emp ,day=timezone.now().date(), number=1, he=timezone.now()).save()
-                        emp.set_iwssad(True)
-                    else:
-                        if emp.iwssad:
-                            last_shift = Shift.objects.get(
-                                employe=emp, number=count_shift, day=timezone.now().date())
-                            last_shift.set_hs()
-                            emp.set_iwssad(False)
-                        else:
-                            Shift(employe=emp, number=count_shift+1 ,day=timezone.now().date(), he=timezone.now()).save()
-                            emp.set_iwssad(True)
-
-                        
-
-                    #last_shift = Shift.objects.get(
-                        #employe=emp, day=timezone.now().date())
-                    #print(f"the last shift {last_shift}")
-                except:
-                    #last_shift = Shift(employe=emp, day=timezone.now().date())
-                    #last_shift.save()
-                    print("pas de shift on la crrer ")
-
-                if emp.iwssad:
-                    print(f"iwssad = {emp.iwssad}")
-                    sortie(emp, today, last_shift)
+                print(timezone.now().date())
+                # Get number of shift by employe
+                count_shift = Shift.objects.filter(Q(employe=emp),Q(day=timezone.now().date())).count()
+                print("Count-------------------------",count_shift)
+                if(count_shift == 0):
+                    Shift(employe=emp ,day=timezone.now().date(), number=1, he=timezone.now()).save()
+                    emp.set_iwssad(True)
                 else:
-                    print(f"iwssad = {emp.iwssad}")
-                    entrée(emp, today, last_shift)
+                    if emp.iwssad:
+                        last_shift = Shift.objects.get(
+                            employe=emp, number=count_shift, day=timezone.now().date())
+                        last_shift.set_hs()
+                        emp.set_iwssad(False)
+                    else:
+                        Shift(employe=emp, number=count_shift+1 ,day=timezone.now().date(), he=timezone.now()).save()
+                        emp.set_iwssad(True)
 
             return HttpResponse("ID"+id)
 
