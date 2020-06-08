@@ -66,7 +66,7 @@ class UserAdmin(UserAdmin):
 
 class ShiftAdmin(admin.ModelAdmin):
 
-    list_display = ('employe', 'day', 'he1', 'hs1', 'he2', 'hs2')
+    list_display = ('employe', 'day', 'number', 'he', 'hs')
 
     #def has_add_permission(self, request):
         #return False

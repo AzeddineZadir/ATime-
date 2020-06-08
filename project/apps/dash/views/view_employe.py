@@ -43,6 +43,7 @@ def dash_emp(request):
         datetime1 = datetime.datetime.combine(date, timezone.now().time())
         datetime2 = datetime.datetime.combine(date, time)
         work_time = datetime1-datetime2
+        work_time.se
         work_time = convert_time(work_time)
     else:
         work_time = None

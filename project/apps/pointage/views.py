@@ -5,6 +5,8 @@ from django.db.models import Max
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date, time
+from django.db.models import Q, Count
+
 # Create your views here.
 
 
@@ -60,12 +62,30 @@ def getid(request):
                 #  get the last shift if it exists
                 try:
                     print(timezone.now().date())
-                    last_shift = Shift.objects.get(
-                        employe=emp, day=timezone.now().date())
-                    print(f"the last shift {last_shift}")
+                    # Get number of shift by employe
+                    count_shift = Shift.objects.filter(Q(employe=emp),Q(day=timezone.now().date())).count()
+                    print("Count-------------------------",count_shift)
+                    if(count_shift == 0):
+                        Shift(employe=emp ,day=timezone.now().date(), number=1, he=timezone.now()).save()
+                        emp.set_iwssad(True)
+                    else:
+                        if emp.iwssad:
+                            last_shift = Shift.objects.get(
+                                employe=emp, number=count_shift, day=timezone.now().date())
+                            last_shift.set_hs()
+                            emp.set_iwssad(False)
+                        else:
+                            Shift(employe=emp, number=count_shift+1 ,day=timezone.now().date(), he=timezone.now()).save()
+                            emp.set_iwssad(True)
+
+                        
+
+                    #last_shift = Shift.objects.get(
+                        #employe=emp, day=timezone.now().date())
+                    #print(f"the last shift {last_shift}")
                 except:
-                    last_shift = Shift(employe=emp, day=timezone.nom().date())
-                    last_shift.save()
+                    #last_shift = Shift(employe=emp, day=timezone.now().date())
+                    #last_shift.save()
                     print("pas de shift on la crrer ")
 
                 if emp.iwssad:
@@ -133,7 +153,7 @@ def getid(request):
         return HttpResponse(str(id_finger))
 
 
-def entrée(emp, day, shift):
+""" def entrée(emp, day, shift):
     #  now  < day.hs1
     #  shift.he1=now
     if (now_time() < day.hs1):
@@ -151,10 +171,10 @@ def entrée(emp, day, shift):
             print(f'he2  {shift.he2}')
             shift.save()
             emp.check_employe(True)
-            emp.save()
+            emp.save() """
 
 
-def sortie(emp, day, shift):
+""" def sortie(emp, day, shift):
     # if now < day.he2  then shift.hs1 <-now+
     # the exit in the first periode
     if (he2 != None):
@@ -180,7 +200,7 @@ def sortie(emp, day, shift):
             print(f'hs2  {shift.hs2}')
             shift.save()
             emp.check_employe(False)
-            emp.save()
+            emp.save() """
 
 
 def now_time():

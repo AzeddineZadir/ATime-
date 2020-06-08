@@ -139,35 +139,25 @@ class Team(models.Model):
 
 class Shift(models.Model):
     employe = models.ForeignKey('Employe', on_delete=models.CASCADE)
+    number = models.PositiveSmallIntegerField(blank=True, null=True)
     day = models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
-    he1 = models.TimeField(
+    he = models.TimeField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
-    hs1 = models.TimeField(
-        auto_now=False, auto_now_add=False, blank=True, null=True)
-    he2 = models.TimeField(
-        auto_now=False, auto_now_add=False, blank=True, null=True)
-    hs2 = models.TimeField(
+    hs = models.TimeField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
 
     def __str__(self):
         return str(f"employé  : {self.employe}/joure  : {self.day}")
 
-    def set_he1(self):
-        self.he1 = timezone.now()
+    def set_he(self):
+        self.he = timezone.now()
         self.save()
 
-    def set_hs1(self):
-        self.hs1 = timezone.now()
+    def set_hs(self):
+        self.hs = timezone.now()
         self.save()
 
-    def set_he2(self):
-        self.he2 = timezone.now()
-        self.save()
-
-    def set_hs1(self):
-        self.hs2 = timezone.now()
-        self.save()
 
 
 class Day(models.Model):
