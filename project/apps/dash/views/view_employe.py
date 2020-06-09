@@ -11,7 +11,7 @@ from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from django.db.models import Q
+from django.db.models import Q, Count
 
 
 # Create your views here.
@@ -31,24 +31,8 @@ def is_valid(param):
 
 @employe_required
 def dash_emp(request):
-    # Get employe with id
-    emp = Employe.objects.filter(user=request.user).get()
-    # Get date time when the employe begin work
-    time = emp.get_start_time()
-    # start time - time now
-    print("-----", time)
-    print("-----", timezone.now().time())
-    date = datetime.date(1, 1, 1)
-    if (time):
-        datetime1 = datetime.datetime.combine(date, timezone.now().time())
-        datetime2 = datetime.datetime.combine(date, time)
-        work_time = datetime1-datetime2
-        work_time.se
-        work_time = convert_time(work_time)
-    else:
-        work_time = None
-    # return template with context after convert work_time to hours and min
-    return render(request, 'dash/dash_emp.html', {'time': time, 'work_time': work_time})
+   
+    return render(request, 'dash/dash_emp.html')
 
 
 @login_required
@@ -135,7 +119,29 @@ def view_profile(request, pk):
 def ma_fiche_pointage(request):
     emp = Employe.objects.filter(user=request.user).get()
     # Get shifts of the current employe
-    shift_list = Shift.objects.filter(employe=emp).order_by('-day')
+    shift_list = Shift.objects.filter(employe=emp).order_by('-day','number')
+    test =  Shift.objects.filter(employe=emp).values('day').order_by('-day').annotate(dcount=Count('day'))
+    day = Shift.objects.filter(employe=emp).values_list('day','number','he','hs').order_by('day')
+    #for i in test:
+        #for j in range(i['dcount']):
+            #print(i['day'].isoweekday())
+
+    for d in day:
+        print('--',d)
+        for tr in d:
+            print(tr)
+
+    forms = { 'Samedi' :{1: ('4h','10h','13h') , 0:('11h','14h')},
+              'Dimanche' : {1: ('4h','10h','13h') ,0:('11h','14h')}}
+   # for item in shift_list:
+   #     print(item.day)
+    #for item in test:
+     #   print(item['dcount'])
+    
+    #for item in shift_list:
+     #   shift_days = shift_list.filter(day=item.day)
+      #  print(item.he)
+
     # Check if request method is GET
     if request.GET:
         # Get str data from fields start and end
@@ -160,7 +166,7 @@ def ma_fiche_pointage(request):
     except EmptyPage:
         shifts = paginator.page(paginator.num_pages)
     
-    return render(request, 'dash/ma_fiche_pointage.html', {'shifts': shifts})
+    return render(request, 'dash/ma_fiche_pointage.html', {'shifts': shifts, 'test': forms, 'row':day})
 
 
 @manger_required

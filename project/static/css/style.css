@@ -387,4 +387,36 @@ canvas {
   font-size: 1.5rem;
   color: #2D3E50;
 }
+
+.table-shift {
+  margin-top: 10px;
+}
+
+.table-shift .table-title {
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+.table-shift .tbody {
+  padding-bottom: 0.125rem;
+  margin-bottom: 1px;
+}
+
+.table-shift .tbody .first-row {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  margin-top: 0.125rem;
+  background-color: white;
+}
+
+.table-shift .tbody .first-row .col {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.table-shift .tbody .btn {
+  line-height: 0px;
+  font-weight: 1.25rem;
+}
 /*# sourceMappingURL=style.css.map */

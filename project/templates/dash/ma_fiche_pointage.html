@@ -28,60 +28,46 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped table-my-pointage">
-                    <thead>
-                      <tr>
-                        <th scope="row">Date</th>
-                        <th scope="row">Entrée matin</th>
-                        <th scope="row">Sortie matin</th>
-                        <th scope="row">Entrée aprés-midi</th>
-                        <th scope="row">Sortie aprés-midi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in shifts %}  
-                            {% if item.day != None %}  
-                                <tr>
-                                    <td>{{ item.day| date:"l"|capfirst  }} {{ item.day }}</td>
-                                    <td>
-                                        {% if item.he1 != None %}
-                                            {{ item.he1 }}
-                                        {% else %}
-                                            /
-                                        {% endif%}
-                                    </td>
-                                    <td>
-                                        {% if item.hs1 != None %}
-                                            {{ item.hs1 }}
-                                        {% else %}
-                                            /
-                                        {% endif%}
-                                    </td>
-                                    <td>
-                                        {% if item.he2 != None %}
-                                            {{ item.he2 }}
-                                        {% else %}
-                                            /
-                                        {% endif%}
-                                    </td>
-                                    <td>
-                                        {% if item.hs2 != None %}
-                                            {{ item.hs2 }}
-                                        {% else %}
-                                            /
-                                        {% endif%}
-                                    </td> 
-                                </tr>
-                            {% else %}  
-                            
-                            {% endif %}
-                        {% endfor %}
-
-                    </tbody>
-                </table>
+        <div class="table-shift">
+            <div class="row table-title">
+                <div class="col">Date</div>
+                <div class="col">Heure d'entré</div>
+                <div class="col">Heure de sortie</div>
             </div>
+            <div class="tbody">
+                {% for d in row %}   
+                        {% ifequal d.1 1 %}
+                            <div class="row first-row ">
+                                <div class="col">
+                                    {{d.0}}
+                                </div>  
+                                <div class="col">
+                                    {{d.2}}
+                                </div>
+                                    
+                                <div class="col">
+                                    {{d.3}}
+                                    <a class="btn float-right" data-toggle="collapse" href="#collapseExample{{d.0| date:'jM'}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </div>                        
+                        {% else %}                          
+                            <div class="row collapse" id="collapseExample{{d.0| date:'jM'}}">
+                                <div class="col">                               
+                                </div>   
+                                <div class="col">
+                                    {{d.2}}
+                                </div>                   
+                                <div class="col">
+                                    {{d.3}}             
+                                </div>
+
+                            </div>               
+                        {% endifequal %} 
+                {% endfor %} 
+            </div>      
+                
         </div>
 
         <div class="row float-right mr-2">

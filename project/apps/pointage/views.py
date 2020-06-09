@@ -64,18 +64,15 @@ def getid(request):
                 # Get number of shift by employe
                 count_shift = Shift.objects.filter(Q(employe=emp),Q(day=timezone.now().date())).count()
                 print("Count-------------------------",count_shift)
-                if(count_shift == 0):
-                    Shift(employe=emp ,day=timezone.now().date(), number=1, he=timezone.now()).save()
-                    emp.set_iwssad(True)
+            
+                if emp.iwssad:
+                    last_shift = Shift.objects.get(
+                        employe=emp, number=count_shift, day=timezone.now().date())
+                    last_shift.set_hs()                   
+                    emp.set_iwssad(False)
                 else:
-                    if emp.iwssad:
-                        last_shift = Shift.objects.get(
-                            employe=emp, number=count_shift, day=timezone.now().date())
-                        last_shift.set_hs()
-                        emp.set_iwssad(False)
-                    else:
-                        Shift(employe=emp, number=count_shift+1 ,day=timezone.now().date(), he=timezone.now()).save()
-                        emp.set_iwssad(True)
+                    Shift(employe=emp, number=count_shift+1 ,day=timezone.now().date(), he=timezone.now()).save()
+                    emp.set_iwssad(True)
 
             return HttpResponse("ID"+id)
 

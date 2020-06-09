@@ -410,3 +410,33 @@ canvas{
 }
 
 
+.table-shift{
+    margin-top: 10px;
+    .table-title{
+        height: 40px;
+        line-height: 40px;
+        font-weight: bold;
+    }
+    .tbody{
+        padding-bottom: rem(2px);
+        margin-bottom: 1px;
+        .first-row{
+            padding-bottom: rem(8px);
+            padding-top: rem(8px);
+            margin-top: rem(2px);
+            background-color: white;
+            .col{              
+                margin-top: auto;
+                margin-bottom: auto;         
+            }
+        }
+       
+        .btn{   
+            line-height: 0px;
+            font-weight: rem(20px);
+        }
+
+    }
+}
+
+
