@@ -36,35 +36,36 @@
             </div>
             <div class="tbody">
                 {% for d in row %}   
-                        {% ifequal d.1 1 %}
-                            <div class="row first-row ">
-                                <div class="col">
-                                    {{d.0}}
-                                </div>  
-                                <div class="col">
-                                    {{d.2}}
-                                </div>
-                                    
-                                <div class="col">
-                                    {{d.3}}
-                                    <a class="btn float-right" data-toggle="collapse" href="#collapseExample{{d.0| date:'jM'}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        <i class="fas fa-angle-right"></i>
-                                    </a>
-                                </div>
-                            </div>                        
-                        {% else %}                          
+                    <div class="row first-row ">
+                        <div class="col">
+                            {{d.0}}
+                        </div>  
+                        <div class="col">
+                            {{d.2}}
+                        </div>
+                            
+                        <div class="col">
+                            {{d.3}}
+                            <a class="btn float-right" data-toggle="collapse" href="#collapseExample{{d.0| date:'jM'}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% for d1 in shifts %}                              
+                        {% if d.0 == d1.0  %}                        
                             <div class="row collapse" id="collapseExample{{d.0| date:'jM'}}">
                                 <div class="col">                               
                                 </div>   
                                 <div class="col">
-                                    {{d.2}}
+                                    {{d1.2}}
                                 </div>                   
                                 <div class="col">
-                                    {{d.3}}             
+                                    {{d1.3}}             
                                 </div>
 
                             </div>               
-                        {% endifequal %} 
+                        {% endif %} 
+                    {% endfor %} 
                 {% endfor %} 
             </div>      
                 
@@ -73,11 +74,11 @@
         <div class="row float-right mr-2">
             <div class="pagination">
 
-                {% if shifts.has_other_pages %}
+                {% if row.has_other_pages %}
               <ul class="pagination">
-                {% if shifts.has_previous %}
+                {% if row.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ shifts.previous_page_number }}" aria-label="Previous">
+                        <a class="page-link" href="?page={{ row.previous_page_number }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                         </a>
@@ -90,8 +91,8 @@
                     </a>
                 </li>
                 {% endif %}
-                {% for i in shifts.paginator.page_range %}
-                  {% if shifts.number == i %}
+                {% for i in row.paginator.page_range %}
+                  {% if row.number == i %}
                     <li class="page-item active" aria-current="page">
                         <span class="page-link">
                             {{ i }} 
@@ -102,9 +103,9 @@
                     <li class="page-item"><a href="?page={{ i }}" class="page-link" >{{ i }}</a></li>
                   {% endif %}
                 {% endfor %}
-                {% if shifts.has_next %}
+                {% if row.has_next %}
                   <li class="page-item">
-                    <a class="page-link" href="?page={{ shifts.next_page_number }}" aria-label="Next">
+                    <a class="page-link" href="?page={{ row.next_page_number }}" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                       <span class="sr-only">Next</span>
                     </a>

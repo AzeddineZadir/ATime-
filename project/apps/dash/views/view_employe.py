@@ -121,18 +121,11 @@ def ma_fiche_pointage(request):
     # Get shifts of the current employe
     shift_list = Shift.objects.filter(employe=emp).order_by('-day','number')
     test =  Shift.objects.filter(employe=emp).values('day').order_by('-day').annotate(dcount=Count('day'))
-    day = Shift.objects.filter(employe=emp).values_list('day','number','he','hs').order_by('day')
-    #for i in test:
-        #for j in range(i['dcount']):
-            #print(i['day'].isoweekday())
+    day1 = Shift.objects.exclude(number=1).filter(employe=emp).values_list('day','number','he','hs').order_by('day','number')
+    day = Shift.objects.filter(employe=emp, number=1).values_list('day','number','he','hs').order_by('day','number')
+    print(test[0]['dcount'],"---------")
 
-    for d in day:
-        print('--',d)
-        for tr in d:
-            print(tr)
 
-    forms = { 'Samedi' :{1: ('4h','10h','13h') , 0:('11h','14h')},
-              'Dimanche' : {1: ('4h','10h','13h') ,0:('11h','14h')}}
    # for item in shift_list:
    #     print(item.day)
     #for item in test:
@@ -153,9 +146,10 @@ def ma_fiche_pointage(request):
             start = datetime.datetime.strptime(start, "%d/%m/%Y")
             end = datetime.datetime.strptime(end, "%d/%m/%Y")
             # Filter shift_list with date params
-            shift_list = shift_list.filter(Q(day__gte=start), Q(day__lte=end))
+            day = day.filter(Q(day__gte=start), Q(day__lte=end))
     # Pagginite my list by 7
-    paginator = Paginator(shift_list, 7)
+    paginator = Paginator(day, 7)
+
     # Get id of page from link if empty --> default=1
     page = request.GET.get('page', 1)
     # Get list shift with page number with exceptions if not integer get first page/ if page contains no results get the last page
@@ -166,7 +160,7 @@ def ma_fiche_pointage(request):
     except EmptyPage:
         shifts = paginator.page(paginator.num_pages)
     
-    return render(request, 'dash/ma_fiche_pointage.html', {'shifts': shifts, 'test': forms, 'row':day})
+    return render(request, 'dash/ma_fiche_pointage.html', {'shifts': day1, 'row':shifts})
 
 
 @manger_required
