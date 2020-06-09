@@ -7,7 +7,7 @@
             <!--Card time of work-->
             <div class="row row-dash">
                 <div class="col">
-                    <div class="card text-justify" style="width: 18rem;">
+                    <div class="card text-justify">
                         <div class="card-body card-b-mydash">
                             <h5 class="card-title">En post depuis:</h5>
                             <p class="card-text">
@@ -23,7 +23,7 @@
             <!--Card time left to go -->
             <div class="row row-dash">
                 <div class="col">
-                    <div class="card text-justify" style="width: 18rem;">
+                    <div class="card text-justify" >
                         <div class="card-body card-b-mydash">
                             <h5 class="card-title">Vous sortez dans :</h5>
                             <p class="card-text">
@@ -36,17 +36,18 @@
         </div>
 
     </div>
+    <br>
     <h2>Votre planinge du jours</h2>
     <!-- ptodays planing hours -->
     <div class="row">
         <div class="col-3 ">
             <div class="row row-dash">
                 <div class="col">
-                    <div class="card text-justify" style="width: 18rem;">
+                    <div class="card text-justify" >
                         <div class="card-body card-b-mydash">
                             <h5 class="card-title">Entrée 2 :</h5>
                             <p class="card-text">
-                                {{ todays_hours.he1}}
+                                {{ todays_hours.0}}
                             </p>
                         </div>
                     </div>
@@ -56,11 +57,11 @@
         <div class="col-3 ">
             <div class="row row-dash">
                 <div class="col">
-                    <div class="card text-justify" style="width: 18rem;">
+                    <div class="card text-justify" >
                         <div class="card-body card-b-mydash">
                             <h5 class="card-title">Entrée 2 :</h5>
                             <p class="card-text">
-                                {{ todays_hours.hs1}}
+                                {{ todays_hours.1}}
                             </p>
                         </div>
                     </div>
@@ -70,11 +71,11 @@
         <div class="col-3 ">
             <div class="row row-dash">
                 <div class="col">
-                    <div class="card text-justify" style="width: 18rem;">
+                    <div class="card text-justify" >
                         <div class="card-body card-b-mydash">
                             <h5 class="card-title">Entrée 2 :</h5>
                             <p class="card-text">
-                                {{ todays_hours.he2}}
+                                {{ todays_hours.2}}
                             </p>
                         </div>
                     </div>
@@ -84,11 +85,11 @@
         <div class="col-3 ">
             <div class="row row-dash">
                 <div class="col">
-                    <div class="card text-justify" style="width: 18rem;">
+                    <div class="card text-justify" >
                         <div class="card-body card-b-mydash">
                             <h5 class="card-title">Sortie 2 :</h5>
                             <p class="card-text">
-                                {{ todays_hours.hs2}}
+                                {{ todays_hours.3}}
                             </p>
                         </div>
                     </div>
@@ -114,6 +115,8 @@
 
                 <tbody>
                     <div class="col">
+                
+                        {% if coleagues%}
                         {% for coleague in coleagues %}
                         <tr>
                             <td class="employe-name">
@@ -139,6 +142,32 @@
                             </td>
                         </tr>
                         {% endfor %}
+                        {% else %}
+                            <tr>
+                            <td class="employe-name">
+                                <img src="{{'/'}}" class="profile-pic rounded-circle" alt="">
+
+                            </td>
+                            <td class="employe-name">
+                                <p>{{ '/'}} </p>
+                                <p>{{ '/' }} </p>
+                            </td>
+
+                            <td>
+                                {{'/'}}
+                            </td>
+                            <td>
+                                 {{'/'}}
+
+                            </td>
+
+                            <td>
+                                 {{'/'}}
+
+                            </td>
+                        </tr>
+                        {% endif %}
+                        
                     </div>
 
 

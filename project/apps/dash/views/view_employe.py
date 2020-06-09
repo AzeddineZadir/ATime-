@@ -28,7 +28,7 @@ def convert_time(time):
         minutes = (seconds % 3600) // 60
         return "%sh%smin" % (hours, minutes)
     except:
-        return "h:m"
+        return "H:M"
 
 
 def is_valid(param):
@@ -97,11 +97,17 @@ def dash_emp(request):
     now = get_now_t()
     in_post_t = get_inpost_t(emp)
     time_left = get_time_left(emp)
-    todays_hours = emp.get_today_hours()
+    try:
+        t_h = emp.get_today_hours()
+        todays_hours = [th.he1, th.hs1, th.he2, th.hs2, ]
+    except:
+        todays_hours = ['H:M', 'H:M', 'H:M', 'H:M']
     coleagues = get_coleagues(emp)
-    for co in coleagues:
-        print(co)
-    # return template with context after convert work_time to hours and min
+    if(coleagues):
+        for co in coleagues:
+            print(co)
+
+        # return template with context after convert work_time to hours and min
     return render(request, 'dash/dash_emp.html', {'in_post_t': in_post_t, 'time_left': time_left, 'shift': shift, 'todays_hours': todays_hours, 'coleagues': coleagues})
 
 
@@ -189,21 +195,23 @@ def view_profile(request, pk):
 def ma_fiche_pointage(request):
     emp = Employe.objects.filter(user=request.user).get()
     # Get shifts of the current employe
-    shift_list = Shift.objects.filter(employe=emp).order_by('-day','number')
-    test =  Shift.objects.filter(employe=emp).values('day').order_by('-day').annotate(dcount=Count('day'))
-    day1 = Shift.objects.exclude(number=1).filter(employe=emp).values_list('day','number','he','hs').order_by('-day','number')
-    day = Shift.objects.filter(employe=emp, number=1).values_list('day','number','he','hs').order_by('-day','number')
-    print(test[0]['dcount'],"---------")
-
+    shift_list = Shift.objects.filter(employe=emp).order_by('-day', 'number')
+    test = Shift.objects.filter(employe=emp).values(
+        'day').order_by('-day').annotate(dcount=Count('day'))
+    day1 = Shift.objects.exclude(number=1).filter(employe=emp).values_list(
+        'day', 'number', 'he', 'hs').order_by('-day', 'number')
+    day = Shift.objects.filter(employe=emp, number=1).values_list(
+        'day', 'number', 'he', 'hs').order_by('-day', 'number')
+    print(test[0]['dcount'], "---------")
 
    # for item in shift_list:
    #     print(item.day)
-    #for item in test:
-     #   print(item['dcount'])
-    
-    #for item in shift_list:
-     #   shift_days = shift_list.filter(day=item.day)
-      #  print(item.he)
+    # for item in test:
+    #   print(item['dcount'])
+
+    # for item in shift_list:
+    #   shift_days = shift_list.filter(day=item.day)
+    #  print(item.he)
 
     # Check if request method is GET
     if request.GET:
@@ -229,8 +237,8 @@ def ma_fiche_pointage(request):
         shifts = paginator.page(1)
     except EmptyPage:
         shifts = paginator.page(paginator.num_pages)
-    
-    return render(request, 'dash/ma_fiche_pointage.html', {'shifts': day1, 'row':shifts})
+
+    return render(request, 'dash/ma_fiche_pointage.html', {'shifts': day1, 'row': shifts})
 
 
 @manger_required
