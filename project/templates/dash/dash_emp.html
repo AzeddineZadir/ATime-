@@ -1,36 +1,157 @@
-{% extends "base_generic.html" %}
-{% block nav %} {% endblock %}
-{% block title %}Ma page d'accueil{% endblock %}
-{% block content %}
-        <!--Card start time-->
-        {% if time %}
-            <div class="row row-dash">
-                <div class="col">
-                    <div class="card text-justify" style="width: 18rem;">
-                        <div class="card-body card-b-mydash">
-                        <h5 class="card-title">Vous êtes arrivez a :</h5>
-                        <p class="card-text">      
-                            {{ time|date:"G:i" }}
-                        </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{% extends "base_generic.html" %} {% block nav %} {% endblock %} {% block title %}Ma page d'accueil{% endblock %} {% block content %}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col ">
             <!--Card time of work-->
             <div class="row row-dash">
                 <div class="col">
                     <div class="card text-justify" style="width: 18rem;">
                         <div class="card-body card-b-mydash">
-                        <h5 class="card-title">En post depuis:</h5>
-                        <p class="card-text">
-                            {{ work_time }}
-                        </p>
+                            <h5 class="card-title">En post depuis:</h5>
+                            <p class="card-text">
+                                {{ in_post_t }}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
-  
+        </div>
 
-    
+        <div class="col ">
+            <!--Card time left to go -->
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                            <h5 class="card-title">Vous sortez dans :</h5>
+                            <p class="card-text">
+                                {{ time_left }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <h2>Votre planinge du jours</h2>
+    <!-- ptodays planing hours -->
+    <div class="row">
+        <div class="col-3 ">
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                            <h5 class="card-title">Entrée 2 :</h5>
+                            <p class="card-text">
+                                {{ todays_hours.he1}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 ">
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                            <h5 class="card-title">Entrée 2 :</h5>
+                            <p class="card-text">
+                                {{ todays_hours.hs1}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 ">
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                            <h5 class="card-title">Entrée 2 :</h5>
+                            <p class="card-text">
+                                {{ todays_hours.he2}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 ">
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                            <h5 class="card-title">Sortie 2 :</h5>
+                            <p class="card-text">
+                                {{ todays_hours.hs2}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <!-- cloleagues table -->
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-striped table-my-collaborator">
+                <thead>
+                    <tr>
+                        <th scope="row">photo</th>
+                        <th scope="row">Nom-Prénom</th>
+                        <th scope="row">Genre</th>
+                        <th scope="row">Téléphone</th>
+                        <th scope="row">Présence</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <div class="col">
+                        {% for coleague in coleagues %}
+                        <tr>
+                            <td class="employe-name">
+                                <img src="{{ coleague.picture.url }}" class="profile-pic rounded-circle" alt="">
+
+                            </td>
+                            <td class="employe-name">
+                                <p>{{ coleague.user.last_name|upper }} </p>
+                                <p>{{ coleague.user.first_name|capfirst }} </p>
+                            </td>
+
+                            <td>
+                                {% if coleague.gender != F %} Homme {% else %} Femme {% endif%}
+                            </td>
+                            <td>
+                                {% if coleague.phone1 != None %} coleague.phone1 {% else %} / {% endif%}
+
+                            </td>
+
+                            <td>
+                                {% if coleague.iwssad %} Present {% else %} Sortie {% endif%}
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </div>
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+</div>
+
 {% endblock %}

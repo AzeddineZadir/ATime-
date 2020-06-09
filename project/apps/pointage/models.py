@@ -115,15 +115,24 @@ class Employe(models.Model):
         self.iwssad = is_iwssad
         self.save()
 
-    # Get last shift time
-    def get_start_time(self):
-        if(self.iwssad):
-            shift = Shift.objects.get(
-                employe=self, day=timezone.now().date())
-            if shift.he2 != None:
-                return shift.he2
-            else:
-                return shift.he1
+    # get the working hours of the corresponding day
+    def get_today_hours(self):
+        # get the day of the week
+        today = timezone.now().date()
+        dow = timezone.now().weekday()
+        day = Day.objects.get(planing=self.planing, jds=dow)
+        return day
+    # get the last shift of the employe
+
+    def get_last_shift(self):
+        try:
+            shift = Shift.objects.filter(
+                employe=self, day=timezone.now().date()).order_by('number').get()
+            print(f'last shift {shift}')
+            return shift
+        except:
+            print('else of get_last_entry')
+            return None
 
 
 class Team(models.Model):
@@ -148,7 +157,7 @@ class Shift(models.Model):
         auto_now=False, auto_now_add=False, blank=True, null=True)
 
     def __str__(self):
-        return str(f"employé  : {self.employe}/joure  : {self.day}")
+        return str(f"numero  : {self.number}/employé  : {self.employe}/joure  : {self.day}")
 
     def set_he(self):
         self.he = timezone.now()
@@ -157,7 +166,6 @@ class Shift(models.Model):
     def set_hs(self):
         self.hs = timezone.now()
         self.save()
-
 
 
 class Day(models.Model):
