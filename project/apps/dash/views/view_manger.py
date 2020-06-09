@@ -13,23 +13,78 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.db.models import Q
 
+# get now time
+def get_now_t():
+    return timezone.localtime(timezone.now()).time()
+# to convert naif datetime to number of hours and min
+
+def get_coleagues(employe):
+    if(employe.team):
+        team = employe.team
+        coleagues = Employe.objects.filter(team=team).exclude(id=employe.id)
+        return coleagues
+
+def get_laste_entry(shift):
+    if (shift):
+        print(f'last entry {shift.he}')
+        return shift.he
+    else:
+        print('else of get_last_entry')
+        return None
+
+def convert_time(time):
+    try:
+        days, seconds = time.days, time.seconds
+        hours = days * 24 + seconds // 3600
+        minutes = (seconds % 3600) // 60
+        return "%sh%smin" % (hours, minutes)
+    except:
+        return "h:m"
+
+def hours_dif(start_t, end_t):
+    if (start_t) and (end_t):
+        date = datetime.date(1, 1, 1)
+        s_t = datetime.datetime.combine(date, start_t)
+        e_t = datetime.datetime.combine(date, end_t)
+        work_t = e_t-s_t
+        # convert the resault in to hours and minuts
+        # work_t = convert_time(work_t)
+        return work_t
+    else:
+        return None
+
+def get_inpost_t(employe):
+
+    shift = employe.get_last_shift()
+    he = get_laste_entry(shift)
+    now = get_now_t()
+    return convert_time(hours_dif(he, now))
+
+def get_time_left(employe):
+    try:
+        day = employe.get_today_hours()
+    except:
+        print('day = None')
+        return None
+
+    if (day.he1 < get_now_t())and (get_now_t() < day.hs1):
+        return convert_time(hours_dif(get_now_t(), day.hs1))
+    else:
+        if (day.he2 < get_now_t())and (get_now_t() < day.hs2):
+            return convert_time(hours_dif(get_now_t(), day.hs2))
 
 @manger_required
 def dash_man(request):
-    # Get current user manager
-    emp_man = Employe.objects.filter(user=request.user).get()
-    # Get number of employe --> total/inside/outside
-    print(emp_man.team)
-    if emp_man.team != None:
-        man_employe_stats = Employe.manager.get_my_employe_stats(
-            team=emp_man.team, user_emp=request.user).get()
-        team_name = emp_man.team.nom
-    # Get all employe of current manager
-        man_employe = Employe.manager.get_my_employe(
-            team=emp_man.team, user_emp=request.user)
-    else:
-        man_employe_stats = None
-        team_name = None
-        man_employe = None
-
-    return render(request, 'dash/dash_man.html', {'man_employe_stats': man_employe_stats, 'team_name': team_name, 'man_employe': man_employe})
+    # Get employe with id
+    emp = Employe.objects.filter(user=request.user).get()
+    shift = emp.get_last_shift()
+    he = get_laste_entry(shift)
+    now = get_now_t()
+    in_post_t = get_inpost_t(emp)
+    time_left = get_time_left(emp)
+    todays_hours = emp.get_today_hours()
+    coleagues = get_coleagues(emp)
+    for co in coleagues:
+        print(co)
+    # return template with context after convert work_time to hours and min
+    return render(request, 'dash/dash_man.html', {'in_post_t': in_post_t, 'time_left': time_left, 'shift': shift, 'todays_hours': todays_hours, 'coleagues': coleagues})

@@ -18,7 +18,7 @@
               {{ request.user.username|capfirst }} <i class="fas fa-angle-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#"> <i class="fas fa-user"></i> Mon Profil</a>
+              <a class="dropdown-item" href="{% url 'dash:view_profile' pk=request.user.id %}"> <i class="fas fa-user"></i> Mon Profil</a>
               <a class="dropdown-item" href="#"> <i class="fas fa-cog"></i> Parametre</a>
               <a class="dropdown-item" href="#"> <i class="fas fa-question-circle"></i> Support</a>
               <div class="dropdown-divider"></div>
