@@ -191,8 +191,8 @@ def ma_fiche_pointage(request):
     # Get shifts of the current employe
     shift_list = Shift.objects.filter(employe=emp).order_by('-day','number')
     test =  Shift.objects.filter(employe=emp).values('day').order_by('-day').annotate(dcount=Count('day'))
-    day1 = Shift.objects.exclude(number=1).filter(employe=emp).values_list('day','number','he','hs').order_by('day','number')
-    day = Shift.objects.filter(employe=emp, number=1).values_list('day','number','he','hs').order_by('day','number')
+    day1 = Shift.objects.exclude(number=1).filter(employe=emp).values_list('day','number','he','hs').order_by('-day','number')
+    day = Shift.objects.filter(employe=emp, number=1).values_list('day','number','he','hs').order_by('-day','number')
     print(test[0]['dcount'],"---------")
 
 
