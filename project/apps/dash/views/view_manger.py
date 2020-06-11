@@ -21,8 +21,23 @@ def get_now_t():
 # to convert naif datetime to number of hours and min
 
 
+def get_coleagues(employe):
+    if(employe.team):
+        team = employe.team
+        coleagues = Employe.objects.filter(team=team).exclude(id=employe.id)
+        return coleagues
+
+
+def get_employes(team, ):
+    # get the employes of the team in
+    colaborators = Employe.objects.filter(team=team,)
+    return colaborators
+
+
+def get_employes_by_presence(team, iwssad):
     # get the employes of the team in
     colaborators = Employe.objects.filter(team=team, iwssad=iwssad)
+    return colaborators
 
 
 @manger_required
