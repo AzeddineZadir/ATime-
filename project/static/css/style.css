@@ -186,11 +186,6 @@ body :focus {
   text-align: center;
 }
 
-canvas {
-  height: 100px;
-  width: 100px;
-}
-
 .card {
   border-radius: 6px;
 }
@@ -372,6 +367,10 @@ canvas {
   margin-top: 1.25rem;
 }
 
+.table-my-collaborator {
+  margin-top: 1.25rem;
+}
+
 .table-my-collaborator tbody .employe-name p {
   display: inline-block;
   padding-left: 10px;
@@ -421,6 +420,7 @@ canvas {
 .table-shift .tbody .btn {
   line-height: 0px;
   font-weight: 1.25rem;
+  color: #2D3E50;
 }
 
 .table-my-coleauges tbody .employe-name p {
@@ -452,5 +452,13 @@ canvas {
   left: 1rem;
   margin-top: 2rem;
   margin-right: 2rem;
+}
+
+.back1 {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.back2 {
+  background-color: white;
 }
 /*# sourceMappingURL=style.css.map */

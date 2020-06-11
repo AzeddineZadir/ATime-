@@ -169,10 +169,8 @@ body {
 }
 
 // Size of graph
-canvas {
-    height: 100px;
-    width: 100px;
-}
+
+
 
 .card {
     border-radius: 6px;
@@ -340,6 +338,7 @@ canvas {
 }
 
 .table-my-collaborator {
+    margin-top: rem(20px);
     tbody {
         .employe-name {
             p {
@@ -376,7 +375,9 @@ canvas {
             padding-top: rem(8px);
             margin-top: rem(2px);
             background-color: white;
-            .col {
+            
+            
+            .col{              
                 margin-top: auto;
                 margin-bottom: auto;
             }
@@ -384,6 +385,7 @@ canvas {
         .btn {
             line-height: 0px;
             font-weight: rem(20px);
+            color: #2D3E50;
         }
     }
 }
@@ -420,4 +422,11 @@ canvas {
     left: 1rem;
     margin-top:rem(32px);
     margin-right:rem(32px);
+}
+.back1{
+    background-color: rgba(0,0,0,.05);
+}
+
+.back2{
+    background-color: white;
 }

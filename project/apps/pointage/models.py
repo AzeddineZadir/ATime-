@@ -20,7 +20,7 @@ class EmployeManManager(models.Manager):
         ))
 
     def get_my_employe(self, team, user_emp):
-        return super().get_queryset().filter(Q(team__nom__contains=team), ~Q(user=user_emp))
+        return super().get_queryset().filter(Q(team__titre__contains=team), ~Q(user=user_emp))
 
 
 class User(AbstractUser):

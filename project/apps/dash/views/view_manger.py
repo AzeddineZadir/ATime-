@@ -21,23 +21,8 @@ def get_now_t():
 # to convert naif datetime to number of hours and min
 
 
-def get_coleagues(employe):
-    if(employe.team):
-        team = employe.team
-        coleagues = Employe.objects.filter(team=team).exclude(id=employe.id)
-        return coleagues
-
-
-def get_employes(team, ):
-    # get the employes of the team in
-    colaborators = Employe.objects.filter(team=team,)
-    return colaborators
-
-
-def get_employes_by_presence(team, iwssad):
     # get the employes of the team in
     colaborators = Employe.objects.filter(team=team, iwssad=iwssad)
-    return colaborators
 
 
 @manger_required
@@ -109,3 +94,78 @@ def dash_man(request):
 
     # return template with context after convert work_time to hours and min
     return render(request, 'dash/dash_man.html', locals())
+   
+
+
+@manger_required
+def mes_collaborateurs(request):
+    # Get manager
+    manger = Employe.objects.filter(user=request.user).get()
+    # Get manager team
+    team = manger.team
+    # if he is the team manager we get all employe of this team except the manager  
+    if manger == team.manager:
+        list_emp = Employe.manager.get_my_employe(team,request.user)
+         # Check if request method is GET
+        if request.GET:
+            # Get str data from fields nom
+            nom = request.GET.get('nom').lower()
+            status = request.GET.get('status')
+            # Check if not None or ''
+            if is_valid(nom):
+                # Filter list_emp with lastame
+                list_emp = list_emp.filter(user__last_name=nom)
+                
+            if is_valid(status):
+                if status == '1':
+                    list_emp = list_emp.filter(iwssad=True)
+                else:
+                    list_emp = list_emp.filter(iwssad=False)
+
+        return render(request, 'dash/mes_collaborateurs.html', {'employes':list_emp, 'team':True})
+    else:
+        return render(request, 'dash/mes_collaborateurs.html',{'team':False})
+
+
+@manger_required   
+def fiche_pointage(request):
+    # Get manager
+    manger = Employe.objects.filter(user=request.user).get()
+    # Get manager team
+    team = manger.team
+    # if he is the team manager we get all employe of this team except the manager  
+    if manger == team.manager:
+        list_emp = Employe.manager.get_my_employe(team,request.user)
+        for emp in list_emp:
+            shifts = emp.get_last_shift()           
+            if shifts:
+              emp.he = shifts.he
+              emp.hs = shifts.hs
+            else:
+              emp.he = None
+              emp.hs = None
+         # Check if request method is GET
+        if request.GET:
+            # Get str data from fields nom
+            nom = request.GET.get('nom').lower()
+            status = request.GET.get('status')
+        
+            print(status)
+            # Check if not None or ''
+            if is_valid(nom):
+                # Filter list_emp with lastame
+                list_emp = list_emp.filter(user__last_name=nom)
+            if is_valid(status):
+                if status == '1':
+                    list_emp = list_emp.filter(iwssad=True)
+                else:
+                    list_emp = list_emp.filter(iwssad=False)
+
+                
+                
+    return render(request, 'dash/fiche_pointage.html',{'shifts':list_emp})
+
+   
+    
+
+    

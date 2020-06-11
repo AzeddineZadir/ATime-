@@ -35,8 +35,8 @@
                 <div class="col">Heure de sortie</div>
             </div>
             <div class="tbody">
-                {% for d in row %}   
-                    <div class="row first-row ">
+                {% for d in first_shifts %} 
+                    <div class="row first-row {% if forloop.counter|divisibleby:2  %} back1 {%else%} back2 {% endif %} ">
                         <div class="col">
                             {{d.0}}
                         </div>  
@@ -51,7 +51,7 @@
                             </a>
                         </div>
                     </div>
-                    {% for d1 in shifts %}                              
+                    {% for d1 in other_shifts %}                              
                         {% if d.0 == d1.0  %}                        
                             <div class="row collapse" id="collapseExample{{d.0| date:'jM'}}">
                                 <div class="col">                               
@@ -74,11 +74,11 @@
         <div class="row float-right mr-2">
             <div class="pagination">
 
-                {% if row.has_other_pages %}
+                {% if first_shifts.has_other_pages %}
               <ul class="pagination">
-                {% if row.has_previous %}
+                {% if first_shifts.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ row.previous_page_number }}" aria-label="Previous">
+                        <a class="page-link" href="?page={{ first_shifts.previous_page_number }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                         </a>
@@ -91,8 +91,8 @@
                     </a>
                 </li>
                 {% endif %}
-                {% for i in row.paginator.page_range %}
-                  {% if row.number == i %}
+                {% for i in first_shifts.paginator.page_range %}
+                  {% if first_shifts.number == i %}
                     <li class="page-item active" aria-current="page">
                         <span class="page-link">
                             {{ i }} 
@@ -103,9 +103,9 @@
                     <li class="page-item"><a href="?page={{ i }}" class="page-link" >{{ i }}</a></li>
                   {% endif %}
                 {% endfor %}
-                {% if row.has_next %}
+                {% if first_shifts.has_next %}
                   <li class="page-item">
-                    <a class="page-link" href="?page={{ row.next_page_number }}" aria-label="Next">
+                    <a class="page-link" href="?page={{ first_shifts.next_page_number }}" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                       <span class="sr-only">Next</span>
                     </a>

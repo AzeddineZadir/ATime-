@@ -154,7 +154,9 @@ def profile(request):
 @login_required
 def view_profile(request, pk):
     # Get the user
+    check = 1
     user = User.objects.get(id=pk)
+    emp = Employe.objects.filter(user=user).get()
     # Prepopulate UserForm with data
     user_form = UserForm(instance=user)
     # Create grouped form User/Employe
@@ -163,7 +165,12 @@ def view_profile(request, pk):
     # Prepopulate EmployeForm with user pk
     formset = EmployeFormset(instance=user)
 
-    if request.user.id == user.id or request.user.role == 3:
+    if request.user.id == user.id or request.user.role == 3 or request.user.role == 2:
+        
+        if request.user.role == 2:
+            if str(request.user.pk) != str(pk):  
+                check = 2
+
         if request.method == "POST":
             # get data from POST method
             user_form = UserForm(request.POST, request.FILES, instance=user)
@@ -179,17 +186,19 @@ def view_profile(request, pk):
                     formset.save()
                     return HttpResponseRedirect(reverse('dash:view_profile', kwargs={'pk': pk}))
 
-        if request.GET.get('edit_profile') == pk:
+        if request.GET.get('edit_profile') != None:
             return render(request, "dash/profile.html", {
                 "user_form": user_form,
                 "formset": formset,
+                "picture": emp.picture,
                 "check": False,
             })
         else:
             return render(request, "dash/profile.html", {
                 "user_form": user_form,
                 "formset": formset,
-                "check": pk,
+                "picture": emp.picture,
+                "check": check,
             })
 
     else:
@@ -197,55 +206,50 @@ def view_profile(request, pk):
 
 
 @login_required
-def ma_fiche_pointage(request):
-    emp = Employe.objects.filter(user=request.user).get()
-    # Get shifts of the current employe
-    shift_list = Shift.objects.filter(employe=emp).order_by('-day', 'number')
-    test = Shift.objects.filter(employe=emp).values(
-        'day').order_by('-day').annotate(dcount=Count('day'))
-    day1 = Shift.objects.exclude(number=1).filter(employe=emp).values_list(
-        'day', 'number', 'he', 'hs').order_by('-day', 'number')
-    day = Shift.objects.filter(employe=emp, number=1).values_list(
-        'day', 'number', 'he', 'hs').order_by('-day', 'number')
-    print(test[0]['dcount'], "---------")
-
-   # for item in shift_list:
-   #     print(item.day)
-    # for item in test:
-    #   print(item['dcount'])
-
-    # for item in shift_list:
-    #   shift_days = shift_list.filter(day=item.day)
-    #  print(item.he)
-
-    # Check if request method is GET
-    if request.GET:
-        # Get str data from fields start and end
-        start = request.GET.get('start')
-        end = request.GET.get('end')
-        # Check if not None or ''
-        if is_valid(start) and is_valid(end):
-            # Convert str to datetime
-            start = datetime.datetime.strptime(start, "%d/%m/%Y")
-            end = datetime.datetime.strptime(end, "%d/%m/%Y")
-            # Filter shift_list with date params
-            day = day.filter(Q(day__gte=start), Q(day__lte=end))
-    # Pagginite my list by 7
-    paginator = Paginator(day, 7)
-
-    # Get id of page from link if empty --> default=1
-    page = request.GET.get('page', 1)
-    # Get list shift with page number with exceptions if not integer get first page/ if page contains no results get the last page
+def ma_fiche_pointage(request, pk):
+    user_asked = User.objects.get(id=pk)
+    user_asker = Employe.objects.filter(user=request.user).get()
+    emp = Employe.objects.filter(user=user_asked).get()
+    # Get the manager of the user_asked
     try:
-        shifts = paginator.page(page)
-    except PageNotAnInteger:
-        shifts = paginator.page(1)
-    except EmptyPage:
-        shifts = paginator.page(paginator.num_pages)
+        manager = emp.team.manager.id
+    except:
+        manager = None
+        print("Le user n'a aucune team")
+    if request.user.id == user_asked.id or request.user.role == 3 or user_asker.id == manager:
+        # Get shifts of the current employe
+        first_shifts = Shift.objects.filter(employe=emp, number=1).values_list(
+            'day', 'number', 'he', 'hs').order_by('-day', 'number')
+        other_shifts = Shift.objects.exclude(number=1).filter(employe=emp).values_list(
+            'day', 'number', 'he', 'hs').order_by('-day', 'number')
+        # Check if request method is GET
+        if request.GET:
+            # Get str data from fields start and end
+            start = request.GET.get('start')
+            end = request.GET.get('end')
+            # Check if not None or ''
+            if is_valid(start) and is_valid(end):
+                # Convert str to datetime
+                start = datetime.datetime.strptime(start, "%d/%m/%Y")
+                end = datetime.datetime.strptime(end, "%d/%m/%Y")
+                # Filter shift_list with date params
+                first_shifts = first_shifts.filter(Q(day__gte=start), Q(day__lte=end))
+        # Pagginite my list by 7
+        paginator = Paginator(first_shifts, 7)
 
-    return render(request, 'dash/ma_fiche_pointage.html', {'shifts': day1, 'row': shifts})
+        # Get id of page from link if empty --> default=1
+        page = request.GET.get('page', 1)
+        # Get list shift with page number with exceptions if not integer get first page/ if page contains no results get the last page
+        try:
+            shifts = paginator.page(page)
+        except PageNotAnInteger:
+            shifts = paginator.page(1)
+        except EmptyPage:
+            shifts = paginator.page(paginator.num_pages)
+
+        return render(request, 'dash/ma_fiche_pointage.html', {'other_shifts': other_shifts, 'first_shifts': shifts})
+    else:
+        return render(request, 'dash/ma_fiche_pointage.html', {'other_shifts': None, 'row': None})
 
 
-@manger_required
-def mes_collaborateurs(request):
-    return render(request, 'dash/mes_collaborateurs.html')
+
