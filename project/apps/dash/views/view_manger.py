@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from apps.dash.decorators import employe_required, manger_required, project_manger_required
 from django.contrib.auth.decorators import login_required
-from apps.pointage.models import Employe, User, Planing, Shift
+from apps.pointage.models import Employe, User, Planing, Shift, Team
 from django.core.exceptions import ObjectDoesNotExist
 from apps.dash.forms import UserForm
 from django.urls import reverse
@@ -10,13 +10,16 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from apps.dash.views import get_now_t, convert_time, is_valid, hours_dif, get_laste_entry, get_inpost_t, get_time_left
 from django.db.models import Q
 
 # get now time
+
+
 def get_now_t():
     return timezone.localtime(timezone.now()).time()
 # to convert naif datetime to number of hours and min
+
 
 def get_coleagues(employe):
     if(employe.team):
@@ -24,67 +27,85 @@ def get_coleagues(employe):
         coleagues = Employe.objects.filter(team=team).exclude(id=employe.id)
         return coleagues
 
-def get_laste_entry(shift):
-    if (shift):
-        print(f'last entry {shift.he}')
-        return shift.he
-    else:
-        print('else of get_last_entry')
-        return None
 
-def convert_time(time):
-    try:
-        days, seconds = time.days, time.seconds
-        hours = days * 24 + seconds // 3600
-        minutes = (seconds % 3600) // 60
-        return "%sh%smin" % (hours, minutes)
-    except:
-        return "h:m"
+def get_employes(team, ):
+    # get the employes of the team in
+    colaborators = Employe.objects.filter(team=team,)
+    return colaborators
 
-def hours_dif(start_t, end_t):
-    if (start_t) and (end_t):
-        date = datetime.date(1, 1, 1)
-        s_t = datetime.datetime.combine(date, start_t)
-        e_t = datetime.datetime.combine(date, end_t)
-        work_t = e_t-s_t
-        # convert the resault in to hours and minuts
-        # work_t = convert_time(work_t)
-        return work_t
-    else:
-        return None
 
-def get_inpost_t(employe):
+def get_employes_by_presence(team, iwssad):
+    # get the employes of the team in
+    colaborators = Employe.objects.filter(team=team, iwssad=iwssad)
+    return colaborators
 
-    shift = employe.get_last_shift()
-    he = get_laste_entry(shift)
-    now = get_now_t()
-    return convert_time(hours_dif(he, now))
-
-def get_time_left(employe):
-    try:
-        day = employe.get_today_hours()
-    except:
-        print('day = None')
-        return None
-
-    if (day.he1 < get_now_t())and (get_now_t() < day.hs1):
-        return convert_time(hours_dif(get_now_t(), day.hs1))
-    else:
-        if (day.he2 < get_now_t())and (get_now_t() < day.hs2):
-            return convert_time(hours_dif(get_now_t(), day.hs2))
 
 @manger_required
 def dash_man(request):
     # Get employe with id
-    emp = Employe.objects.filter(user=request.user).get()
-    shift = emp.get_last_shift()
+    man = Employe.objects.filter(user=request.user).get()
+    # the employe dash boreed part
+
+    shift = man.get_last_shift()
     he = get_laste_entry(shift)
     now = get_now_t()
-    in_post_t = get_inpost_t(emp)
-    time_left = get_time_left(emp)
-    todays_hours = emp.get_today_hours()
-    coleagues = get_coleagues(emp)
-    for co in coleagues:
-        print(co)
+    in_post_t = get_inpost_t(man)
+    time_left = get_time_left(man)
+    try:
+        t_h = man.get_today_hours()
+        todays_hours = [t_h.he1, t_h.hs1, t_h.he2, t_h.hs2, ]
+    except:
+        todays_hours = ['H:M', 'H:M', 'H:M', 'H:M']
+    coleagues = get_coleagues(man)
+    # if(coleagues):
+    #     for co in coleagues:
+    #         print(co)
+
+    # the team dashbored part
+    # get the team manged by the actuel employe
+    try :
+        team = Team.objects.filter(manager=man).get()
+        print(team)
+    # get the employes of the team
+    except : 
+        pass
+    if(team):
+        colaborators=get_employes(team)
+        colaborators_all = colaborators.count()
+        print(colaborators_all)
+        colaborators_in = get_employes_by_presence(team, True).count()
+        print(colaborators_in)
+        colaborators_out = get_employes_by_presence(team, False).count()
+        print(colaborators_out)
+
+        recapitulatif_présence = [colaborators_in,colaborators_out,colaborators_all]
+        
+    else:
+        colaborators_all = 0
+        colaborators_in = 0
+        colaborators_out = 0
+       
+    # get colabotators 
+    if(colaborators):
+        for col in colaborators:
+            shift=col.get_last_shift()
+            if (shift):
+                col.laste_entry=shift.he
+                col.in_post_time=get_inpost_t(col)
+            else:
+                col.laste_entry=None
+                col.in_post_time=None
+    
+    # for c in col :
+    #     shift=c.get_last_shift()
+    #     entryes=entryes.append(get_laste_entry(shift))
+    #     print(entryes)
+             
+
+    
+
+    # get the number of the employes in the team
+    # get the the number of the employes presentes
+
     # return template with context after convert work_time to hours and min
-    return render(request, 'dash/dash_man.html', {'in_post_t': in_post_t, 'time_left': time_left, 'shift': shift, 'todays_hours': todays_hours, 'coleagues': coleagues})
+    return render(request, 'dash/dash_man.html', locals())

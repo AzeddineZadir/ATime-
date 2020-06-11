@@ -72,6 +72,8 @@ class Employe(models.Model):
         blank=True, null=True,
         verbose_name="Genre"
     )
+    fonction =models.CharField(max_length=200, blank=True, null=True,
+                              verbose_name="Fonction",default=".")
     objects = models.Manager()
     manager = EmployeManManager()
 
@@ -120,14 +122,18 @@ class Employe(models.Model):
         # get the day of the week
         today = timezone.now().date()
         dow = timezone.now().weekday()
-        day = Day.objects.get(planing=self.planing, jds=dow)
-        return day
+        try:
+            day = Day.objects.get(planing=self.planing, jds=dow)
+            return day
+        except:
+            day = Day(jds=0, he1=timezone.now().time())
+            return day
     # get the last shift of the employe
 
     def get_last_shift(self):
         try:
             shift = Shift.objects.filter(
-                employe=self, day=timezone.now().date()).order_by('number').get()
+                employe=self, day=timezone.now().date()).order_by('-number').first()
             print(f'last shift {shift}')
             return shift
         except:

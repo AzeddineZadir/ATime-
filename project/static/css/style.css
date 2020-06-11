@@ -269,8 +269,8 @@ canvas {
 }
 
 .equipe {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 2rem;
+  padding-right: 2rem;
   padding-top: 10px;
 }
 
@@ -440,5 +440,17 @@ canvas {
 .table-my-coleauges tbody td a i {
   font-size: 1.5rem;
   color: #2D3E50;
+}
+
+.card.team {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.charts.inout {
+  left: 1rem;
+  margin-top: 2rem;
+  margin-right: 2rem;
 }
 /*# sourceMappingURL=style.css.map */

@@ -73,12 +73,13 @@ def get_time_left(employe):
     except:
         print('day = None')
         return None
-
-    if (day.he1 < get_now_t())and (get_now_t() < day.hs1):
-        return convert_time(hours_dif(get_now_t(), day.hs1))
-    else:
-        if (day.he2 < get_now_t())and (get_now_t() < day.hs2):
-            return convert_time(hours_dif(get_now_t(), day.hs2))
+    if(day.he1)and (day.hs1):
+        if (day.he1 < get_now_t())and (get_now_t() < day.hs1):
+            return convert_time(hours_dif(get_now_t(), day.hs1))
+        else:
+            if(day.he2)and (day.hs2):
+                if (day.he2 < get_now_t())and (get_now_t() < day.hs2):
+                    return convert_time(hours_dif(get_now_t(), day.hs2))
 
 
 def get_coleagues(employe):
@@ -90,16 +91,20 @@ def get_coleagues(employe):
 
 @employe_required
 def dash_emp(request):
+
     # Get employe with id
     emp = Employe.objects.filter(user=request.user).get()
     shift = emp.get_last_shift()
     he = get_laste_entry(shift)
     now = get_now_t()
     in_post_t = get_inpost_t(emp)
-    time_left = get_time_left(emp)
+    try:
+        time_left = get_time_left(emp)
+    except:
+        time_left = "H:M"
     try:
         t_h = emp.get_today_hours()
-        todays_hours = [th.he1, th.hs1, th.he2, th.hs2, ]
+        todays_hours = [t_h.he1, t_h.hs1, t_h.he2, th.h_s2, ]
     except:
         todays_hours = ['H:M', 'H:M', 'H:M', 'H:M']
     coleagues = get_coleagues(emp)

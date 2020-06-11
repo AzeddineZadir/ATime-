@@ -1,23 +1,82 @@
-{% extends "base_generic.html" %}
-{% block nav %} {% endblock %}
-{% block title %}Manager dashbored {% endblock %}
-{% block content %}
+{% extends "base_generic.html" %} {% block nav %} {% endblock %} {% block title %}Manager dashbored {% endblock %} {% block content %}
 
- <!--Tabs-->
- <div class="container-fluid tabs">
+<!--Tabs-->
+<div class="container-fluid tabs">
     <!--Link of different tabs-->
-   <ul class="nav nav-tabs" id="myTab" role="tablist">
-       <li class="nav-item" role="presentation">
-         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mon tableau de bord</a>
-       </li>
-       <li class="nav-item" role="presentation">
-         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Mon équipe</a>
-       </li>
-   </ul>
-   <!--differents divs tabs-->
-   <div class="tab-content" id="myTabContent">
-        <!--Onglet dashboard manager-->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item " role="presentation">
+            <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mon équipe</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="home-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="fals">Mon tableau de bord</a>
+        </li>
+
+    </ul>
+    <!--differents divs tabs-->
+    <div class="tab-content" id="myTabContent">
+        <!--Onglet mon équipe-->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="cointainer-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card team text-justify " style=" height:200px; " >
+                            <div class="card-body card-b-mydash">
+                                <h2 class="card-title">{{team.titre}}</h2>
+                                <h4 class="card-title"> {{team.manager}}</h4>
+                                <p> {{team.description}}</p>
+
+                            </div>
+                        </div>
+                     </div>
+
+                    <div class="col-lg-6 ">
+                        <div class=" card team " style="height:200px; "  >
+                            <canvas id="myChart"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+               
+                <div class="employe">
+                    <!--Lignes card des employés-->
+                    <h5>Mes employés</h5>
+                    <div class="row row-employe ">
+                        {% if colaborators %}
+                        {% for col  in colaborators  %}
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                        
+                            <div class="card card-employe">
+                                
+                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                <div class="description-employe">
+                                    <h5>{{col.user.first_name}} {{col.user.last_name}}</h5>
+                                    <p>{{col.fonction}}</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>{{col.laste_entry}}</p>
+                                    <p>{{col.in_post_time}}</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                             
+                            </div>
+                            
+                        </div>
+                        {% endfor %}     
+                        {% endif %}
+                              
+                    </div>
+                </div>  
+               
+                    
+                
+            
+            </div>
+        </div>
+        <!--Onglet dashboard manager-->
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             <div class="container-fluid">
 
                 <div class="row">
@@ -36,12 +95,12 @@
                             </div>
                         </div>
                     </div>
-            
+
                     <div class="col ">
                         <!--Card time left to go -->
                         <div class="row row-dash">
                             <div class="col">
-                                <div class="card text-justify" >
+                                <div class="card text-justify">
                                     <div class="card-body card-b-mydash">
                                         <h5 class="card-title">Vous sortez dans :</h5>
                                         <p class="card-text">
@@ -52,16 +111,16 @@
                             </div>
                         </div>
                     </div>
-            
+
                 </div>
                 <br>
                 <h2>Votre planinge du jours</h2>
                 <!-- ptodays planing hours -->
                 <div class="row">
-                    <div class="col-3 ">
+                    <div class="col-sm-6 col-md-3">
                         <div class="row row-dash">
                             <div class="col">
-                                <div class="card text-justify" >
+                                <div class="card text-justify">
                                     <div class="card-body card-b-mydash">
                                         <h5 class="card-title">Entrée 2 :</h5>
                                         <p class="card-text">
@@ -72,10 +131,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 ">
+                    <div class="col-sm-6 col-md-3 ">
                         <div class="row row-dash">
                             <div class="col">
-                                <div class="card text-justify" >
+                                <div class="card text-justify">
                                     <div class="card-body card-b-mydash">
                                         <h5 class="card-title">Entrée 2 :</h5>
                                         <p class="card-text">
@@ -86,10 +145,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 ">
+                    <div class="col-sm-6 col-md-3">
                         <div class="row row-dash">
                             <div class="col">
-                                <div class="card text-justify" >
+                                <div class="card text-justify">
                                     <div class="card-body card-b-mydash">
                                         <h5 class="card-title">Entrée 2 :</h5>
                                         <p class="card-text">
@@ -100,10 +159,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 ">
+                    <div class="col-sm-6 col-md-3 ">
                         <div class="row row-dash">
                             <div class="col">
-                                <div class="card text-justify" >
+                                <div class="card text-justify">
                                     <div class="card-body card-b-mydash">
                                         <h5 class="card-title">Sortie 2 :</h5>
                                         <p class="card-text">
@@ -130,85 +189,98 @@
                                     <th scope="row">Présence</th>
                                 </tr>
                             </thead>
-            
+
                             <tbody>
                                 <div class="col">
-                            
-                                    {% if coleagues%}
-                                    {% for coleague in coleagues %}
+
+                                    {% if coleagues%} {% for coleague in coleagues %}
                                     <tr>
                                         <td class="employe-name">
                                             <img src="{{ coleague.picture.url }}" class="profile-pic rounded-circle" alt="">
-            
+
                                         </td>
                                         <td class="employe-name">
                                             <p>{{ coleague.user.last_name|upper }} </p>
                                             <p>{{ coleague.user.first_name|capfirst }} </p>
                                         </td>
-            
+
                                         <td>
                                             {% if coleague.gender != F %} Homme {% else %} Femme {% endif%}
                                         </td>
                                         <td>
                                             {% if coleague.phone1 != None %} coleague.phone1 {% else %} / {% endif%}
-            
+
                                         </td>
-            
+
                                         <td>
                                             {% if coleague.iwssad %} Present {% else %} Sortie {% endif%}
-            
+
                                         </td>
                                     </tr>
-                                    {% endfor %}
-                                    {% else %}
-                                        <tr>
+                                    {% endfor %} {% else %}
+                                    <tr>
                                         <td class="employe-name">
                                             <img src="{{'/'}}" class="profile-pic rounded-circle" alt="">
-            
+
                                         </td>
                                         <td class="employe-name">
                                             <p>{{ '/'}} </p>
                                             <p>{{ '/' }} </p>
                                         </td>
-            
+
                                         <td>
                                             {{'/'}}
                                         </td>
                                         <td>
-                                             {{'/'}}
-            
+                                            {{'/'}}
+
                                         </td>
-            
+
                                         <td>
-                                             {{'/'}}
-            
+                                            {{'/'}}
+
                                         </td>
                                     </tr>
                                     {% endif %}
-                                    
+
                                 </div>
-            
-            
+
+
                             </tbody>
                         </table>
-            
-            
+
+
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
-       <!--Onglet mon équipe-->
-       <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-           <div class="cointainer-fluid">
-               
-           </div>
-       </div>
-   </div>
+    </div>
 </div>
 
-
-
-
-{% endblock %}
+{% block scripts %}
+<script>
+    data = {
+        labels: ["In {{colaborators_in}} ", "Out {{colaborators_out}}", ],
+        datasets: [{
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            data: [{{colaborators_in}}, {{colaborators_out}}, ]
+        }]
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: {
+            title: {
+                display: false,
+                text: 'récapitulatife de présence '
+            },
+            responsive:true,
+            maintainAspectRatio:false,
+        }
+    });
+</script>
+{% endblock scripts %} {% endblock %}
