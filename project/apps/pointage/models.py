@@ -20,7 +20,7 @@ class EmployeManManager(models.Manager):
         ))
 
     def get_my_employe(self, team, user_emp):
-        return super().get_queryset().filter(Q(team__nom__contains=team), ~Q(user=user_emp))
+        return super().get_queryset().filter(Q(team__titre__contains=team), ~Q(user=user_emp))
 
 
 class User(AbstractUser):
@@ -127,7 +127,7 @@ class Employe(models.Model):
     def get_last_shift(self):
         try:
             shift = Shift.objects.filter(
-                employe=self, day=timezone.now().date()).order_by('number').get()
+                employe=self, day=timezone.now().date()).order_by('-number').first()
             print(f'last shift {shift}')
             return shift
         except:

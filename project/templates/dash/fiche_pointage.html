@@ -4,8 +4,6 @@
 {% block content %}
 
     <div class="container-fluid">
-        {% if team %}
-            {% if team != None %}
                 <div class="row form-filter justify-content-between">
                     <div class="col-sm-12 col-lg-12 col-xl-4">
                         <h5>Mes collaborateurs</h5>
@@ -33,39 +31,39 @@
                                 <th scope="row">ID</th>
                                 <th scope="row">Employé</th>
                                 <th scope="row">Status</th>
-                                <th scope="row">Genre</th>
-                                <th scope="row">Téléphone</th>
+                                <th scope="row">Entrer</th>
+                                <th scope="row">Sortie</th>
                             </tr>
                             </thead>
                             <tbody>
-                                    {% for employe  in employes %}
+                                    {% for shift  in shifts %}
                                         <tr>
-                                            <td>{{ employe.user.pk  }}</td>
+                                            <td>{{ shift.user.pk  }}</td>
                                             <td class="employe-name">
-                                                <img src="{{ employe.picture.url }}" class="profile-pic rounded-circle" alt="">
-                                                <p>{{ employe.user.last_name|upper  }} {{ employe.user.first_name|capfirst }}</p>
+                                                <img src="{{ shift.picture.url }}" class="profile-pic rounded-circle" alt="">
+                                                <p>{{ shift.user.last_name|upper  }} {{ shift.user.first_name|capfirst }}</p>
                                             </td>
                                             <td>
-                                                {% if employe.iwssad %}
+                                                {% if shift.iwssad %}
                                                     Present
                                                 {% else %}
                                                     Sortie
                                                 {% endif%}
                                             </td>
                                             <td>
-                                                {% if employe.gender != F %}
-                                                    Homme
-                                                {% else %}
-                                                    Femme
-                                                {% endif%}
-                                            </td>
-                                            <td>
-                                                {% if employe.phone1 != None %}
-                                                    employe.phone1
+                                                {% if shift.he != None %}
+                                                    {{ shift.he }}
                                                 {% else %}
                                                     /
                                                 {% endif%}
-                                                <a href="{% url 'dash:view_profile' pk=employe.user.pk %}"> <i class="fa fa-angle-right" aria-hidden="true"></i> </a>                                    </a>
+                                            </td>
+                                            <td>
+                                                {% if shift.hs != None %}
+                                                    {{ shift.hs }}
+                                                {% else %}
+                                                    /
+                                                {% endif%}
+                                                <a href="{% url 'dash:ma_fiche_pointage' pk=shift.user.pk %}"> <i class="fa fa-angle-right" aria-hidden="true"></i> </a>        
                                             </td> 
                                         </tr>
                                     {% endfor %}
@@ -125,12 +123,7 @@
                     {% endif %}
                     </div>
                 </div>
-            {% else %}
 
-            {% endif %}
-        {% else %}
-
-        {% endif %}
         
     </div>
 

@@ -5,7 +5,7 @@
 {% block content %}
     <div class="profile container-fluid">
         <div class="media">
-            <img src="/media/images/nounours.png" class="profile-pic rounded-circle" alt="">
+            <img src="{{ picture.url }}" class="profile-pic rounded-circle" alt="">
             <div class="media-body">
               <h5 class="mt-0">Nom de l'employé</h5>
               <p>Role de l'employé</p>
@@ -76,10 +76,12 @@
                 </div>
                 {% endfor %}  
                 <div class="col-6">
-                    {% if check %}
-                        <a href="?edit_profile={{ check }}" class="btn btn-primary sauvgarder">Modifier mon profile</a>
-                    {% else %}
-                        <button type="submit" class="btn sauvgarder">Enregistrer</button>
+                    {% if check != 2 %}
+                        {% if check %}
+                            <a href="?edit_profile={{ check }}" class="btn btn-primary sauvgarder">Modifier mon profile</a>
+                        {% else %}
+                            <button type="submit" class="btn sauvgarder">Enregistrer</button>
+                        {% endif %}   
                     {% endif %}
                 </div>
             </div>
