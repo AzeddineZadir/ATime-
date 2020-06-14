@@ -361,6 +361,27 @@ body {
     }
 }
 
+.table-my-collaborator-responsable{
+    margin-top: rem(20px);
+    tbody {
+        .employe-name {
+            p {
+                display: inline-block;
+                padding-left: 10px;
+            }
+        }
+        td {
+            vertical-align: middle;
+            .btn-group{
+                float: right;
+                margin-right: 36px;
+                position: static !important;
+            }
+            
+        }
+    }
+}
+
 
 .table-shift{
     margin-top: 10px;
@@ -421,3 +442,49 @@ body {
 .back2{
     background-color: white;
 }
+
+
+.form-create{
+    margin-left: rem(64px);
+    margin-right: rem(64px);
+    margin-top: rem(46px);
+    @extend .text-secondaryy;
+    .trait{
+        height: rem(1px);
+        margin-top: rem(16px);
+        margin-bottom: rem(24px);
+        @extend .bg-secondaryy;
+    }
+    h1{
+        font-size: rem(32px);
+    }
+    
+    button{
+        margin-top: rem(24px);
+    }
+}
+
+
+.title{
+    margin-top: rem(12px);
+    @extend .text-secondaryy;
+    .trait{
+        height: rem(1px);
+        margin-top: rem(12px);
+        margin-bottom: rem(24px);
+        @extend .bg-secondaryy;
+    } 
+    h1{
+        font-size: rem(32px);
+    }
+    .ligne{
+        display: flex; 
+        justify-content: space-between;
+        button{
+            height: rem(40px);
+        }
+    }
+}
+
+
+

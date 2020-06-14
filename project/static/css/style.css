@@ -8,11 +8,11 @@
   color: #1BBC9B;
 }
 
-.bg-secondaryy {
+.bg-secondaryy, .form-create .trait, .title .trait {
   background-color: #2D3E50;
 }
 
-.text-secondaryy, .tabs .nav-link {
+.text-secondaryy, .tabs .nav-link, .form-create, .title {
   color: #2D3E50;
 }
 
@@ -390,6 +390,25 @@ body :focus {
   color: #2D3E50;
 }
 
+.table-my-collaborator-responsable {
+  margin-top: 1.25rem;
+}
+
+.table-my-collaborator-responsable tbody .employe-name p {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.table-my-collaborator-responsable tbody td {
+  vertical-align: middle;
+}
+
+.table-my-collaborator-responsable tbody td .btn-group {
+  float: right;
+  margin-right: 36px;
+  position: static !important;
+}
+
 .table-shift {
   margin-top: 10px;
 }
@@ -446,5 +465,52 @@ body :focus {
 
 .back2 {
   background-color: white;
+}
+
+.form-create {
+  margin-left: 4rem;
+  margin-right: 4rem;
+  margin-top: 2.875rem;
+}
+
+.form-create .trait {
+  height: 0.0625rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-create h1 {
+  font-size: 2rem;
+}
+
+.form-create button {
+  margin-top: 1.5rem;
+}
+
+.title {
+  margin-top: 0.75rem;
+}
+
+.title .trait {
+  height: 0.0625rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.title h1 {
+  font-size: 2rem;
+}
+
+.title .ligne {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.title .ligne button {
+  height: 2.5rem;
 }
 /*# sourceMappingURL=style.css.map */
