@@ -48,23 +48,6 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-             <!--Onglet mes employés-->
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="cointainer">
-                    <!--Ligne card stats-->
-                    <div class="row row-stats">
-                        <!--Card stats employés presents-->
-                        <div class="col-xl-4 col-md-6 col-sm-6">
-                            <h5>Les présents</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="myChartDiv">
-                                                <canvas  id="myChartPresent"></canvas>
-                                              </div>
-=======
             {% endif %}
         </div>
         <!--Onglet mes employés-->
@@ -81,7 +64,6 @@
                                     <div class="col-6">
                                         <div class="myChartDiv">
                                             <canvas id="myChartPresent"></canvas>
->>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
                                         </div>
                                     </div>
 
@@ -467,22 +449,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-    
-{% endblock %}
-
-{% block scripts %}
-    <script>
-        let ctx = document.getElementById('myChartPresent').getContext('2d');
-        let campaignDonut = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [6,4],
-                    backgroundColor: ['#2D3E50', '#EFF0F3'],
-                }],
-                labels : ['Femme','Homme']
-=======
 </div>
 
 {% endblock %} {% block scripts %}
@@ -576,7 +542,6 @@
             },
             title: {
                 display: false,
->>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
             },
         }
     });
@@ -663,92 +628,6 @@
                     bottom: 0,
                 }
             },
-<<<<<<< HEAD
-            options: {
-                aspectRatio: 1,
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                    }
-                },
-                responsive: true,
-                cutoutPercentage: 60,
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: false,
-                },
-            }
-        });
-
-        let ctx5 = document.getElementById('myChartAbsentE').getContext('2d');
-        let campaignDonut5 = new Chart(ctx5, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [6,4],
-                    backgroundColor: ['#2D3E50', '#EFF0F3'],
-                }],
-                labels : ['Femme','Homme']
-            },
-            options: {
-                aspectRatio: 1,
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                    }
-                },
-                responsive: true,
-                cutoutPercentage: 60,
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: false,
-                },
-            }
-        });
-
-        let ctx6 = document.getElementById('myChartPosteE').getContext('2d');
-        let campaignDonut6 = new Chart(ctx6, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [6,5],
-                    backgroundColor: ['#2D3E50', '#EFF0F3'],
-                }],
-                labels : ['Femme','Homme']
-            },
-            options: {
-                aspectRatio: 1,
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                    }
-                },
-                responsive: true,
-                cutoutPercentage: 60,
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: false,
-                },
-            }
-        });
-    </script>
-{% endblock %}
-=======
             responsive: true,
             cutoutPercentage: 60,
             legend: {
@@ -761,4 +640,3 @@
     });
 </script>
 {% endblock scripts%}
->>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
