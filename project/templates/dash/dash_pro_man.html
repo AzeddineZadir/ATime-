@@ -1,54 +1,54 @@
-{% extends "base_generic.html" %}
-{% block nav %} {% endblock %}
-{% block title %} project manger dashbored {% endblock %}
-{% block content %}
-    <!--Tabs-->
-    <div class="container-fluid tabs">
-         <!--Link of different tabs-->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mon tableau de bord</a>
-            </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mes employés</a>
-            </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Mes équipes</a>
-            </li>
-        </ul>
-        <!--differents divs tabs-->
-        <div class="tab-content" id="myTabContent">
-            <!--Onglet dashboard responsable-->
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <!--Card start time-->
-                {% if time %}
-                    <div class="row row-dash">
-                        <div class="col">
-                            <div class="card text-justify" style="width: 18rem;">
-                                <div class="card-body card-b-mydash">
-                                <h5 class="card-title">Vous êtes arrivez a :</h5>
-                                <p class="card-text">      
-                                    {{ time|date:"G:i" }}
-                                </p>
-                                </div>
-                            </div>
+{% extends "base_generic.html" %} {% block nav %} {% endblock %} {% block title %} project manger dashbored
+{% endblock %} {% block content %}
+<!--Tabs-->
+<div class="container-fluid tabs">
+    <!--Link of different tabs-->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                aria-selected="true">Mon tableau de bord</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                aria-selected="false">Mes employés</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+                aria-selected="false">Mes équipes</a>
+        </li>
+    </ul>
+    <!--differents divs tabs-->
+    <div class="tab-content" id="myTabContent">
+        <!--Onglet dashboard responsable-->
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <!--Card start time-->
+            {% if time %}
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                            <h5 class="card-title">Vous êtes arrivez a :</h5>
+                            <p class="card-text">
+                                {{ time|date:"G:i" }}
+                            </p>
                         </div>
                     </div>
-                    <!--Card time of work-->
-                    <div class="row row-dash">
-                        <div class="col">
-                            <div class="card text-justify" style="width: 18rem;">
-                                <div class="card-body card-b-mydash">
-                                <h5 class="card-title">En post depuis:</h5>
-                                <p class="card-text">
-                                    {{ work_time }}
-                                </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
+                </div>
             </div>
+            <!--Card time of work-->
+            <div class="row row-dash">
+                <div class="col">
+                    <div class="card text-justify" style="width: 18rem;">
+                        <div class="card-body card-b-mydash">
+                            <h5 class="card-title">En post depuis:</h5>
+                            <p class="card-text">
+                                {{ work_time }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<<<<<<< HEAD
              <!--Onglet mes employés-->
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="cointainer">
@@ -64,391 +64,410 @@
                                             <div class="myChartDiv">
                                                 <canvas  id="myChartPresent"></canvas>
                                               </div>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <h6 class="title-f">Femme</h6>
-                                            <p class="description">3 employés</p>
-                                            <h6 class="title-h">Homme</h6>
-                                            <p class="description">6 employés</p>
-                                            <h6 class="title-t">Total</h6>
-                                            <p class="description">9 employés</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!--Card stats employés absents-->
-                        <div class="col-xl-4 col-md-6 col-sm-6">
-                            <h5>Les absents</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                          
-                                            <div class="myChartDiv">
-                                                <canvas id="myChartAbsent"></canvas>
-                                              </div>
-                                           
-                                        </div>
-
-                                        <div class="col-6">
-                                            <h6 class="title-f">Femme</h6>
-                                            <p class="description">3 employés</p>
-                                            <h6 class="title-h">Homme</h6>
-                                            <p class="description">6 employés</p>
-                                            <h6 class="title-t">Total</h6>
-                                            <p class="description">9 employés</p>
+=======
+            {% endif %}
+        </div>
+        <!--Onglet mes employés-->
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="cointainer">
+                <!--Ligne card stats-->
+                <div class="row row-stats">
+                    <!--Card stats employés presents-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                        <h5>Les présents</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="myChartDiv">
+                                            <canvas id="myChartPresent"></canvas>
+>>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <!--Card stats employés en poste-->
-                        <div class="col-xl-4 col-md-6 col-sm-6">
-                            <h5>En poste</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="myChartDiv">
-                                                <canvas id="myChartPoste"></canvas>
-                                              </div>
-                                        </div>
 
-                                        <div class="col-6">
-                                            <h6 class="title-f">Femme</h6>
-                                            <p class="description">3 employés</p>
-                                            <h6 class="title-h">Homme</h6>
-                                            <p class="description">6 employés</p>
-                                            <h6 class="title-t">Total</h6>
-                                            <p class="description">9 employés</p>
-                                        </div>
+                                    <div class="col-6">
+                                        <h6 class="title-f">Femme</h6>
+                                        <p class="description">3 employés</p>
+                                        <h6 class="title-h">Homme</h6>
+                                        <p class="description">6 employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">9 employés</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="employe">
-                        <!--Lignes card des employés-->
-                        <h5>Mes employés</h5>
-                        <div class="row row-employe">   
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-employe">
-                                    <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
-                                    <div class="description-employe">
-                                        <h5>Nom de l'employé</h5>
-                                        <p>Fonction de l'employé</p>
-                                    </div>
-                                    <div class="heure-e">
-                                        <p>8h05</p>
-                                        <p>3h24</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
 
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-employe">
-                                    <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
-                                    <div class="description-employe">
-                                        <h5>Nom de l'employé</h5>
-                                        <p>Fonction de l'employé</p>
-                                    </div>
-                                    <div class="heure-e">
-                                        <p>8h05</p>
-                                        <p>3h24</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
+                    <!--Card stats employés absents-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                        <h5>Les absents</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
 
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-employe">
-                                    <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
-                                    <div class="description-employe">
-                                        <h5>Nom de l'employé</h5>
-                                        <p>Fonction de l'employé</p>
-                                    </div>
-                                    <div class="heure-e">
-                                        <p>8h05</p>
-                                        <p>3h24</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
+                                        <div class="myChartDiv">
+                                            <canvas id="myChartAbsent"></canvas>
+                                        </div>
 
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-employe">
-                                    <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
-                                    <div class="description-employe">
-                                        <h5>Nom de l'employé</h5>
-                                        <p>Fonction de l'employé</p>
                                     </div>
-                                    <div class="heure-e">
-                                        <p>8h05</p>
-                                        <p>3h24</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
 
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-employe">
-                                    <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
-                                    <div class="description-employe">
-                                        <h5>Nom de l'employé</h5>
-                                        <p>Fonction de l'employé</p>
+                                    <div class="col-6">
+                                        <h6 class="title-f">Femme</h6>
+                                        <p class="description">3 employés</p>
+                                        <h6 class="title-h">Homme</h6>
+                                        <p class="description">6 employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">9 employés</p>
                                     </div>
-                                    <div class="heure-e">
-                                        <p>8h05</p>
-                                        <p>3h24</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
                                 </div>
                             </div>
-
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-employe">
-                                    <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
-                                    <div class="description-employe">
-                                        <h5>Nom de l'employé</h5>
-                                        <p>Fonction de l'employé</p>
-                                    </div>
-                                    <div class="heure-e">
-                                        <p>8h05</p>
-                                        <p>3h24</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
-                            
                         </div>
+                    </div>
+
+                    <!--Card stats employés en poste-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                        <h5>En poste</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="myChartDiv">
+                                            <canvas id="myChartPoste"></canvas>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <h6 class="title-f">Femme</h6>
+                                        <p class="description">3 employés</p>
+                                        <h6 class="title-h">Homme</h6>
+                                        <p class="description">6 employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">9 employés</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="employe">
+                    <!--Lignes card des employés-->
+                    <h5>Mes employés</h5>
+                    <div class="row row-employe">
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-employe">
+                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                <div class="description-employe">
+                                    <h5>Nom de l'employé</h5>
+                                    <p>Fonction de l'employé</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>8h05</p>
+                                    <p>3h24</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-employe">
+                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                <div class="description-employe">
+                                    <h5>Nom de l'employé</h5>
+                                    <p>Fonction de l'employé</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>8h05</p>
+                                    <p>3h24</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-employe">
+                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                <div class="description-employe">
+                                    <h5>Nom de l'employé</h5>
+                                    <p>Fonction de l'employé</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>8h05</p>
+                                    <p>3h24</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-employe">
+                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                <div class="description-employe">
+                                    <h5>Nom de l'employé</h5>
+                                    <p>Fonction de l'employé</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>8h05</p>
+                                    <p>3h24</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-employe">
+                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                <div class="description-employe">
+                                    <h5>Nom de l'employé</h5>
+                                    <p>Fonction de l'employé</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>8h05</p>
+                                    <p>3h24</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-employe">
+                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                <div class="description-employe">
+                                    <h5>Nom de l'employé</h5>
+                                    <p>Fonction de l'employé</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>8h05</p>
+                                    <p>3h24</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-            <!--Onglet mes équipes-->
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="cointainer">
-                    <!--Ligne card stats-->
-                    <div class="row row-stats">
-                        <!--Card stats employés presents-->
-                        <div class="col-xl-4 col-md-6 col-sm-6">
-                            <h5>Les présents</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="myChartDiv">
-                                                <canvas id="myChartPresentE"></canvas>
-                                              </div>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <h6 class="title-f">Femme</h6>
-                                            <p class="description">3 employés</p>
-                                            <h6 class="title-h">Homme</h6>
-                                            <p class="description">6 employés</p>
-                                            <h6 class="title-t">Total</h6>
-                                            <p class="description">9 employés</p>
+        </div>
+        <!--Onglet mes équipes-->
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="cointainer">
+                <!--Ligne card stats-->
+                <div class="row row-stats">
+                    <!--Card stats employés presents-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                        <h5>Les présents</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="myChartDiv">
+                                            <canvas id="myChartPresentE"></canvas>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!--Card stats employés absents-->
-                        <div class="col-xl-4 col-md-6 col-sm-6">
-                            <h5>Les absents</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                          
-                                            <div class="myChartDiv">
-                                                <canvas id="myChartAbsentE"></canvas>
-                                              </div>
-                                           
-                                        </div>
 
-                                        <div class="col-6">
-                                            <h6 class="title-f">Femme</h6>
-                                            <p class="description">3 employés</p>
-                                            <h6 class="title-h">Homme</h6>
-                                            <p class="description">6 employés</p>
-                                            <h6 class="title-t">Total</h6>
-                                            <p class="description">9 employés</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <!--Card stats employés en poste-->
-                        <div class="col-xl-4 col-md-6 col-sm-6">
-                            <h5>En poste</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="myChartDiv">
-                                                <canvas id="myChartPosteE"></canvas>
-                                              </div>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <h6 class="title-f">Femme</h6>
-                                            <p class="description">3 employés</p>
-                                            <h6 class="title-h">Homme</h6>
-                                            <p class="description">6 employés</p>
-                                            <h6 class="title-t">Total</h6>
-                                            <p class="description">9 employés</p>
-                                        </div>
+                                    <div class="col-6">
+                                        <h6 class="title-f">Femme</h6>
+                                        <p class="description">3 employés</p>
+                                        <h6 class="title-h">Homme</h6>
+                                        <p class="description">6 employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">9 employés</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="equipe">
-                        <!--Lignes card des employés-->
-                        <h5>Mes équipes</h5>
-                        <div class="row row-equipe">   
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-equipe">
-                                    <div class="description-equipe">
-                                        <h5>Nom de l'équipe</h5>
-                                        <p>Responsable</p>
-                                    </div>
-                                    <div class="heure-e">
-                                        <p>7</p>
-                                        <p>3</p>
-                                    </div>
-                                    <div class="nb-employe">
-                                        <p>10 employés</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
 
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-equipe">
-                                    <div class="description-equipe">
-                                        <h5>Nom de l'équipe</h5>
-                                        <p>Responsable</p>
-                                    </div>
-                                    <div class="heure-e">
-                                        <p>7</p>
-                                        <p>3</p>
-                                    </div>
-                                    <div class="nb-employe">
-                                        <p>10 employés</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
+                    <!--Card stats employés absents-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                        <h5>Les absents</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
 
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-equipe">
-                                    <div class="description-equipe">
-                                        <h5>Nom de l'équipe</h5>
-                                        <p>Responsable</p>
-                                    </div>
-                                    <div class="heure-e">
-                                        <p>7</p>
-                                        <p>3</p>
-                                    </div>
-                                    <div class="nb-employe">
-                                        <p>10 employés</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
+                                        <div class="myChartDiv">
+                                            <canvas id="myChartAbsentE"></canvas>
+                                        </div>
 
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-equipe">
-                                    <div class="description-equipe">
-                                        <h5>Nom de l'équipe</h5>
-                                        <p>Responsable</p>
                                     </div>
-                                    <div class="heure-e">
-                                        <p>7</p>
-                                        <p>3</p>
-                                    </div>
-                                    <div class="nb-employe">
-                                        <p>10 employés</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
 
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-equipe">
-                                    <div class="description-equipe">
-                                        <h5>Nom de l'équipe</h5>
-                                        <p>Responsable</p>
+                                    <div class="col-6">
+                                        <h6 class="title-f">Femme</h6>
+                                        <p class="description">3 employés</p>
+                                        <h6 class="title-h">Homme</h6>
+                                        <p class="description">6 employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">9 employés</p>
                                     </div>
-                                    <div class="heure-e">
-                                        <p>7</p>
-                                        <p>3</p>
-                                    </div>
-                                    <div class="nb-employe">
-                                        <p>10 employés</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
                                 </div>
                             </div>
-
-                            <div class="col-xl-3 col-md-4 col-sm6">
-                                <div class="card card-equipe">
-                                    <div class="description-equipe">
-                                        <h5>Nom de l'équipe</h5>
-                                        <p>Responsable</p>
-                                    </div>
-                                    <div class="heure-e">
-                                        <p>7</p>
-                                        <p>3</p>
-                                    </div>
-                                    <div class="nb-employe">
-                                        <p>10 employés</p>
-                                    </div>
-                                    <button class="btn more d-flex justify-content-center">
-                                        <i class="fas fa-chevron-right more-icon "></i>
-                                    </button>
-                                </div>
-                            </div>
-                            
                         </div>
+                    </div>
+
+                    <!--Card stats employés en poste-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                        <h5>En poste</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="myChartDiv">
+                                            <canvas id="myChartPosteE"></canvas>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <h6 class="title-f">Femme</h6>
+                                        <p class="description">3 employés</p>
+                                        <h6 class="title-h">Homme</h6>
+                                        <p class="description">6 employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">9 employés</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="equipe">
+                    <!--Lignes card des employés-->
+                    <h5>Mes équipes</h5>
+                    <div class="row row-equipe">
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-equipe">
+                                <div class="description-equipe">
+                                    <h5>Nom de l'équipe</h5>
+                                    <p>Responsable</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>7</p>
+                                    <p>3</p>
+                                </div>
+                                <div class="nb-employe">
+                                    <p>10 employés</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-equipe">
+                                <div class="description-equipe">
+                                    <h5>Nom de l'équipe</h5>
+                                    <p>Responsable</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>7</p>
+                                    <p>3</p>
+                                </div>
+                                <div class="nb-employe">
+                                    <p>10 employés</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-equipe">
+                                <div class="description-equipe">
+                                    <h5>Nom de l'équipe</h5>
+                                    <p>Responsable</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>7</p>
+                                    <p>3</p>
+                                </div>
+                                <div class="nb-employe">
+                                    <p>10 employés</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-equipe">
+                                <div class="description-equipe">
+                                    <h5>Nom de l'équipe</h5>
+                                    <p>Responsable</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>7</p>
+                                    <p>3</p>
+                                </div>
+                                <div class="nb-employe">
+                                    <p>10 employés</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-equipe">
+                                <div class="description-equipe">
+                                    <h5>Nom de l'équipe</h5>
+                                    <p>Responsable</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>7</p>
+                                    <p>3</p>
+                                </div>
+                                <div class="nb-employe">
+                                    <p>10 employés</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-equipe">
+                                <div class="description-equipe">
+                                    <h5>Nom de l'équipe</h5>
+                                    <p>Responsable</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>7</p>
+                                    <p>3</p>
+                                </div>
+                                <div class="nb-employe">
+                                    <p>10 employés</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     
 {% endblock %}
 
@@ -463,100 +482,188 @@
                     backgroundColor: ['#2D3E50', '#EFF0F3'],
                 }],
                 labels : ['Femme','Homme']
-            },
-            options: {
-                aspectRatio: 1,
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                    }
-                },
-                responsive: true,
-                cutoutPercentage: 60,
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: false,
-                },
-            }
-        });
+=======
+</div>
 
-        let ctx2 = document.getElementById('myChartAbsent').getContext('2d');
-        let campaignDonut2 = new Chart(ctx2, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [4,6],
-                    backgroundColor: ['#2D3E50', '#EFF0F3'],
-                }],
-                labels : ['Femme','Homme']
+{% endblock %} {% block scripts %}
+<script>
+    let ctx = document.getElementById('myChartPresent').getContext('2d');
+    let campaignDonut = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [6, {{test}}],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
             },
-            options: {
-                aspectRatio: 1,
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                    }
-                },
-                responsive: true,
-                cutoutPercentage: 60,
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: false,
-                },
-            }
-        });
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            },
+        }
+    });
 
-        let ctx3 = document.getElementById('myChartPoste').getContext('2d');
-        let campaignDonut3 = new Chart(ctx3, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [4,6],
-                    backgroundColor: ['#2D3E50', '#EFF0F3'],
-                }],
-                labels : ['Femme','Homme']
+    let ctx2 = document.getElementById('myChartAbsent').getContext('2d');
+    let campaignDonut2 = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [4, 6],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
             },
-            options: {
-                aspectRatio: 1,
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                    }
-                },
-                responsive: true,
-                cutoutPercentage: 60,
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: false,
-                },
-            }
-        });
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            },
+        }
+    });
 
-        let ctx4 = document.getElementById('myChartPresentE').getContext('2d');
-        let campaignDonut4 = new Chart(ctx4, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [6,{{test}}],
-                    backgroundColor: ['#2D3E50', '#EFF0F3'],
-                }],
-                labels : ['Femme','Homme']
+    let ctx3 = document.getElementById('myChartPoste').getContext('2d');
+    let campaignDonut3 = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [4, 6],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
             },
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+>>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
+            },
+        }
+    });
+
+    let ctx4 = document.getElementById('myChartPresentE').getContext('2d');
+    let campaignDonut4 = new Chart(ctx4, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [6, {{test}}],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
+            },
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            },
+        }
+    });
+
+    let ctx5 = document.getElementById('myChartAbsentE').getContext('2d');
+    let campaignDonut5 = new Chart(ctx5, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [6, {{test}}],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
+            },
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            },
+        }
+    });
+
+    let ctx6 = document.getElementById('myChartPosteE').getContext('2d');
+    let campaignDonut6 = new Chart(ctx6, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [6, {{test}}],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
+            },
+<<<<<<< HEAD
             options: {
                 aspectRatio: 1,
                 layout: {
@@ -641,3 +748,17 @@
         });
     </script>
 {% endblock %}
+=======
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            },
+        }
+    });
+</script>
+{% endblock scripts%}
+>>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf

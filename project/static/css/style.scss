@@ -244,8 +244,8 @@ body {
 
 // Conteneur team
 .equipe {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: rem(32px);
+    padding-right:rem(32px);
     padding-top: 10px;
     // Card team
     .card-equipe {
@@ -330,7 +330,6 @@ body {
     h5 {
         font-size: rem(26px);
     }
-   
 }
 
 .table-my-pointage {
@@ -361,6 +360,7 @@ body {
     }
 }
 
+<<<<<<< HEAD
 .table-my-collaborator-responsable{
     margin-top: rem(20px);
     tbody {
@@ -384,34 +384,40 @@ body {
 
 
 .table-shift{
+=======
+.table-shift {
+>>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
     margin-top: 10px;
-    .table-title{
+    .table-title {
         height: 40px;
         line-height: 40px;
         font-weight: bold;
     }
-    .tbody{
+    .tbody {
         padding-bottom: rem(2px);
         margin-bottom: 1px;
-        .first-row{
+        .first-row {
             padding-bottom: rem(8px);
             padding-top: rem(8px);
+<<<<<<< HEAD
             
             .col{              
+=======
+            margin-top: rem(2px);
+            background-color: white;
+            .col {
+>>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
                 margin-top: auto;
-                margin-bottom: auto;         
+                margin-bottom: auto;
             }
         }
-       
-        .btn{   
+        .btn {
             line-height: 0px;
             font-weight: rem(20px);
             color: #2D3E50;
         }
-
     }
 }
-
 
 .table-my-coleauges {
     tbody {
@@ -488,3 +494,14 @@ body {
 
 
 
+.card.team {
+    margin-top: rem(32px);
+    margin-left:rem(32px);
+    margin-right:rem(32px);
+}
+
+.charts.inout {
+    left: 1rem;
+    margin-top:rem(32px);
+    margin-right:rem(32px);
+}

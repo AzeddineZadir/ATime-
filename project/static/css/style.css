@@ -264,8 +264,8 @@ body :focus {
 }
 
 .equipe {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 2rem;
+  padding-right: 2rem;
   padding-top: 10px;
 }
 
@@ -512,5 +512,17 @@ body :focus {
 
 .title .ligne button {
   height: 2.5rem;
+}
+.card.team {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+
+}
+
+.charts.inout {
+  left: 1rem;
+  margin-top: 2rem;
+  margin-right: 2rem;
 }
 /*# sourceMappingURL=style.css.map */
