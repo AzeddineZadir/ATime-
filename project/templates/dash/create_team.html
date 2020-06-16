@@ -14,15 +14,6 @@
                     {{ form|crispy }}
                     <input class="btn btn-primary btn-block" type='submit' value="Crée l'équipe" name="create">
                 </form>
-
-                <form method='post'>
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Ajouter un employé</label>
-                        <input type="text" class="form-control" id="employe" placeholder="Entré le nom de l'employé" name="test">
-                    </div>
-                    <input class="btn btn-success  btn-block" type='submit' value="Ajouter un employé">
-                </form>
             </div>
         </div>
     </div>
@@ -32,11 +23,4 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
-    $( function() {
-      $( "#employe" ).autocomplete({
-        source: "{% url 'dash:create_team' %}"
-      });
-    } );
-    </script>
 {% endblock %}

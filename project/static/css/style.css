@@ -12,7 +12,7 @@
   background-color: #2D3E50;
 }
 
-.text-secondaryy, .tabs .nav-link, .form-create, .title {
+.text-secondaryy, .tabs .nav-link, .form-create, .title, .create-scedule .partie span {
   color: #2D3E50;
 }
 
@@ -510,19 +510,81 @@ body :focus {
           justify-content: space-between;
 }
 
-.title .ligne button {
+.title .ligne a {
   height: 2.5rem;
 }
+
 .card.team {
   margin-top: 2rem;
   margin-left: 2rem;
   margin-right: 2rem;
-
 }
 
 .charts.inout {
   left: 1rem;
   margin-top: 2rem;
   margin-right: 2rem;
+}
+
+.team {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
+.team .card-team {
+  border: 8px;
+  margin-bottom: 16px;
+  border-left: 8px solid #2D3E50;
+}
+
+.team .card-team .title-team {
+  margin-top: 0.625rem;
+  margin-left: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.team .card-team .heure-e {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  line-height: 0.2;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.team .card-team .description-team {
+  margin-top: 1.5rem;
+  margin-left: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.team .card-team .description-team h5 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.team .card-team .description-team p {
+  font-size: 0.75rem;
+  line-height: 0.1;
+}
+
+.team .card-team .more {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  vertical-align: center;
+  padding-top: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.create-scedule .partie {
+  text-align: center;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.create-scedule .partie span {
+  font-size: 1.125rem;
 }
 /*# sourceMappingURL=style.css.map */

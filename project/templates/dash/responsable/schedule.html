@@ -1,0 +1,74 @@
+{% extends "base_generic.html" %}
+{% block nav %} {% endblock %}
+{% block title %} project manger dashbored {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block scripts %}
+<script>
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+
+    console.log("{{m1.0}}")
+    {% for key, value in m1.items %}
+        console.log("{{value.date}}")
+    {% endfor %}
+   
+
+
+    var container = document.getElementById('example5.1');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Room' });
+    dataTable.addColumn({ type: 'string', id: 'Name' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+    dataTable.addRows([
+        {% for key, value in m1.items %}
+            [ "{{value.jours}}", "{{value.title}}",       new Date("{{value.date}}"),  new Date("{{value.date1}}") ],
+        {% endfor %}
+
+        
+
+    ]);
+
+    var options = {
+      timeline: { colorByRowLabel: true },
+      vAxis: {minValue: 0}
+    };
+    
+
+    chart.draw(dataTable, options);
+
+    
+  }
+
+$(window).resize(function(){
+  drawChart();
+});
+
+
+</script>
+{% endblock %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="title">
+            <div class="ligne">
+                <h1>Nom du planning</h1>
+                <a class="btn btn-primary" href="{% url 'dash:create_schedule' %}" role="button" aria-pressed="true">Modifier planning</a>
+            </div>
+            <div class="trait"></div>
+        </div>
+            
+            <div class="row">
+                <div class="col-md-12 chart">
+                    <div  id="example5.1" style="height: 1000px;width:100%;margin: 0 auto"></div>
+                </div>
+            </div>
+            
+       
+    </div>
+    
+{% endblock %}
+

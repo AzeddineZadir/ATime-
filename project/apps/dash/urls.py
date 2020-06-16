@@ -12,8 +12,10 @@ urlpatterns = [
     path('fiche_pointage/', views.fiche_pointage , name='fiche_pointage'),
     path('mes_collaborateurs', views.mes_collaborateurs , name='mes_collaborateurs'),
     path('my_teams', views.my_teams , name='my_teams'),
+    path('schedules', views.schedules , name='schedules'),
+    path('schedule', views.schedule , name='schedule'),
+    path('create_schedule', views.create_schedule , name='create_schedule'),
     path('create_team', views.create_team , name='create_team'),
     path('modify_team/<str:pk>', views.modify_team , name='modify_team'),
-    path('create_schedule', views.create_schedule , name='create_schedule'),
     path('delete_employe_team/<str:pk>', views.view_delete_employe_team , name='delete_employe_team'),
 ]

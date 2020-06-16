@@ -360,7 +360,6 @@ body {
     }
 }
 
-<<<<<<< HEAD
 .table-my-collaborator-responsable{
     margin-top: rem(20px);
     tbody {
@@ -384,9 +383,6 @@ body {
 
 
 .table-shift{
-=======
-.table-shift {
->>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
     margin-top: 10px;
     .table-title {
         height: 40px;
@@ -399,14 +395,8 @@ body {
         .first-row {
             padding-bottom: rem(8px);
             padding-top: rem(8px);
-<<<<<<< HEAD
             
             .col{              
-=======
-            margin-top: rem(2px);
-            background-color: white;
-            .col {
->>>>>>> 538a7c32dd96874984255c9be4bbb0ef2222f0bf
                 margin-top: auto;
                 margin-bottom: auto;
             }
@@ -486,7 +476,7 @@ body {
     .ligne{
         display: flex; 
         justify-content: space-between;
-        button{
+        a{
             height: rem(40px);
         }
     }
@@ -504,4 +494,64 @@ body {
     left: 1rem;
     margin-top:rem(32px);
     margin-right:rem(32px);
+}
+
+
+// Team 
+.team {
+    margin-left: rem(12px);
+    margin-right: rem(12px);
+    // Card employe
+    .card-team {
+        border: 8px;
+        margin-bottom: 16px;
+        border-left: 8px solid #2D3E50;
+        .title-team {
+            margin-top: rem(10px);
+            margin-left: rem(12px);
+            font-size: rem(20px);
+            font-weight: bold;
+        }
+        .heure-e {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            line-height: 0.2;
+            font-size: rem(12px);
+            font-weight: bold;
+        }
+        .description-team {
+            margin-top: rem(24px);
+            margin-left: rem(12px);
+            margin-bottom: rem(8px);
+            h5 {
+                font-size: rem(16px);
+                font-weight: bold;
+            }
+            p {
+                font-size: rem(12px);
+                line-height: 0.1;
+            }
+        }
+        .more {
+            display: flex;
+            vertical-align: center;
+            padding-top: 8px;
+            margin-bottom: rem(8px);
+        }
+    }
+}
+
+.create-scedule{
+    .partie{
+        text-align: center;
+        height: rem(32px);
+        margin-bottom: rem(8px);
+        span {
+            font-size: rem(18px);
+            @extend .text-#{secondaryy};
+            
+        }
+       
+    }
 }

@@ -8,31 +8,31 @@
         <div class="team">
             <div class="title">
                 <div class="ligne">
-                    <h1>Les équipes</h1>
-                    <a class="btn btn-primary" href="{% url 'dash:create_team' %}" role="button" aria-pressed="true">Créer une équipe</a>
+                    <h1>Les plannings</h1>
+                    <a class="btn btn-primary" href="{% url 'dash:create_schedule' %}" role="button" aria-pressed="true">Créer un planning</a>
                 </div>
                 <div class="trait"></div>
             </div>
     
             <div class="row">
-                {% if teams %}
-                    {% for team in teams %}
+                {% if schedules %}
+                    {% for schedule in schedules %}
                         <div class="col-xl-3 col-md-4 col-sm6">
                             <div class="card card-team">     
-                                <h3 class="title-team">{{ team.titre }}</h3>
+                                <h3 class="title-team">{{ schedule.titre }}</h3>
                                 <div class="description-team">
-                                    {% if team.manager.user.first_name %}
-                                        <h5>{{ team.manager.user.first_name }} {{ team.manager.user.last_name }}</h5>
+                                    {% if schedule.description %}
+                                        <h5> {{ schedule.description }} </h5>
                                     {% else %}
-                                        <h5>Aucun manager</h5>
+                                        <h5>Aucune description</h5>
                                     {% endif %}
-                                    <p>{{ team.description }}</p>
+                                    <p>{{ schedule.total }}</p>
                                 </div>
                                 <div class="heure-e">
-                                    <p>{{ team.nb_emp }}</p>
-                                    <p>{{ team.nb_emp_in }}</p>
+                                    <p></p>
+                                    <p></p>
                                 </div>
-                                <a class="btn more" href="{% url 'dash:modify_team' pk=team.id %}">
+                                <a class="btn more" href="">
                                     <i class="fas fa-chevron-right more-icon"></i>
                                 </a>
                             
