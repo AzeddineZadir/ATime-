@@ -501,6 +501,10 @@ body :focus {
   font-size: 2rem;
 }
 
+.title h1 .center {
+  text-align: center;
+}
+
 .title .ligne {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -514,10 +518,18 @@ body :focus {
   height: 2.5rem;
 }
 
+.title .center {
+  text-align: center;
+}
+
 .card.team {
-  margin-top: 2rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.card.team .chart {
+  padding-bottom: 0.5rem;
 }
 
 .charts.inout {
@@ -586,5 +598,21 @@ body :focus {
 
 .create-scedule .partie span {
   font-size: 1.125rem;
+}
+
+.titel.center {
+  text-align: center;
+}
+
+h1.center {
+  text-align: center;
+}
+
+h2.center {
+  text-align: center;
+}
+
+h5.center {
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

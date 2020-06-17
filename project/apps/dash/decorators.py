@@ -32,7 +32,7 @@ def manger_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, logi
     return actual_decorator
 
 
-def project_manger_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='authentification:login'):
+def responsible_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='authentification:login'):
     '''
     Decorator for views that checks that the logged in user is a student,
     redirects to the log-in page if necessary.

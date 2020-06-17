@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from apps.dash.views import dash_emp, dash_man, dash_pro_man
+from apps.dash.views import dash_emp, dash_man, dash_responsible
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.views import LoginView
@@ -24,7 +24,7 @@ class Login(LoginView):
             return reverse('dash:manager_dashbored')
         elif role == 3:
             print("Je suis un chef de projet")
-            return reverse('dash:project_manager_dashbored')
+            return reverse('dash:responsible_dashbored')
         else:
             print("Je suis abehri")
 

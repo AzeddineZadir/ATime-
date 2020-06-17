@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from apps.dash.decorators import employe_required, manger_required, project_manger_required
+from apps.dash.decorators import employe_required, manger_required, responsible_required
 from django.contrib.auth.decorators import login_required
 from apps.pointage.models import Employe, User, Planing, Shift, Team, Day
 from django.core.exceptions import ObjectDoesNotExist
@@ -13,6 +13,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from apps.dash.views import hours_dif, convert_time
 from django.db.models import Q
 from django.http import JsonResponse
+from apps.dash.views import get_now_t, convert_time, is_valid, hours_dif, get_laste_entry, get_inpost_t, get_time_left,get_now_t,get_employes,get_employes_by_presence
+
 
 from django.db.models import Count
 from django.forms import inlineformset_factory
@@ -33,11 +35,61 @@ def sum_hours_planning_day(day):
 
 
 
-@project_manger_required
-def dash_pro_man(request):
-    return render(request, 'dash/dash_pro_man.html', {'test': 4})
 
-@project_manger_required
+@responsible_required
+def dash_responsible(request):
+    # get the responsible
+    responsible=Employe.objects.filter(user=request.user).get()
+    # get responsible dash parts
+    shift = responsible.get_last_shift()
+    he = get_laste_entry(shift)
+    now = get_now_t()
+    in_post_t = get_inpost_t(responsible)
+    time_left = get_time_left(responsible)
+    try:
+        t_h = responsible.get_today_hours()
+        todays_hours = [t_h.he1, t_h.hs1, t_h.he2, t_h.hs2, ]
+    except:
+        todays_hours = ['H:M', 'H:M', 'H:M', 'H:M']
+
+    # get teams
+    teams = Team.objects.all()
+    teams_nbr = teams.count()
+    # get all the managers 
+    managers = Employe.objects.filter(~Q(managed_team=None))
+    # print(managers)
+    managers_in=managers.filter(iwssad=True).count()
+    managers_out=managers.filter(iwssad=False).count()
+    # print(f'les manager présents {managers_in}')
+    # print(f'les manager sortie {managers_out}')
+    # get the number of employes by team
+    if (teams):
+        for team in teams :
+            team.nbr_members=get_employes(team).count()
+            team.nbr_in= get_employes_by_presence(team,True).count()
+            team.nbr_out= get_employes_by_presence(team,False).count()
+            #print(team.nbr_members)
+
+    # les collaborateurs 
+    collaborateurs=Employe.objects.all()
+    collaborateurs_nbr=collaborateurs.count()
+    print(collaborateurs)
+    print(collaborateurs_nbr)
+    male_collaborateurs_nbr=collaborateurs.filter(gender='H').count()
+    female_collaborateurs_nbr=collaborateurs.filter(gender='F').count()
+    collaborateurs_in_nbr=collaborateurs.filter(iwssad=True).count()
+    collaborateurs_out_nbr=collaborateurs.filter(iwssad=False).count()
+    if(collaborateurs):
+        for col in collaborateurs :
+            shift=col.get_last_shift()
+            print(shift)
+            col.last_entry=get_laste_entry(shift)
+            print(col.last_entry)
+            col.in_post_t = get_inpost_t(col)
+            print( col.in_post_t)
+    return render(request, 'dash/responsable/dash_responsible.html',locals())
+
+@responsible_required
 def my_teams(request):
     teams = Team.objects.annotate(nb_emp_in=Count(
             'employes',
@@ -52,7 +104,7 @@ def my_teams(request):
     return render(request, 'dash/responsable/my_teams.html', {'teams':teams})
 
 
-@project_manger_required
+@responsible_required
 def schedules(request):
     # Get list off all schudules 
     schedules = Planing.objects.filter()
@@ -67,7 +119,7 @@ def schedules(request):
 
     return render(request, 'dash/responsable/schedules.html', {'schedules':schedules})
 
-@project_manger_required
+@responsible_required
 def schedule(request):
     planning = Planing.objects.filter(titre='employe').get()
     
@@ -84,7 +136,7 @@ def schedule(request):
  
     return render(request, 'dash/responsable/schedule.html',{'m1':res})
 
-@project_manger_required
+@responsible_required
 def create_schedule(request):
     DayFormSet = inlineformset_factory(Planing, Day, form=DayForm, extra=7, can_delete=False)
     #some_formset = DayFormSet(initial=[{'jds': 6}, {'jds': 0}, {'jds': 1}, {'jds': 2}, {'jds': 3}, {'jds': 4}, {'jds': 5}])
@@ -160,7 +212,7 @@ def modify_team(request, pk):
     return render(request, 'dash/modify_team.html', {'form': form, 'employes':employes})
 
 # View to delete employe from team
-@project_manger_required
+@responsible_required
 def view_delete_employe_team(request, pk):
     # Get employe with the pk in url
     user = User.objects.get(id=pk)

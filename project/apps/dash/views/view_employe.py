@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from apps.dash.decorators import employe_required, manger_required, project_manger_required
+from apps.dash.decorators import employe_required, manger_required, responsible_required
 from django.contrib.auth.decorators import login_required
 from apps.pointage.models import Employe, User, Planing, Shift
 from django.core.exceptions import ObjectDoesNotExist
