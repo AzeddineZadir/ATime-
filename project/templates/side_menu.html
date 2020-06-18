@@ -28,9 +28,16 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'dash:my_teams' %}" class="nav-link">
                     <i class="icon fas fa-users"></i>
                     <span class="text">Les Equipes</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'dash:schedules' %}" class="nav-link">
+                    <i class="icon fas fa-users"></i>
+                    <span class="text">Les Plannings</span>
                 </a>
             </li>
 
@@ -42,7 +49,7 @@
             </li>
             
             <li class="nav-item liToggle fixed-bottom">
-                <a href="#" class="nav-link sideMenuToggler">
+                <a href="#" class="nav-link sideMenuToggler" id='sideMenuToggler'>
                 <i class="icon fas fa-chevron-circle-left"></i>
                 </a>
             </li>
@@ -88,7 +95,7 @@
                     </a>
             </li>
             <li class="nav-item liToggle fixed-bottom">
-                <a href="#" class="nav-link sideMenuToggler">
+                <a href="#" class="nav-link sideMenuToggler" id='sideMenuToggler'>
                 <i class="icon fas fa-chevron-circle-left"></i>
                 </a>
             </li>
@@ -112,13 +119,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'dash:ma_fiche_pointage' %}" class="nav-link">
+                <a href="{% url 'dash:ma_fiche_pointage' pk=request.user.id %}" class="nav-link">
                     <i class="icon far fa-calendar-alt"></i>
                     <span class="text">Ma fiche de pointage</span>
                 </a>
             </li>
             <li class="nav-item liToggle fixed-bottom">
-                <a href="#" class="nav-link sideMenuToggler">
+                <a href="#" class="nav-link sideMenuToggler" id='sideMenuToggler'>
                 <i class="icon fas fa-chevron-circle-left"></i>
                 </a>
             </li>

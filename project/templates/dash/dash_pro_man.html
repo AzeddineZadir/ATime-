@@ -449,20 +449,99 @@
             </div>
         </div>
     </div>
-    
-{% endblock %}
+</div>
 
-{% block scripts %}
-    <script>
-        let ctx = document.getElementById('myChartPresent').getContext('2d');
-        let campaignDonut = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [6,4],
-                    backgroundColor: ['#2D3E50', '#EFF0F3'],
-                }],
-                labels : ['Femme','Homme']
+{% endblock %} {% block scripts %}
+<script>
+    let ctx = document.getElementById('myChartPresent').getContext('2d');
+    let campaignDonut = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [6, {{test}}],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
+            },
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            },
+        }
+    });
+
+    let ctx2 = document.getElementById('myChartAbsent').getContext('2d');
+    let campaignDonut2 = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [4, 6],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
+            },
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            },
+        }
+    });
+
+    let ctx3 = document.getElementById('myChartPoste').getContext('2d');
+    let campaignDonut3 = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [4, 6],
+                backgroundColor: ['#2D3E50', '#EFF0F3'],
+            }],
+            labels: ['Femme', 'Homme']
+        },
+        options: {
+            aspectRatio: 1,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
+            },
+            responsive: true,
+            cutoutPercentage: 60,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
             },
         }
     });

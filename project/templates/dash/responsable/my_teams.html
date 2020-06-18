@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+{% block nav %} {% endblock %}
+{% block title %} project manger dashbored {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="team">
+            <div class="title">
+                <div class="ligne">
+                    <h1>Les équipes</h1>
+                    <a class="btn btn-primary" href="{% url 'dash:create_team' %}" role="button" aria-pressed="true">Créer une équipe</a>
+                </div>
+                <div class="trait"></div>
+            </div>
+    
+            <div class="row">
+                {% if teams %}
+                    {% for team in teams %}
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-team">     
+                                <h3 class="title-team">{{ team.titre }}</h3>
+                                <div class="description-team">
+                                    {% if team.manager.user.first_name %}
+                                        <h5>{{ team.manager.user.first_name }} {{ team.manager.user.last_name }}</h5>
+                                    {% else %}
+                                        <h5>Aucun manager</h5>
+                                    {% endif %}
+                                    <p>{{ team.description }}</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>{{ team.nb_emp }}</p>
+                                    <p>{{ team.nb_emp_in }}</p>
+                                </div>
+                                <a class="btn more" href="{% url 'dash:modify_team' pk=team.id %}">
+                                    <i class="fas fa-chevron-right more-icon"></i>
+                                </a>
+                            
+                            </div>
+                            
+                        </div>   
+                    {% endfor %}
+                {% else %}    
+                {% endif %}    
+            </div>
+        </div>
+    </div>  
+ 
+    
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

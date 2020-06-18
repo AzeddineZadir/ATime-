@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+{% block nav %} {% endblock %}
+{% block title %} project manger dashbored {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="container">
+        <div class="form-create">
+            <h1>Crée une nouvelle équipe</h1>
+            <div class="trait"></div>
+
+                <form method='post'>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input class="btn btn-primary btn-block" type='submit' value="Crée l'équipe" name="create">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{ test }}
+    
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

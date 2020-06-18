@@ -1,5 +1,6 @@
 $(document).ready(function (){
     $(".sideMenuToggler").on("click", function(){
+        
         $(".wrapper").toggleClass("active"); 
         icon = $(this).find("i")
         if(icon.hasClass("fa-chevron-circle-left")){
@@ -8,6 +9,8 @@ $(document).ready(function (){
             icon.removeClass("fa-chevron-circle-right").toggleClass("fa-chevron-circle-left");
         }
     });
+
+
     const elem = document.getElementById('range');
     Datepicker.active
     Datepicker.locales.fr = {
@@ -23,12 +26,11 @@ $(document).ready(function (){
     };
     const dateRangePicker = new DateRangePicker(elem, {
         language:'fr',   
-    }); 
-
-
-    
+    });     
     
 });
+
+
 
 
 

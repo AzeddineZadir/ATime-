@@ -65,7 +65,7 @@ class Employe(models.Model):
     team = models.ForeignKey(
         'Team', on_delete=models.SET_NULL, null=True, blank=True, related_name='employes')
     planing = models.ForeignKey(
-        'Planing', on_delete=models.SET_NULL, blank=True, null=True)
+        'Planing', on_delete=models.SET_NULL, blank=True, null=True, related_name='pemployes')
     gender = models.CharField(
         max_length=1,
         choices=GENDER,
@@ -143,10 +143,10 @@ class Employe(models.Model):
 
 class Team(models.Model):
     titre = models.CharField(
-        max_length=150, default='team', blank=True, null=True)
-    description = models.CharField(max_length=400, blank=True, null=True)
+        max_length=150, default='team', blank=True, null=True, verbose_name="Nom de l'équipe")
+    description = models.CharField(max_length=400, blank=True, null=True, verbose_name="Déscription de l'équipe")
     manager = models.ForeignKey(
-        'Employe', verbose_name="manager", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')
+        'Employe', verbose_name="manager de l'équipe", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')
 
     def __str__(self):
         return str(self.titre)
@@ -180,17 +180,21 @@ class Day(models.Model):
                    (1, 'Mardi'), (2, 'Mercredi'), (3, 'Jeudi'), (4, 'Vendredi'))
     #titre = models.CharField(max_length=150)
 
-    jds = models.PositiveIntegerField(choices=DAY_OF_WEEK,
-                                      blank=True, null=True)
-    he1 = models.TimeField(auto_now=False, auto_now_add=False)
-    hs1 = models.TimeField(auto_now=False, auto_now_add=False)
-    he2 = models.TimeField(auto_now=False, auto_now_add=False)
-    hs2 = models.TimeField(auto_now=False, auto_now_add=False)
+    jds = models.PositiveIntegerField(choices=DAY_OF_WEEK,blank=True, null=True)
+    he1 = models.TimeField(auto_now=False, auto_now_add=False,
+                                          blank=True, null=True)
+    hs1 = models.TimeField(auto_now=False, auto_now_add=False,
+                                          blank=True, null=True)
+    he2 = models.TimeField(auto_now=False, auto_now_add=False,
+                                          blank=True, null=True)
+    hs2 = models.TimeField(auto_now=False, auto_now_add=False,
+                                          blank=True, null=True)
     planing = models.ForeignKey(
         'Planing', on_delete=models.SET_NULL, blank=True, null=True, related_name='planing_days')
 
     def __str__(self):
         return str(self.jds)
+
 
 
 class Planing (models.Model):

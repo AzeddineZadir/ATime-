@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+{% block nav %} {% endblock %}
+{% block title %} project manger dashbored {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="team">
+            <div class="title">
+                <div class="ligne">
+                    <h1>Les plannings</h1>
+                    <a class="btn btn-primary" href="{% url 'dash:create_schedule' %}" role="button" aria-pressed="true">Créer un planning</a>
+                </div>
+                <div class="trait"></div>
+            </div>
+    
+            <div class="row">
+                {% if schedules %}
+                    {% for schedule in schedules %}
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-team">     
+                                <h3 class="title-team">{{ schedule.titre }}</h3>
+                                <div class="description-team">
+                                    {% if schedule.description %}
+                                        <h5> {{ schedule.description|truncatechars:22  }} </h5>
+                                    {% else %}
+                                        <h5>Aucune description</h5>
+                                    {% endif %}
+                                    <p>{{ schedule.total }}</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p></p>
+                                    <p></p>
+                                </div>
+                                <a class="btn more" href="{% url 'dash:schedule' pk=schedule.id %}">
+                                    <i class="fas fa-chevron-right more-icon"></i>
+                                </a>
+                            
+                            </div>
+                            
+                        </div>   
+                    {% endfor %}
+                {% else %}    
+                {% endif %}    
+            </div>
+        </div>
+    </div>  
+ 
+    
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

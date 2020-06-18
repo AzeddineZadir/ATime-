@@ -360,7 +360,29 @@ body {
     }
 }
 
-.table-shift {
+.table-my-collaborator-responsable{
+    margin-top: rem(20px);
+    tbody {
+        .employe-name {
+            p {
+                display: inline-block;
+                padding-left: 10px;
+            }
+        }
+        td {
+            vertical-align: middle;
+            .btn-group{
+                float: right;
+                margin-right: 36px;
+                position: static !important;
+            }
+            
+        }
+    }
+}
+
+
+.table-shift{
     margin-top: 10px;
     .table-title {
         height: 40px;
@@ -412,6 +434,59 @@ body {
     }
 }
 
+.back1{
+    background-color: rgba(0,0,0,.05);
+}
+
+.back2{
+    background-color: white;
+}
+
+
+.form-create{
+    margin-left: rem(64px);
+    margin-right: rem(64px);
+    margin-top: rem(46px);
+    @extend .text-secondaryy;
+    .trait{
+        height: rem(1px);
+        margin-top: rem(16px);
+        margin-bottom: rem(24px);
+        @extend .bg-secondaryy;
+    }
+    h1{
+        font-size: rem(32px);
+    }
+    
+    button{
+        margin-top: rem(24px);
+    }
+}
+
+
+.title{
+    margin-top: rem(12px);
+    @extend .text-secondaryy;
+    .trait{
+        height: rem(1px);
+        margin-top: rem(12px);
+        margin-bottom: rem(24px);
+        @extend .bg-secondaryy;
+    } 
+    h1{
+        font-size: rem(32px);
+    }
+    .ligne{
+        display: flex; 
+        justify-content: space-between;
+        a{
+            height: rem(40px);
+        }
+    }
+}
+
+
+
 .card.team {
     margin-top: rem(32px);
     margin-left:rem(32px);
@@ -427,6 +502,112 @@ body {
     background-color: rgba(0,0,0,.05);
 }
 
-.back2{
-    background-color: white;
+// Team 
+.team {
+    margin-left: rem(12px);
+    margin-right: rem(12px);
+    // Card employe
+    .card-team {
+        border: 8px;
+        margin-bottom: 16px;
+        border-left: 8px solid #2D3E50;
+        .title-team {
+            margin-top: rem(10px);
+            margin-left: rem(12px);
+            font-size: rem(20px);
+            font-weight: bold;
+        }
+        .heure-e {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            line-height: 0.2;
+            font-size: rem(12px);
+            font-weight: bold;
+        }
+        .description-team {
+            margin-top: rem(24px);
+            margin-left: rem(12px);
+            margin-bottom: rem(8px);
+            h5 {
+                font-size: rem(16px);
+                font-weight: bold;
+            }
+            p {
+                font-size: rem(12px);
+                line-height: 0.1;
+            }
+        }
+        .more {
+            display: flex;
+            vertical-align: center;
+            padding-top: 8px;
+            margin-bottom: rem(8px);
+        }
+    }
 }
+
+.create-scedule{
+    .partie{
+        text-align: center;
+        height: rem(32px);
+        margin-bottom: rem(8px);
+        span {
+            font-size: rem(18px);
+            @extend .text-#{secondaryy};           
+        }
+       
+    }
+}
+
+.chart{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.card-schedule{
+    display: flex;
+    border-radius: 4px;
+    background-color: white;
+    margin-bottom: rem(24px);
+    h3{
+        font-size: rem(16px);
+        font-weight: bold;
+        white-space: nowrap;
+        margin-top: rem(16px);
+        margin-left: rem(12px);
+    }
+    .icon {
+        font-size: rem(92px);
+        margin-right: 24px;
+        margin-left: auto;
+        color: rgba(0, 0, 0, 0.15);
+    }
+
+    p{
+        font-size: rem(32px);
+        font-weight: bold;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: rem(12px);
+    }
+
+    .info{
+        h2{
+            font-size: rem(32px);
+            font-weight: bold;
+            white-space: nowrap;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: rem(12px);
+        }
+    
+        p{
+            font-size: rem(14px);
+            font-weight: normal;
+            margin-left: rem(12px);
+        }
+    }
+}
+

@@ -3,12 +3,18 @@
 <html lang="fr">
 
 <head>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/datepicker-bs4.min.css' %}" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/datepicker-bs4.min.css' %}" />
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <!--Scripts-->
+  {% block scripts %} {% endblock scripts %}
+
 </head>
 
 
@@ -31,8 +37,7 @@
                     <!--Contenu-->
                     {% block content %} {% endblock content %}
 
-                    <!--Scripts-->
-                    {% block scripts %} {% endblock scripts %}
+                    
 
                 </div>
             </div>
