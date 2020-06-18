@@ -33,6 +33,7 @@ class User(AbstractUser):
         (MANAGER, 'Manager'),
         (BOSS, 'Responsable'),
     )
+    email = models.EmailField(unique=True)
     role = models.PositiveSmallIntegerField(
         choices=ROLE_CHOICES, blank=True, null=True)
 
