@@ -4,48 +4,96 @@
 {% load crispy_forms_tags %}
 
 {% block scripts %}
-<script>
-  google.charts.load("current", {packages:["timeline"]});
+<script> 
+  
+  
+  google.charts.load("current", {packages:["timeline"], 'language': 'fr'});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
 
-    console.log("{{m1.0}}")
-    {% for key, value in m1.items %}
-        console.log("{{value.date}}")
-    {% endfor %}
-   
-
-
-    var container = document.getElementById('example5.1');
+    var container = document.getElementById('schedule');
     var chart = new google.visualization.Timeline(container);
     var dataTable = new google.visualization.DataTable();
-    dataTable.addColumn({ type: 'string', id: 'Room' });
-    dataTable.addColumn({ type: 'string', id: 'Name' });
-    dataTable.addColumn({ type: 'date', id: 'Start' });
-    dataTable.addColumn({ type: 'date', id: 'End' });
+
+    dataTable.addColumn({
+      type: 'string',
+      id: 'President'
+    });
+    dataTable.addColumn({
+      type: 'string',
+      id: 'Category'
+    });
+    dataTable.addColumn({
+      type: 'date',
+      id: 'Start'
+    });
+    dataTable.addColumn({
+      type: 'date',
+      id: 'End'
+    });
+    
     dataTable.addRows([
-        {% for key, value in m1.items %}
-            [ "{{value.jours}}", "{{value.title}}",       new Date("{{value.date}}"),  new Date("{{value.date1}}") ],
+        {% for key,value in row.items %}
+            [ "{{value.jours}}", "{{value.title}}",  new Date("{{value.he1}}"),  new Date("{{value.hs1}}") ],
+            [ "{{value.jours}}", "{{value.title}}",   new Date("{{value.he2}}"),  new Date("{{value.hs2}}") ],
         {% endfor %}
-
-        
-
     ]);
 
+    var rowHeight = 24;
+    var chartHeight = dataTable.getNumberOfRows() * rowHeight + 50;
+
     var options = {
-      timeline: { colorByRowLabel: true },
-      vAxis: {minValue: 0}
+        timeline: {
+            groupByRowLabel: true,
+        },
+        backgroundColor: '#ffffff',
+        height : chartHeight,
+        hAxis: {
+            format: 'HH:mm',                      
+        },
     };
     
 
     chart.draw(dataTable, options);
-
+	(function(){											//anonymous self calling function to prevent variable name conficts
+		var el=container.getElementsByTagName("rect");		//get all the descendant rect element inside the container		
+		var width=100000000;								//set a large initial value to width
+		var elToRem=[];										//element would be added to this array for removal
+		for(var i=el.length;i--;){							//looping over all the rect element of container
+			var cwidth=parseInt(el[i].getAttribute("width"));//getting the width of ith element
+			if(cwidth<width){								//if current element width is less than previous width then this is min. width and ith element should be removed
+				elToRem=[el[i]];
+				width=cwidth;								//setting the width with min width
+			}
+			else if(cwidth==width){							//if current element width is equal to previous width then more that one element would be removed
+				elToRem.push(el[i]);		
+			}
+		}
+		for(i=elToRem.length;i--;)
+			elToRem[i].setAttribute("fill","none");	//invisiblize all the rect element which has minimum width
+    })();
     
-  }
+    
+}
 
-$(window).resize(function(){
-  drawChart();
+$(window).resize(function() {
+    if(this.resizeTO) clearTimeout(this.resizeTO);
+    this.resizeTO = setTimeout(function() {
+        $(this).trigger('resizeEnd');
+    }, 500);
 });
+
+//redraw graph when window resize is completed  
+$(window).on('resizeEnd', function() {
+    drawChart();
+    console.log('click');
+});
+
+
+
+
+
+
 
 
 </script>
@@ -53,17 +101,59 @@ $(window).resize(function(){
 {% block content %}
 
     <div class="container-fluid">
-        <div class="title">
+        <div class="title" >
             <div class="ligne">
-                <h1>Nom du planning</h1>
-                <a class="btn btn-primary" href="{% url 'dash:create_schedule' %}" role="button" aria-pressed="true">Modifier planning</a>
+                <h1>Le planning</h1>
+                <div class="div">
+                    <a class="btn btn-primary" href="{% url 'dash:assign_schedule' pk=schedule.id %}" role="button" aria-pressed="true">Affecter le planning</a>
+                    <a class="btn btn-primary" href="{% url 'dash:modify_schedule' pk=schedule.id %}" role="button" aria-pressed="true"><i class="far fa-edit"></i></a>
+                </div>
             </div>
             <div class="trait"></div>
         </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="card-schedule">
+                    <div class="info">
+                        <h3> {{ schedule.titre }} </h3>
+                        <p> {{ schedule.description}} </p>
+                    </div>
+                    <div class="icon ">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="card-schedule">
+                    <div>
+                        <h3> Employé assigner </h3>
+                        <p> {{ schedule.nb_emp }} </p>
+                    </div>
+                    <div class="icon ">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="card-schedule">
+                    <div>
+                        <h3> Nombre d'heures</h3>
+                        <p> {{ schedule.total }} </p>
+                    </div>
+                    <div class="icon ">
+                        <i class="far fa-clock"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
             
             <div class="row">
-                <div class="col-md-12 chart">
-                    <div  id="example5.1" style="height: 1000px;width:100%;margin: 0 auto"></div>
+                <div class="col-xl-12 chart">
+                    <div id="schedule"></div>
                 </div>
             </div>
             

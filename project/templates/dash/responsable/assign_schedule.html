@@ -8,28 +8,11 @@
         <div class="form-modify">
             <div class="title" >
                 <div class="ligne">
-                    <h1>Modifier le planning</h1>
+                    <h1>Assigner le planning</h1>
+                    
                 </div>
                 <div class="trait"></div>
             </div>
-
-                <form method='post'>
-                    {% csrf_token %}
-                    <div class="row align-items-end">
-                        <div class="form-group col-md-6 mb-0">
-                          {{ form.titre|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6 mb-0">
-                          {{ form.description|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6 mb-0">
-                            {{ form.manager|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6 mb-3">
-                            <input class="btn btn-primary btn-block float-bottom" type='submit' value="Modifier l'équipe" name="modify">
-                        </div>
-                    </div>
-                </form>
 
                 <form method='post'>
                     {% csrf_token %}
@@ -39,7 +22,7 @@
                             <input type="text" class="form-control" id="employe" placeholder="Entré le nom de l'employé" name="employe">
                         </div>
                         <div class="form-group col-md-6 mb-0 ">
-                            <input class="btn btn-success btn-block" type='submit' value="Ajouter un employé" name="add">
+                            <input class="btn btn-success btn-block" type='submit' value="Ajouter" name="add">
                         </div>
                     </div>
                 </form>
@@ -96,7 +79,7 @@
                                                           <a class="dropdown-item" href="{% url 'dash:view_profile' pk=employe.user.pk %}">Voir le profile</a>
                                                           <a class="dropdown-item" href="{% url 'dash:ma_fiche_pointage' pk=employe.user.pk %}">Voir la fiche de pointage</a>
                                                           <div class="dropdown-divider"></div>
-                                                          <a class="dropdown-item" href="{% url 'dash:delete_employe_team' pk=employe.user.pk %}">Supprimer de l'équipe</a>
+                                                          <a class="dropdown-item" value="delete" href="{% url 'dash:delete_employe_schedule' pk=employe.user.pk %}">Supprimer du planning</a>
                                                         </div>
                                                       </div>
                                                     
@@ -119,7 +102,7 @@
 <script>
     $( function() {
       $( "#employe" ).autocomplete({
-        source: "{% url 'dash:modify_team' pk=form.initial %}"
+        source: "{% url 'dash:assign_schedule' pk=pk %}"
       });
     } );
     </script>

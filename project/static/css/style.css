@@ -587,4 +587,56 @@ body :focus {
 .create-scedule .partie span {
   font-size: 1.125rem;
 }
+
+.chart {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-schedule {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 4px;
+  background-color: white;
+  margin-bottom: 1.5rem;
+}
+
+.card-schedule h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  white-space: nowrap;
+  margin-top: 1rem;
+  margin-left: 0.75rem;
+}
+
+.card-schedule .icon {
+  font-size: 5.75rem;
+  margin-right: 24px;
+  margin-left: auto;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.card-schedule p {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0.75rem;
+}
+
+.card-schedule .info h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  white-space: nowrap;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0.75rem;
+}
+
+.card-schedule .info p {
+  font-size: 0.875rem;
+  font-weight: normal;
+  margin-left: 0.75rem;
+}
 /*# sourceMappingURL=style.css.map */

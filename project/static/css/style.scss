@@ -549,9 +549,60 @@ body {
         margin-bottom: rem(8px);
         span {
             font-size: rem(18px);
-            @extend .text-#{secondaryy};
-            
+            @extend .text-#{secondaryy};           
         }
        
     }
 }
+
+.chart{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.card-schedule{
+    display: flex;
+    border-radius: 4px;
+    background-color: white;
+    margin-bottom: rem(24px);
+    h3{
+        font-size: rem(16px);
+        font-weight: bold;
+        white-space: nowrap;
+        margin-top: rem(16px);
+        margin-left: rem(12px);
+    }
+    .icon {
+        font-size: rem(92px);
+        margin-right: 24px;
+        margin-left: auto;
+        color: rgba(0, 0, 0, 0.15);
+    }
+
+    p{
+        font-size: rem(32px);
+        font-weight: bold;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: rem(12px);
+    }
+
+    .info{
+        h2{
+            font-size: rem(32px);
+            font-weight: bold;
+            white-space: nowrap;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: rem(12px);
+        }
+    
+        p{
+            font-size: rem(14px);
+            font-weight: normal;
+            margin-left: rem(12px);
+        }
+    }
+}
+

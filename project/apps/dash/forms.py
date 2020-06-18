@@ -33,7 +33,7 @@ class TeamForm(forms.ModelForm):
         model = Team
         fields = ['id', 'titre', 'description', 'manager' ]
 
-class PlaningForm(forms.ModelForm):
+class PlanningForm(forms.ModelForm):
 
     class Meta:
         model = Planing
@@ -49,11 +49,17 @@ class DayForm(forms.ModelForm):
         # Get FormHelper to remove all labels
         self.helper = FormHelper()
         self.helper.form_show_labels = False 
-        try:
-            t= kwargs.get('initial').get('jds')
+        if 'initial' in kwargs:
+            t = kwargs.get('initial').get('jds')
             self.day= days[t]
-        except:
+        else:
             print("None")
+
+        if 'instance' in kwargs :
+            instance = kwargs.pop('instance')
+            self.day=days[instance.jds]
+        else:
+            team = None
         
         # Adding placeholder to fields
         self.fields['he1'].widget.attrs['placeholder'] = "Heure d'entré"

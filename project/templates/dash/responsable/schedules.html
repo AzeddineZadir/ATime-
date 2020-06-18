@@ -22,7 +22,7 @@
                                 <h3 class="title-team">{{ schedule.titre }}</h3>
                                 <div class="description-team">
                                     {% if schedule.description %}
-                                        <h5> {{ schedule.description }} </h5>
+                                        <h5> {{ schedule.description|truncatechars:22  }} </h5>
                                     {% else %}
                                         <h5>Aucune description</h5>
                                     {% endif %}
@@ -32,7 +32,7 @@
                                     <p></p>
                                     <p></p>
                                 </div>
-                                <a class="btn more" href="">
+                                <a class="btn more" href="{% url 'dash:schedule' pk=schedule.id %}">
                                     <i class="fas fa-chevron-right more-icon"></i>
                                 </a>
                             
