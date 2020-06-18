@@ -58,8 +58,9 @@ def dash_responsible(request):
     # get all the managers 
     managers = Employe.objects.filter(~Q(managed_team=None))
     # print(managers)
-    managers_in=managers.filter(iwssad=True).count()
-    managers_out=managers.filter(iwssad=False).count()
+    managers_nbr=managers.count()
+    managers_in_nbr=managers.filter(iwssad=True).count()
+    managers_out_nbr=managers.filter(iwssad=False).count()
     # print(f'les manager présents {managers_in}')
     # print(f'les manager sortie {managers_out}')
     # get the number of employes by team
@@ -79,6 +80,7 @@ def dash_responsible(request):
     female_collaborateurs_nbr=collaborateurs.filter(gender='F').count()
     collaborateurs_in_nbr=collaborateurs.filter(iwssad=True).count()
     collaborateurs_out_nbr=collaborateurs.filter(iwssad=False).count()
+    # add last_entry and in poste time to employes queryset
     if(collaborateurs):
         for col in collaborateurs :
             shift=col.get_last_shift()
@@ -87,6 +89,8 @@ def dash_responsible(request):
             print(col.last_entry)
             col.in_post_t = get_inpost_t(col)
             print( col.in_post_t)
+    
+    
     return render(request, 'dash/responsable/dash_responsible.html',locals())
 
 @responsible_required

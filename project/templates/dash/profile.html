@@ -7,8 +7,17 @@
         <div class="media">
             <img src="{{ picture.url }}" class="profile-pic rounded-circle" alt="">
             <div class="media-body">
-              <h5 class="mt-0">Nom de l'employé</h5>
-              <p>Role de l'employé</p>
+                <h5 class="mt-0">{{request.user.first_name}} {{request.user.last_name}}</h5>
+                {% if request.user.role == 1 %}
+                    <p> Employé</p>
+                {% else %}
+                    {% if  request.user.role == 2 %}
+                        <p> Manager </p>
+                    {% else %}
+                        <p> Responsable</p>
+                    {% endif %}
+                {% endif %}
+              
             </div>
         </div>
         

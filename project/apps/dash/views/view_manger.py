@@ -163,7 +163,7 @@ def fiche_pointage(request):
             # Get str data from fields nom
             nom = request.GET.get('nom').lower()
             status = request.GET.get('status')
-        
+            list_emp=0
             print(status)
             # Check if not None or ''
             if is_valid(nom):
