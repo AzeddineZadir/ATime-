@@ -154,21 +154,38 @@ def schedule(request, pk):
         row[day] = {'title':'', 'he1':he1, 'hs1':hs1, 'he2':he2, 'hs2':hs2, 'jours':day.get_jds_display()}
 
 @responsible_required
-def schedule(request):
-    planning = Planing.objects.filter(titre='employe').get()
-    
-    date = datetime.datetime(1, 1, 1,12,0,0)
-    date1 = datetime.datetime(1, 1, 1,18,0,0)
-   
+def schedule(request,pk):
+    schedule = Planing.objects.filter(id=pk).annotate(nb_emp=Count('pemployes')).get()
 
-    innerdict = {}
-    emp = {}
-    emp = {'d':{'jours': 'samedi', 'date': date, 'date1':date1, 'title':'tt'}}
-    res = dict()
-    for i in range(3):
-        res[i] = {'title':'tt','date1':date1,'date':date,'jours':'samedi'}
+    total = datetime.timedelta(hours=0)
+    for day in schedule.planing_days.all():     
+        total += sum_hours_planning_day(day)
+    schedule.total = convert_time(total)
+
+         
+    row = dict()
+    for day in schedule.planing_days.all():
+        date = datetime.date(1, 1, 1)
+        dateE = datetime.datetime(1, 1, 1, 0, 0)
+        dateS = datetime.datetime(1, 1, 2, 0, 0)
+        try:
+            he1 = datetime.datetime.combine(date, day.he1)
+            hs1 = datetime.datetime.combine(date, day.hs1)
+        except:
+            he1 = dateE
+            hs1 = dateE
+
+        try:
+            he2 = datetime.datetime.combine(date, day.he2)
+            hs2 = datetime.datetime.combine(date, day.hs2)           
+        except:
+            he2 = dateS
+            hs2 = dateS
+        row[day] = {'title':'', 'he1':he1, 'hs1':hs1, 'he2':he2, 'hs2':hs2, 'jours':day.get_jds_display()}
+
  
     return render(request, 'dash/responsable/schedule.html',{'row':row, 'schedule':schedule, 'pk':pk })
+
 
 @responsible_required
 def create_schedule(request):
