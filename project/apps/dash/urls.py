@@ -17,8 +17,14 @@ urlpatterns = [
     path('modify_schedule/<str:pk>', views.modify_schedule , name='modify_schedule'),
     path('assign_schedule/<str:pk>', views.assign_schedule , name='assign_schedule'),
     path('create_schedule', views.create_schedule , name='create_schedule'),
+    path('delete_schedule/<str:pk>', views.delete_schedule , name='delete_schedule'),
     path('delete_employe_schedule/<str:pk>', views.delete_employe_schedule , name='delete_employe_schedule'),
     path('create_team', views.create_team , name='create_team'),
+    path('assign_team/<str:pk>', views.assign_team , name='assign_team'),
     path('modify_team/<str:pk>', views.modify_team , name='modify_team'),
+    path('delete_team/<str:pk>', views.delete_team , name='delete_team'),
     path('delete_employe_team/<str:pk>', views.delete_employe_team , name='delete_employe_team'),
+    path('mes_employes', views.mes_employes , name='mes_employes'),
+    path('fiche_pointage_all/', views.fiche_pointage_all , name='fiche_pointage_all'),
+    
 ]

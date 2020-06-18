@@ -117,8 +117,11 @@ def mes_collaborateurs(request):
     # Get manager
     manger = Employe.objects.filter(user=request.user).get()
     # Get manager team
-    team = manger.team
-    # if he is the team manager we get all employe of this team except the manager  
+    try:
+        team = Team.objects.filter( manager = manger).get()
+    except:
+        print("No team")
+    # if he is the team manager we get all employe of this team except the manager
     try:
         if manger == team.manager:
             list_emp = Employe.manager.get_my_employe(team,request.user)
@@ -130,7 +133,7 @@ def mes_collaborateurs(request):
                 # Check if not None or ''
                 if is_valid(nom):
                     # Filter list_emp with lastame
-                    list_emp = list_emp.filter(user__last_name=nom)
+                    list_emp = list_emp.filter(Q(user__last_name__istartswith=nom) | Q(user__first_name__istartswith=nom))
                     
                 if is_valid(status):
                     if status == '1':
@@ -149,7 +152,10 @@ def fiche_pointage(request):
     # Get manager
     manger = Employe.objects.filter(user=request.user).get()
     # Get manager team
-    team = manger.team
+    try:
+        team = Team.objects.filter(manager = manger).get()
+    except:
+        print("No team")
     # if he is the team manager we get all employe of this team except the manager 
     try:
         if manger == team.manager:
@@ -167,34 +173,16 @@ def fiche_pointage(request):
                 # Get str data from fields nom
                 nom = request.GET.get('nom').lower()
                 status = request.GET.get('status')
-                list_emp=0
-                print(status)
                 # Check if not None or ''
                 if is_valid(nom):
                     # Filter list_emp with lastame
-                    list_emp = list_emp.filter(user__last_name=nom)
+                    list_emp = list_emp.filter(Q(user__last_name__istartswith=nom) | Q(user__first_name__istartswith=nom))
                 if is_valid(status):
                     if status == '1':
                         list_emp = list_emp.filter(iwssad=True)
                     else:
                         emp.he = None
                         emp.hs = None
-                # Check if request method is GET
-                if request.GET:
-                    # Get str data from fields nom
-                    nom = request.GET.get('nom').lower()
-                    status = request.GET.get('status')
-                
-                    print(status)
-                    # Check if not None or ''
-                    if is_valid(nom):
-                        # Filter list_emp with lastame
-                        list_emp = list_emp.filter(user__last_name=nom)
-                    if is_valid(status):
-                        if status == '1':
-                            list_emp = list_emp.filter(iwssad=True)
-                        else:
-                            list_emp = list_emp.filter(iwssad=False)
     except:
         list_emp = None
 

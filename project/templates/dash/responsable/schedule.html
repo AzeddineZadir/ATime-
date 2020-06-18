@@ -52,7 +52,8 @@
             format: 'HH:mm',                      
         },
     };
-    
+    // add event to make haxis on top
+    google.visualization.events.addListener(chart, 'ready', afterDraw);
 
     chart.draw(dataTable, options);
 	(function(){											//anonymous self calling function to prevent variable name conficts
@@ -76,6 +77,15 @@
     
 }
 
+function afterDraw() {
+      	var g = document.getElementsByTagName("svg")[0].getElementsByTagName("g")[1];
+        document.getElementsByTagName("svg")[0].parentNode.style.top = '40px';
+        document.getElementsByTagName("svg")[0].style.overflow = 'visible';
+        var height = Number(g.getElementsByTagName("text")[0].getAttribute('y')) + 15;
+        g.setAttribute('transform','translate(0,-'+height+')');
+        g = null;
+}
+
 $(window).resize(function() {
     if(this.resizeTO) clearTimeout(this.resizeTO);
     this.resizeTO = setTimeout(function() {
@@ -90,12 +100,6 @@ $(window).on('resizeEnd', function() {
 });
 
 
-
-
-
-
-
-
 </script>
 {% endblock %}
 {% block content %}
@@ -107,6 +111,9 @@ $(window).on('resizeEnd', function() {
                 <div class="div">
                     <a class="btn btn-primary" href="{% url 'dash:assign_schedule' pk=schedule.id %}" role="button" aria-pressed="true">Affecter le planning</a>
                     <a class="btn btn-primary" href="{% url 'dash:modify_schedule' pk=schedule.id %}" role="button" aria-pressed="true"><i class="far fa-edit"></i></a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteScheduleModal">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
                 </div>
             </div>
             <div class="trait"></div>
@@ -121,7 +128,7 @@ $(window).on('resizeEnd', function() {
                         <p> {{ schedule.description}} </p>
                     </div>
                     <div class="icon ">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-calendar-week"></i>
                     </div>
                 </div>
             </div>
@@ -151,11 +158,29 @@ $(window).on('resizeEnd', function() {
             </div>
         </div>
             
-            <div class="row">
-                <div class="col-xl-12 chart">
-                    <div id="schedule"></div>
-                </div>
+        <div class="row">
+            <div class="col-xl-12 chart">
+                <div id="schedule"></div>
             </div>
+        </div>
+
+        <div class="modal fade" id="deleteScheduleModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteScheduleModalLabel">Voulez-vous vraiment supprimer ce planning?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  <a class="btn btn-primary" href="{% url 'dash:delete_schedule' pk=schedule.id %}" role="button" aria-pressed="true">Confirmer la suppression</a>
+                </div>
+              </div>
+            </div>
+          </div>
             
        
     </div>

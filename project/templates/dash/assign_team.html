@@ -6,12 +6,37 @@
 
     <div class="container-fluid">
         <div class="form-modify">
+
             <div class="title" >
                 <div class="ligne">
-                    <h1>Modification</h1>
+                    <h1>{{ form.titre.value|capfirst }}</h1>
+                    <div class="div">
+                        <a class="btn btn-primary" href="{% url 'dash:modify_team' pk=pk %}" role="button" aria-pressed="true">Modifier l'équipe</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTeamModal">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="trait"></div>
             </div>
+
+            <div class="modal fade" id="deleteTeamModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteTeamModalLabel">Voulez-vous vraiment supprimer cette équipe?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+    
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                      <a class="btn btn-primary" href="{% url 'dash:delete_team' pk=pk %}" role="button" aria-pressed="true">Confirmer la suppression</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
                 <form method='post'>
                     {% csrf_token %}
@@ -20,13 +45,10 @@
                           {{ form.titre|as_crispy_field }}
                         </div>
                         <div class="form-group col-md-6 mb-0">
-                          {{ form.description|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6 mb-0">
                             {{ form.manager|as_crispy_field }}
                         </div>
-                        <div class="form-group col-md-6 mb-3">
-                            <input class="btn btn-primary btn-block float-bottom" type='submit' value="Modifier l'équipe" name="modify">
+                        <div class="form-group col-md-12 mb-0">
+                          {{ form.description|as_crispy_field }}
                         </div>
                     </div>
                 </form>
@@ -39,7 +61,7 @@
                             <input type="text" class="form-control" id="employe" placeholder="Entré le nom de l'employé" name="employe">
                         </div>
                         <div class="form-group col-md-6 mb-0 ">
-                            <input class="btn btn-success btn-block" type='submit' value="Ajouter un employé" name="add">
+                            <input class="btn btn-success btn-block" type='submit' value="Ajouter l'employé" name="add">
                         </div>
                     </div>
                 </form>
@@ -96,13 +118,31 @@
                                                           <a class="dropdown-item" href="{% url 'dash:view_profile' pk=employe.user.pk %}">Voir le profile</a>
                                                           <a class="dropdown-item" href="{% url 'dash:ma_fiche_pointage' pk=employe.user.pk %}">Voir la fiche de pointage</a>
                                                           <div class="dropdown-divider"></div>
-                                                          <a class="dropdown-item" href="{% url 'dash:delete_employe_team' pk=employe.user.pk %}">Supprimer de l'équipe</a>
+                                                          <a class="dropdown-item" value="delete" data-toggle="modal" data-target="#deleteTEmploye">Supprimer de l'équipe</a>
                                                         </div>
                                                       </div>
                                                     
                                                   
                                                 </td> 
                                             </tr>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteTEmploye" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteTEmployeLabel">Voulez-vous vraiment supprimer cette employé?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    </div>
+                                                    <div class="modal-footer">      
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <a  class="btn btn-primary" href="{% url 'dash:delete_employe_team' pk=employe.user.pk %}" role="button" aria-pressed="true">Confirmer la suppression</a>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
                                         {% endfor %}
                                 </tbody>
                             </table>
@@ -119,7 +159,7 @@
 <script>
     $( function() {
       $( "#employe" ).autocomplete({
-        source: "{% url 'dash:modify_team' pk=form.initial %}"
+        source: "{% url 'dash:assign_team' pk=form.initial %}"
       });
     } );
     </script>

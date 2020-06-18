@@ -144,7 +144,7 @@ class Employe(models.Model):
 
 class Team(models.Model):
     titre = models.CharField(
-        max_length=150, default='team', blank=True, null=True, verbose_name="Nom de l'équipe")
+        max_length=150, default='team', blank=True, null=True, verbose_name="Nom de l'équipe", unique=True)
     description = models.CharField(max_length=400, blank=True, null=True, verbose_name="Déscription de l'équipe")
     manager = models.ForeignKey(
         'Employe', verbose_name="manager de l'équipe", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')
