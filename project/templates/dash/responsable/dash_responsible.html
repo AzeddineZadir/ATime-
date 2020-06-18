@@ -1,0 +1,486 @@
+{% extends "base_generic.html" %} {% block nav %} {% endblock %} {% block title %} project manger dashbored
+{% endblock %} {% block content %}
+<!--Tabs-->
+<div class="container-fluid tabs">
+    <!--Link of different tabs-->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                aria-selected="true">Mon tableau de bord</a>
+        </li>
+        
+        <li class="nav-item" role="presentation">
+            <a class="nav-link " id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+                aria-selected="false">Mes équipes</a>
+        </li>
+      
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                aria-selected="false">Mes employés</a>
+        </li>
+        
+        
+       
+    </ul>
+    <!--differents divs tabs-->
+    <div class="tab-content" id="myTabContent">
+        <!--Onglet dashboard responsable-->
+        <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
+             <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col ">
+                        <!--Card time of work-->
+                        <div class="row row-dash">
+                            <div class="col">
+                                <div class="card text-justify">
+                                    <div class="card-body card-b-mydash">
+                                        <h5 class="card-title">En post depuis:</h5>
+                                        <p class="card-text">
+                                            {{ in_post_t }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col ">
+                        <!--Card time left to go -->
+                        <div class="row row-dash">
+                            <div class="col">
+                                <div class="card text-justify">
+                                    <div class="card-body card-b-mydash">
+                                        <h5 class="card-title">Vous sortez dans :</h5>
+                                        <p class="card-text">
+                                            {{ time_left }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <h2>Votre planinge du jours</h2>
+                <!-- ptodays planing hours -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="row row-dash">
+                            <div class="col">
+                                <div class="card text-justify">
+                                    <div class="card-body card-b-mydash">
+                                        <h5 class="card-title">Entrée 2 :</h5>
+                                        <p class="card-text">
+                                            {{ todays_hours.0}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 ">
+                        <div class="row row-dash">
+                            <div class="col">
+                                <div class="card text-justify">
+                                    <div class="card-body card-b-mydash">
+                                        <h5 class="card-title">Entrée 2 :</h5>
+                                        <p class="card-text">
+                                            {{ todays_hours.1}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="row row-dash">
+                            <div class="col">
+                                <div class="card text-justify">
+                                    <div class="card-body card-b-mydash">
+                                        <h5 class="card-title">Entrée 2 :</h5>
+                                        <p class="card-text">
+                                            {{ todays_hours.2}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 ">
+                        <div class="row row-dash">
+                            <div class="col">
+                                <div class="card text-justify">
+                                    <div class="card-body card-b-mydash">
+                                        <h5 class="card-title">Sortie 2 :</h5>
+                                        <p class="card-text">
+                                            {{ todays_hours.3}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                {% comment %} <!-- cloleagues table -->
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-my-collaborator">
+                            <thead>
+                                <tr>
+                                    <th scope="row">photo</th>
+                                    <th scope="row">Nom-Prénom</th>
+                                    <th scope="row">Genre</th>
+                                    <th scope="row">Téléphone</th>
+                                    <th scope="row">Présence</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <div class="col">
+
+                                    {% if coleagues%} {% for coleague in coleagues %}
+                                    <tr>
+                                        <td class="employe-name">
+                                            <img src="{{ coleague.picture.url }}" class="profile-pic rounded-circle" alt="">
+
+                                        </td>
+                                        <td class="employe-name">
+                                            <p>{{ coleague.user.last_name|upper }} </p>
+                                            <p>{{ coleague.user.first_name|capfirst }} </p>
+                                        </td>
+
+                                        <td>
+                                            {% if coleague.gender != F %} Homme {% else %} Femme {% endif%}
+                                        </td>
+                                        <td>
+                                            {% if coleague.phone1 != None %} coleague.phone1 {% else %} / {% endif%}
+
+                                        </td>
+
+                                        <td>
+                                            {% if coleague.iwssad %} Present {% else %} Sortie {% endif%}
+
+                                        </td>
+                                    </tr>
+                                    {% endfor %} {% else %}
+                                    <tr>
+                                        <td class="employe-name">
+                                            <img src="{{'/'}}" class="profile-pic rounded-circle" alt="">
+
+                                        </td>
+                                        <td class="employe-name">
+                                            <p>{{ '/'}} </p>
+                                            <p>{{ '/' }} </p>
+                                        </td>
+
+                                        <td>
+                                            {{'/'}}
+                                        </td>
+                                        <td>
+                                            {{'/'}}
+
+                                        </td>
+
+                                        <td>
+                                            {{'/'}}
+
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+
+                                </div>
+
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div> {% endcomment %}
+            </div>
+           
+        </div>    
+
+         <!--Onglet mes équipes-->
+        <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="cointainer">
+                <!--Ligne card stats-->
+                <div class="row row-stats  ">
+                    <!--Card stats employés presents-->
+                    <div class="col-xl-4 col-md-4 col-sm-6" >
+                        <div class="card team ">
+                            <div class="card-body">
+                                <h1 class="center">Les Équipes </h1>
+                                  
+                                <h2 class="center"> {{teams_nbr}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 col-sm-6 " >
+                        <div class=" card team "  > 
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-8">
+
+                                        <div class="myChartDiv " style="width:260px ;">
+                                            <canvas id="manager_présence_chart"></canvas>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-4">
+                                        <h6 class="title-f">Entrée</h6>
+                                        <p class="description">{{managers_in_nbr}} managers</p>
+                                        <h6 class="title-h">Sortie</h6>
+                                        <p class="description">{{managers_out_nbr}} managers</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">{{managers_nbr}} managers</p>
+                                    </div>
+                                </div>
+                            </div>                         
+                        </div>
+                    </div>    
+                                     
+                    <div class="col-xl-4 col-md-4 col-sm-12" >
+                        <div class="card team">
+                            <a href="{% url 'dash:create_team' %}" class="btn btn-primary sauvgarder sticky-top">Ajouter une équipe</a>
+                        </div>    
+                    </div>  
+                </div>
+                    
+                           
+                <div class="equipe">
+                    <!--Lignes card des employés-->
+                    <h5>Mes équipes</h5>
+                    <div class="row row-equipe">
+
+                    {% if teams %}
+                    {% for team  in teams  %}
+                     
+                        <div class="col-xl-3 col-md-4 col-sm-6">
+
+                            <div class="card card-equipe">
+                                <div class="description-equipe">
+                                    <h5>{{team.titre}}</h5>
+                                    <p>{{team.manager}}</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>{{team.nb_in}}</p>
+                                    <p>{{team.nb_out}}</p>
+                                </div>
+                                <div class="nb-employe">
+                                    <p>{{team.nb_members}} employés</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+                     
+                    {% endfor %}  
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!--Onglet mes employés-->
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="cointainer">
+                <!--Ligne card stats-->
+                <div class="row row-stats">
+                    <!--Card stats employés presents-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                        
+                        <div class="card team">
+                            <div class="card-body">
+                                <h1 class="center"> Les Employés</h1>  
+
+                                <h2 class="center"> {{collaborateurs_nbr}}</h2>  
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Card stats employés absents-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                    
+                        <div class="card team">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-8">
+
+                                        <div class="myChartDiv " style="width:260px ;">
+                                            <canvas id="employe_gender_chart"></canvas>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-4">
+                                        <h6 class="title-f">Femme</h6>
+                                        <p class="description">{{female_collaborateurs_nbr}} employés</p>
+                                        <h6 class="title-h">Homme</h6>
+                                        <p class="description">{{male_collaborateurs_nbr}} employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">{{collaborateurs_nbr}} employés</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+                    <!--Card stats employés en poste-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                       
+                        <div class="card team">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="myChartDiv "style="width:260px ;">
+                                            <canvas id="employe_presence_chart"></canvas>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <h6 class="title-f">Enrée</h6>
+                                        <p class="description">{{collaborateurs_in_nbr}} employés</p>
+                                        <h6 class="title-h">Sortie</h6>
+                                        <p class="description"> {{collaborateurs_out_nbr}} employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description"> {{collaborateurs_nbr}} employés</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="employe">
+                    <!--Lignes card des employés-->
+                    <h5>Mes employés</h5>
+                    <div class="row row-employe">
+                        {% if collaborateurs  %}
+                        {% for col  in collaborateurs  %}
+                        
+                        <div class="col-xl-3 col-md-4 col-sm6">
+                            <div class="card card-employe">
+                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                <div class="description-employe">
+                                    <h5>{{col.user.first_name}} {{col.user.last_name}}</h5>
+                                    <p>{{col.username}}</p>
+                                    <p>{{col.fonction}}</p>
+                                </div>
+                                <div class="heure-e">
+                                    <p>{{col.last_entry}}</p>
+                                    <p>{{col.in_post_t}}</p>
+                                </div>
+                                <button class="btn more d-flex justify-content-center">
+                                    <i class="fas fa-chevron-right more-icon "></i>
+                                </button>
+                            </div>
+                        </div>
+                       {% endfor %}
+                       {% endif %}
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+       
+       
+    </div>
+</div>
+
+
+{% block scripts %}
+{% comment %} managers présence chart {% endcomment %}
+<script>
+
+    data = {
+        labels: ["In {{managers_in}} ", "Out {{managers_out}}", ],
+        datasets: [{
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            data: [{{managers_in_nbr}}, {{managers_out_nbr}}, ]
+        }]
+    }
+    var ctx = document.getElementById('manager_présence_chart').getContext('2d');
+    var myc1 =new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: {
+            title: {
+                display: false,
+                text: 'récapitulatife de présence des manager '
+            },
+            responsive:true,
+            maintainAspectRatio:false,
+            
+        }
+    });
+    
+    
+   
+</script>
+
+
+{% comment %} employes genders charts  {% endcomment %}
+<script>
+    data1 = {
+        labels: ["Homme {{male_collaborateurs_nbr}}", "Femme {{female_collaborateurs_nbr}}", ],
+        datasets: [{
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            data: [{{male_collaborateurs_nbr}},{{female_collaborateurs_nbr}} , ]
+        }]
+    }
+    var ctx1 = document.getElementById('employe_gender_chart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'doughnut',
+        data: data1,
+        options: {
+            title: {
+                display: false,
+                text: 'récapitulatife de présence des manager '
+            },
+            responsive:true,
+            maintainAspectRatio:false,
+        }
+    });
+</script>
+
+
+{% comment %} employes présence charts  {% endcomment %}
+<script>
+    data2 = {
+        labels: ["Enrée {{collaborateurs_in_nbr}}", "Sortie {{collaborateurs_out_nbr}}", ],
+        datasets: [{
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            data: [{{collaborateurs_in_nbr}},{{collaborateurs_out_nbr}} , ]
+        }]
+    }
+    var ctx2 = document.getElementById('employe_presence_chart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'doughnut',
+        data: data2,
+        options: {
+            title: {
+                display: false,
+                text: 'récapitulatife de présence des manager '
+            },
+            responsive:true,
+            maintainAspectRatio:false,
+        }
+    });
+</script>
+{% endblock scripts %} 
+{% endblock %}

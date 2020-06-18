@@ -475,6 +475,9 @@ body {
     } 
     h1{
         font-size: rem(32px);
+        .center{
+            text-align: center;
+        }
     }
     .ligne{
         display: flex; 
@@ -483,14 +486,22 @@ body {
             height: rem(40px);
         }
     }
+    .center{
+        text-align: center
+
+    }
 }
 
 
 
 .card.team {
-    margin-top: rem(32px);
-    margin-left:rem(32px);
-    margin-right:rem(32px);
+    margin-top: rem(8px);
+    margin-left:rem(8px);
+    margin-right:rem(8px);
+    .chart {
+        padding-bottom: rem(8px);
+    }
+    
 }
 
 .charts.inout {
@@ -611,3 +622,15 @@ body {
     }
 }
 
+.titel.center{
+    text-align: center;
+}
+h1.center{
+    text-align: center;
+}
+h2.center{
+    text-align: center;
+}
+h5.center{
+    text-align: center;
+}
