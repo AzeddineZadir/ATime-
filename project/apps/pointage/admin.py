@@ -5,6 +5,10 @@ from .models import Employe, Shift, Team, Day, Planing
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
+from import_export.admin import ImportExportModelAdmin
+from .resources import ShiftResource
+
+
 
 # Register your models here.
 
@@ -64,9 +68,10 @@ class UserAdmin(UserAdmin):
         return False
 
 
-class ShiftAdmin(admin.ModelAdmin):
-
+class ShiftAdmin(ImportExportModelAdmin):
     list_display = ('employe', 'day', 'number', 'he', 'hs')
+
+    resource_class = ShiftResource
 
     #def has_add_permission(self, request):
         #return False
