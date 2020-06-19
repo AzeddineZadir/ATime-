@@ -165,8 +165,42 @@ body {
     padding-left: 20px;
     .card-b-mydash {
         text-align: center;
+        h4{
+            white-space : nowrap;
+            text-align : right;
+        }
     }
 }
+//nbr employé manager dashbored card 
+.row{
+    .card-b-mydash{
+        
+           
+        .right{
+
+            h4{
+                position: absolute;
+                right: 55px;
+                bottom: 3px;
+                text-align: right;
+                display:inline-block;  
+               
+                  
+            }
+            i{
+                position: absolute;
+                right: 23px;
+                bottom: 15px;
+                text-align: right;
+                
+            }
+        }
+        
+    
+    
+    }
+}
+
 
 // Size of graph
 

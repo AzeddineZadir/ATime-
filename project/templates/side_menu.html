@@ -16,7 +16,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="icon far fa-calendar-alt"></i>
+                    <i class="icon fas fa-hourglass-half"></i>
                     <span class="text">Ma fiche de pointage</span>
                 </a>
             </li>
@@ -85,7 +85,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a href="{% url 'dash:fiche_pointage' %}" class="nav-link">
-                        <i class="icon far fa-calendar-alt"></i>
+                        <i class="icon fas fa-hourglass-half"></i>
                         <span class="text">Fiche de pointage</span>
                     </a>
 
@@ -120,7 +120,7 @@
             </li>
             <li class="nav-item">
                 <a href="{% url 'dash:ma_fiche_pointage' pk=request.user.id %}" class="nav-link">
-                    <i class="icon far fa-calendar-alt"></i>
+                    <i class="icon fas fa-hourglass-half"></i>
                     <span class="text">Ma fiche de pointage</span>
                 </a>
             </li>
@@ -129,6 +129,18 @@
                 <i class="icon fas fa-chevron-circle-left"></i>
                 </a>
             </li>
+             <li class="nav-item">
+                <a href="{% url 'dash:my_schedule' pk=request.user.employe.planing.id %}" class="nav-link">
+                    <i class="icon far fa-calendar-alt"></i>
+                    <span class="text">Mon planning</span>
+                </a>
+            </li>
+            <li class="nav-item liToggle fixed-bottom">
+                <a href="#" class="nav-link sideMenuToggler" id='sideMenuToggler'>
+                <i class="icon fas fa-chevron-circle-left"></i>
+                </a>
+            </li>
+            
         </ul>
         </div>
     </div>

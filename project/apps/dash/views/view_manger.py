@@ -13,12 +13,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from apps.dash.views import get_now_t, convert_time, is_valid, hours_dif, get_laste_entry, get_inpost_t, get_time_left
 from django.db.models import Q
 
-# get now time
 
 
-def get_now_t():
-    return timezone.localtime(timezone.now()).time()
-# to convert naif datetime to number of hours and min
+
 
 
 def get_coleagues(employe):
@@ -71,19 +68,21 @@ def dash_man(request):
         pass
     if(team):
         colaborators=get_employes(team)
-        colaborators_all = colaborators.count()
-        print(colaborators_all)
-        colaborators_in = get_employes_by_presence(team, True).count()
-        print(colaborators_in)
-        colaborators_out = get_employes_by_presence(team, False).count()
-        print(colaborators_out)
+        colaborators_all_nbr = colaborators.count()
+        print(colaborators_all_nbr)
+        colaborators_in_nbr = get_employes_by_presence(team, True).count()
+        print(colaborators_in_nbr)
+        colaborators_out_nbr = get_employes_by_presence(team, False).count()
+        print(colaborators_out_nbr)
 
-        recapitulatif_présence = [colaborators_in,colaborators_out,colaborators_all]
+        male_collabortors_nbr=colaborators.filter(gender='H').count()
+        female_collabortors_nbr=colaborators.filter(gender='F').count()
+        # recapitulatif_présence = [colaborators_in,colaborators_out,colaborators_all]
         
     else:
-        colaborators_all = 0
-        colaborators_in = 0
-        colaborators_out = 0
+        colaborators_all_nbr = 0
+        colaborators_in_nbr = 0
+        colaborators_out_nbr = 0
        
     # get colabotators 
     if(colaborators):

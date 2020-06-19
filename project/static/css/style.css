@@ -186,6 +186,26 @@ body :focus {
   text-align: center;
 }
 
+.row-dash .card-b-mydash h4 {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.row .card-b-mydash .right h4 {
+  position: absolute;
+  right: 55px;
+  bottom: 3px;
+  text-align: right;
+  display: inline-block;
+}
+
+.row .card-b-mydash .right i {
+  position: absolute;
+  right: 23px;
+  bottom: 15px;
+  text-align: right;
+}
+
 .card {
   border-radius: 6px;
 }

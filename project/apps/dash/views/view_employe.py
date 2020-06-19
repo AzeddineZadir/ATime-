@@ -10,7 +10,6 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from django.db.models import Q, Count
 
 
@@ -88,6 +87,18 @@ def get_coleagues(employe):
         coleagues = Employe.objects.filter(team=team).exclude(id=employe.id)
         return coleagues
 
+def sum_hours_planning_day(day):
+    if day.he1 != None and day.hs1 != None:
+        p1=hours_dif(day.he1, day.hs1)
+    else:
+        p1=datetime.timedelta(hours=0)
+    
+    if day.he2 != None and day.hs2 != None:
+        p2=hours_dif(day.he2, day.hs2)
+    else:
+        p2=datetime.timedelta(hours=0)
+
+    return p1+p2
 
 @employe_required
 def dash_emp(request):
@@ -124,7 +135,7 @@ def profile(request):
     user_form = UserForm(instance=user)
     # Create grouped form User/Employe
     EmployeFormset = inlineformset_factory(User, Employe, fields=(
-        'birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture', 'gender'), can_delete=False)
+        'birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture', 'gender',), can_delete=False)
     # Prepopulate EmployeForm with user pk
     formset = EmployeFormset(instance=user)
 
@@ -148,6 +159,7 @@ def profile(request):
         return render(request, "dash/profile.html", {
             "user_form": user_form,
             "formset": formset,
+
         })
 
 
@@ -157,14 +169,18 @@ def view_profile(request, pk):
     check = 1
     user = User.objects.get(id=pk)
     emp = Employe.objects.filter(user=user).get()
+    try:
+        planing_pk=emp.planing.id
+    except :
+        planing_pk=-1    
     # Prepopulate UserForm with data
     user_form = UserForm(instance=user)
     # Create grouped form User/Employe
     EmployeFormset = inlineformset_factory(User, Employe, fields=(
-        'birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture', 'gender'), can_delete=False)
+        'birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture', 'gender','planing'), can_delete=False)
     # Prepopulate EmployeForm with user pk
     formset = EmployeFormset(instance=user)
-
+    
     if request.user.id == user.id or request.user.role == 3 or request.user.role == 2:
         
         if request.user.role == 2:
@@ -184,6 +200,7 @@ def view_profile(request, pk):
                 if formset.is_valid():
                     created_user.save()
                     formset.save()
+                    
                     return HttpResponseRedirect(reverse('dash:view_profile', kwargs={'pk': pk}))
 
         if request.GET.get('edit_profile') != None:
@@ -192,6 +209,7 @@ def view_profile(request, pk):
                 "formset": formset,
                 "picture": emp.picture,
                 "check": False,
+                 "planing_pk":planing_pk,
             })
         else:
             return render(request, "dash/profile.html", {
@@ -199,6 +217,7 @@ def view_profile(request, pk):
                 "formset": formset,
                 "picture": emp.picture,
                 "check": check,
+                "planing_pk":planing_pk,
             })
 
     else:
@@ -251,5 +270,65 @@ def ma_fiche_pointage(request, pk):
     else:
         return render(request, 'dash/ma_fiche_pointage.html', {'other_shifts': None, 'row': None})
 
+@login_required
+def my_schedule(request,pk):
+    schedule = Planing.objects.filter(id=pk).annotate(nb_emp=Count('pemployes')).get()
 
+    total = datetime.timedelta(hours=0)
+    for day in schedule.planing_days.all():     
+        total += sum_hours_planning_day(day)
+    schedule.total = convert_time(total)
+
+         
+    row = dict()
+    for day in schedule.planing_days.all():
+        date = datetime.date(1, 1, 1)
+        dateE = datetime.datetime(1, 1, 1, 0, 0)
+        dateS = datetime.datetime(1, 1, 2, 0, 0)
+        try:
+            he1 = datetime.datetime.combine(date, day.he1)
+            hs1 = datetime.datetime.combine(date, day.hs1)
+        except:
+            he1 = dateE
+            hs1 = dateE
+
+        try:
+            he2 = datetime.datetime.combine(date, day.he2)
+            hs2 = datetime.datetime.combine(date, day.hs2)           
+        except:
+            he2 = dateS
+            hs2 = dateS
+        row[day] = {'title':'', 'he1':he1, 'hs1':hs1, 'he2':he2, 'hs2':hs2, 'jours':day.get_jds_display()}
+
+
+    schedule = Planing.objects.filter(id=pk).annotate(nb_emp=Count('pemployes')).get()
+
+    total = datetime.timedelta(hours=0)
+    for day in schedule.planing_days.all():     
+        total += sum_hours_planning_day(day)
+    schedule.total = convert_time(total)
+
+         
+    row = dict()
+    for day in schedule.planing_days.all():
+        date = datetime.date(1, 1, 1)
+        dateE = datetime.datetime(1, 1, 1, 0, 0)
+        dateS = datetime.datetime(1, 1, 2, 0, 0)
+        try:
+            he1 = datetime.datetime.combine(date, day.he1)
+            hs1 = datetime.datetime.combine(date, day.hs1)
+        except:
+            he1 = dateE
+            hs1 = dateE
+
+        try:
+            he2 = datetime.datetime.combine(date, day.he2)
+            hs2 = datetime.datetime.combine(date, day.hs2)           
+        except:
+            he2 = dateS
+            hs2 = dateS
+        row[day] = {'title':'', 'he1':he1, 'hs1':hs1, 'he2':he2, 'hs2':hs2, 'jours':day.get_jds_display()}
+
+ 
+    return render(request, 'dash/responsable/my_schedule.html',{'row':row, 'schedule':schedule, 'pk':pk })
 

@@ -276,9 +276,9 @@
                                 <div class="nb-employe">
                                     <p>{{team.nb_members}} employés</p>
                                 </div>
-                                <button class="btn more d-flex justify-content-center">
-                                    <i class="fas fa-chevron-right more-icon "></i>
-                                </button>
+                                <a class="btn more" href="{% url 'dash:modify_team' pk=team.id %}">
+                                    <i class="fas fa-chevron-right more-icon"></i>
+                                </a>
                             </div>
                         </div>
                      
@@ -379,9 +379,9 @@
                                     <p>{{col.last_entry}}</p>
                                     <p>{{col.in_post_t}}</p>
                                 </div>
-                                <button class="btn more d-flex justify-content-center">
-                                    <i class="fas fa-chevron-right more-icon "></i>
-                                </button>
+                                <a class="btn more" href="{% url 'dash:view_profile' pk=col.user.id %}">
+                                    <i class="fas fa-chevron-right more-icon"></i>
+                                </a>
                             </div>
                         </div>
                        {% endfor %}

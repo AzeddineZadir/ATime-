@@ -4,79 +4,21 @@
 <div class="container-fluid tabs">
     <!--Link of different tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
+         <li class="nav-item " role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="fals">Mon tableau de bord</a>
+        </li>
+
         <li class="nav-item " role="presentation">
-            <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mon équipe</a>
+            <a class="nav-link " id="contact-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mon équipe</a>
         </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="home-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="fals">Mon tableau de bord</a>
-        </li>
+       
 
     </ul>
     <!--differents divs tabs-->
     <div class="tab-content" id="myTabContent">
-        <!--Onglet mon équipe-->
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div class="cointainer-fluid">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card team text-justify " style=" height:200px; " >
-                            <div class="card-body card-b-mydash">
-                                <h2 class="card-title">{{team.titre}}</h2>
-                                <h4 class="card-title"> {{team.manager}}</h4>
-                                <p> {{team.description}}</p>
 
-                            </div>
-                        </div>
-                     </div>
-
-                    <div class="col-lg-6 ">
-                        <div class=" card team " style="height:200px; "  >
-                            <canvas id="myChart"></canvas>
-                        </div>
-
-                    </div>
-
-                </div>
-               
-                <div class="employe">
-                    <!--Lignes card des employés-->
-                    <h5>Mes employés</h5>
-                    <div class="row row-employe ">
-                        {% if colaborators %}
-                        {% for col  in colaborators  %}
-                        <div class="col-xl-3 col-md-4 col-sm6">
-                        
-                            <div class="card card-employe">
-                                
-                                <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
-                                <div class="description-employe">
-                                    <h5>{{col.user.first_name}} {{col.user.last_name}}</h5>
-                                    <p>{{col.fonction}}</p>
-                                </div>
-                                <div class="heure-e">
-                                    <p>{{col.laste_entry}}</p>
-                                    <p>{{col.in_post_time}}</p>
-                                </div>
-                                <button class="btn more d-flex justify-content-center">
-                                    <i class="fas fa-chevron-right more-icon "></i>
-                                </button>
-                             
-                            </div>
-                            
-                        </div>
-                        {% endfor %}     
-                        {% endif %}
-                              
-                    </div>
-                </div>  
-               
-                    
-                
-            
-            </div>
-        </div>
-        <!--Onglet dashboard manager-->
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+         <!--Onglet dashboard manager-->
+        <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             <div class="container-fluid">
 
                 <div class="row">
@@ -256,20 +198,166 @@
 
         </div>
 
+        <!--Onglet mon équipe-->
+        <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="cointainer-fluid">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                        <div class="card team text-justify " >
+                            <div class="card-body card-b-mydash ">
+                                <h2 class="card-title">{{team.titre}}</h2>
+                                <h4 class="card-title"> {{team.manager}}</h4>
+                                <p> {{team.description}}</p>
+                                <div class="right">
+                                    <h4>22</h4>
+                                    <i class="fas fa-users"></i>
+                                
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <!--Card stats employés gender-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                    
+                        <div class="card team">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-8">
+
+                                        <div class="myChartDiv " style="width:260px ;">
+                                            <canvas id="employe_gender_chart"></canvas>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-4">
+                                        <h6 class="title-f">Homme</h6>
+                                        <p class="description">{{male_collabortors_nbr}} employés</p>
+                                        <h6 class="title-h">Femme</h6>
+                                        <p class="description">{{female_collabortors_nbr}} employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">{{colaborators_all_nbr}} employés</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--Card stats employés présence-->
+                    <div class="col-xl-4 col-md-6 col-sm-6">
+                    
+                        <div class="card team">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-8">
+
+                                        <div class="myChartDiv " style="width:260px ;">
+                                            <canvas id="employe_présence_chart"></canvas>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-4">
+                                        <h6 class="title-f">Entrée</h6>
+                                        <p class="description">{{colaborators_in_nbr}} employés</p>
+                                        <h6 class="title-h">Sortie</h6>
+                                        <p class="description">{{colaborators_out_nbr}} employés</p>
+                                        <h6 class="title-t">Total</h6>
+                                        <p class="description">{{colaborators_all_nbr}} employés</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+               
+                <div class="employe">
+                    <!--Lignes card des employés-->
+                    <h5>Mes employés</h5>
+                    <div class="row row-employe ">
+                        {% if colaborators %}
+                        {% for col  in colaborators  %}
+                            {% if col.user.id != request.user.id %}
+                            
+                                <div class="col-xl-3 col-md-4 col-sm6">
+    
+                                    <div class="card card-employe">
+    
+                                        <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                        <div class="description-employe">
+                                            <h5>{{col.user.first_name}} {{col.user.last_name}}</h5>
+                                            <p>{{col.fonction}}</p>
+                                        </div>
+                                        <div class="heure-e">
+                                            <p>{{col.laste_entry}}</p>
+                                            <p>{{col.in_post_time}}</p>
+                                        </div>
+    
+                                        <a class="btn more" href="{% url 'dash:view_profile' pk=col.user.id %}">
+                                            <i class="fas fa-chevron-right more-icon"></i>
+                                        </a>
+                                        </button>
+    
+                                    </div>
+    
+                                </div>
+                            {% endif %}    
+                        {% endfor %}     
+                        {% endif %}
+                              
+                    </div>
+                </div>  
+               
+                    
+                
+            
+            </div>
+        </div>
+       
+
     </div>
 </div>
 
 {% block scripts %}
+{% comment %} employe gender chart {% endcomment %}
 <script>
-    data = {
-        labels: ["In {{colaborators_in}} ", "Out {{colaborators_out}}", ],
+    data1 = {
+        labels: ["Homme {{male_collabortors_nbr}} ", "Femme {{female_collabortors_nbr}}", ],
         datasets: [{
             label: "Population (millions)",
             backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-            data: [{{colaborators_in}}, {{colaborators_out}}, ]
+            data: [{{male_collabortors_nbr}}, {{female_collabortors_nbr}}, ]
         }]
     }
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx1 = document.getElementById('employe_gender_chart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'doughnut',
+        data: data1,
+        options: {
+            title: {
+                display: false,
+                text: 'récapitulatife de présence '
+            },
+            responsive:true,
+            maintainAspectRatio:false,
+        }
+    });
+</script>
+{% comment %} employe présence chart  {% endcomment %}
+<script>
+    data = {
+        labels: ["Entrée {{colaborators_in_nbr}} ", "Sortie {{colaborators_out_nbr}}", ],
+        datasets: [{
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            data: [{{colaborators_in_nbr}}, {{colaborators_out_nbr}}, ]
+        }]
+    }
+    var ctx = document.getElementById('employe_présence_chart').getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
         data: data,

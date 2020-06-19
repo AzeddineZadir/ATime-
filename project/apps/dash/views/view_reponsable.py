@@ -123,7 +123,6 @@ def schedules(request):
 
     return render(request, 'dash/responsable/schedules.html', {'schedules':schedules})
 
-@responsible_required
 def schedule(request, pk):
     schedule = Planing.objects.filter(id=pk).annotate(nb_emp=Count('pemployes')).get()
 
@@ -153,8 +152,7 @@ def schedule(request, pk):
             hs2 = dateS
         row[day] = {'title':'', 'he1':he1, 'hs1':hs1, 'he2':he2, 'hs2':hs2, 'jours':day.get_jds_display()}
 
-@responsible_required
-def schedule(request,pk):
+
     schedule = Planing.objects.filter(id=pk).annotate(nb_emp=Count('pemployes')).get()
 
     total = datetime.timedelta(hours=0)
