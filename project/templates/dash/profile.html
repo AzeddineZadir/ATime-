@@ -99,7 +99,11 @@
                 <div class="col-sm-12 col-md-6" >
                 <!-- the employe dont have a planing  -->
                     {% if planing_pk == -1 %}
-                        <a  href="" class=" btn btn-primary  btn-block  ">Affecter un  Planing</a> 
+                        {% if request.user.role != 1 and request.user.role != 2   %}
+                            <a  href="" class=" btn btn-primary  btn-block  ">Affecter un  Planing</a> 
+                      
+                        {% endif %}
+                        
                     {% else %}
                     <!-- if it a simple employé  -->
                     {% if request.user.role == 1 %}
