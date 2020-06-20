@@ -37,11 +37,15 @@
                             </thead>
                             <tbody>
                                     {% for shift  in shifts %}
-                                        <tr>
-                                            <td>{{ shift.user.pk  }}</td>
+                                        
+                                        <tr class="">
+                                        
+                                            <td >{{ shift.user.pk  }}</td>
                                             <td class="employe-name">
+                                                
                                                 <img src="{{ shift.picture.url }}" class="profile-pic rounded-circle" alt="">
                                                 <p>{{ shift.user.last_name|upper  }} {{ shift.user.first_name|capfirst }}</p>
+                                                
                                             </td>
                                             <td>
                                                 {% if shift.iwssad %}
@@ -65,7 +69,9 @@
                                                 {% endif%}
                                                 <a href="{% url 'dash:ma_fiche_pointage' pk=shift.user.pk %}"> <i class="fa fa-angle-right" aria-hidden="true"></i> </a>        
                                             </td> 
+                                         
                                         </tr>
+                                       
                                     {% endfor %}
                             </tbody>
                         </table>
