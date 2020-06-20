@@ -1,5 +1,5 @@
 from import_export import resources, fields, widgets
-from import_export.widgets import ForeignKeyWidget, DateWidget
+from import_export.widgets import ForeignKeyWidget, DateWidget, TimeWidget
 from import_export.fields import Field
 from .models import Shift, Employe
 
