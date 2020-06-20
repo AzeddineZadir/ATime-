@@ -27,5 +27,7 @@ urlpatterns = [
     path('delete_employe_team/<str:pk>', views.delete_employe_team , name='delete_employe_team'),
     path('mes_employes', views.mes_employes , name='mes_employes'),
     path('fiche_pointage_all/', views.fiche_pointage_all , name='fiche_pointage_all'),
+    path('mon-equipe/', views.mon_equipe , name='mon_equipe'),
+
     
 ]

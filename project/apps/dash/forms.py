@@ -7,7 +7,7 @@ from crispy_forms.helper import FormHelper
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email' ]
+        fields = ['username', 'first_name', 'last_name', 'email','role' ]
 
 
 class TeamForm(forms.ModelForm):

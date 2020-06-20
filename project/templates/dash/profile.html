@@ -14,10 +14,11 @@
             <img src="{{ picture.url }}" class="profile-pic rounded-circle" alt="">
             <div class="media-body">
                 <h5 class="mt-0">{{ user_form.first_name.value }} {{ user_form.last_name.value }}</h5>
-                {% if request.user.role == 1 %}
+                <p> {{user_form.username.value}}</p>
+                {% if user_form.role.value == 1 %}
                     <p> Employé</p>
                 {% else %}
-                    {% if  request.user.role == 2 %}
+                    {% if  user_form.role.value == 2 %}
                         <p> Manager </p>
                     {% else %}
                         <p> Responsable</p>

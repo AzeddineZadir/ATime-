@@ -189,7 +189,75 @@ def fiche_pointage(request):
                 
     return render(request, 'dash/fiche_pointage.html',{'shifts':list_emp})
 
-   
+
+def mon_equipe(request):
+    # Get employe with id
+    man = Employe.objects.filter(user=request.user).get()
+    # the employe dash boreed part
+
+    shift = man.get_last_shift()
+    he = get_laste_entry(shift)
+    now = get_now_t()
+    in_post_t = get_inpost_t(man)
+    time_left = get_time_left(man)
+    try:
+        t_h = man.get_today_hours()
+        todays_hours = [t_h.he1, t_h.hs1, t_h.he2, t_h.hs2, ]
+    except:
+        todays_hours = ['H:M', 'H:M', 'H:M', 'H:M']
+    coleagues = get_coleagues(man)
+    # if(coleagues):
+    #     for co in coleagues:
+    #         print(co)
+
+    # the team dashbored part
+    # get the team manged by the actuel employe
+    try :
+        team = Team.objects.filter(manager=man).get()
+        print(team)
+    # get the employes of the team
+    except : 
+        pass
+    if(team):
+        colaborators=get_employes(team)
+        colaborators_all_nbr = colaborators.count()
+        print(colaborators_all_nbr)
+        colaborators_in_nbr = get_employes_by_presence(team, True).count()
+        print(colaborators_in_nbr)
+        colaborators_out_nbr = get_employes_by_presence(team, False).count()
+        print(colaborators_out_nbr)
+
+        male_collabortors_nbr=colaborators.filter(gender='H').count()
+        female_collabortors_nbr=colaborators.filter(gender='F').count()
+        # recapitulatif_présence = [colaborators_in,colaborators_out,colaborators_all]
+        
+    else:
+        colaborators_all_nbr = 0
+        colaborators_in_nbr = 0
+        colaborators_out_nbr = 0
+       
+    # get colabotators 
+    if(colaborators):
+        for col in colaborators:
+            shift=col.get_last_shift()
+            if (shift):
+                col.laste_entry=shift.he
+                col.in_post_time=get_inpost_t(col)
+            else:
+                col.laste_entry=None
+                col.in_post_time=None
+    
+    # for c in col :
+    #     shift=c.get_last_shift()
+    #     entryes=entryes.append(get_laste_entry(shift))
+    #     print(entryes)
+             
+
+    
+
+    # get the number of the employes in the team
+    # get the the number of the employes presentes
+    return render(request, 'dash/mon_equipe.html',locals())
     
 
     
