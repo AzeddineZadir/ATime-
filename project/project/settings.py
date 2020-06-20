@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'apps.authentification',
 
     'apps.dash',
+
+    'import_export',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -144,7 +146,6 @@ AUTH_USER_MODEL = 'pointage.User'
 LOGIN_URL = 'authentification:login'
 
 LOGOUT_REDIRECT_URL = 'login'
-
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

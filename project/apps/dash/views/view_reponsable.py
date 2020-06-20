@@ -201,7 +201,7 @@ def create_schedule(request):
                 print(instance.jds)
                 instance.planing = planning
                 instance.save()
-            print('saving planning')
+            return HttpResponseRedirect(reverse('dash:assign_schedule', kwargs={'pk': planning.id}))
     else:
         form = PlanningForm()
         formset = DayFormSet(initial=initial)
@@ -236,16 +236,18 @@ def create_team(request):
         form = TeamForm(request.POST)
         if form.is_valid():
             team = form.save()
-            return HttpResponseRedirect(reverse('dash:modify_team', kwargs={'pk': team.id}))
+            return HttpResponseRedirect(reverse('dash:assign_team', kwargs={'pk': team.id}))
     else:
         form = TeamForm()
 
     return render(request, 'dash/create_team.html', {'form': form})
 
-def modify_team(request, pk):
+@responsible_required
+def assign_team(request, pk):
     
     if 'term' in request.GET: 
-        employes = Employe.objects.filter(team=None, user__last_name__istartswith=request.GET.get('term'))
+        term = request.GET.get('term')
+        employes = Employe.objects.filter(Q(team=None), (Q(user__last_name__istartswith=term) | Q(user__first_name__istartswith=term)))
         employes_list = list()
         print(employes)
         for employe in employes:
@@ -255,15 +257,11 @@ def modify_team(request, pk):
 
     team = Team.objects.filter(id=pk).get()
     employes = Employe.objects.filter(team=team)
-    
-    if 'modify' in request.POST:
-        form = TeamForm(request.POST, instance=team)
-        if form.is_valid():
-            form.save()
-            print('saving team')  
-            form = TeamForm(instance=team) 
-    else:
-        form = TeamForm(instance=team)
+
+    form = TeamForm(instance=team)
+    form.fields['manager'].widget.attrs['disabled'] = 'disabled'
+    form.fields['titre'].widget.attrs['readonly'] = True
+    form.fields['description'].widget.attrs['readonly'] = True
 
     if 'add' in request.POST:
         employe = request.POST.get('employe')
@@ -278,12 +276,32 @@ def modify_team(request, pk):
             except ObjectDoesNotExist:
                 print("Employe does not exist")  
 
-    return render(request, 'dash/modify_team.html', {'form': form, 'employes':employes})
+    return render(request, 'dash/assign_team.html', {'form': form, 'employes':employes, 'pk':pk})
 
+@responsible_required
+def modify_team(request, pk):
+    # Get team
+    team = Team.objects.filter(id=pk).get()
+    
+    if request.POST:
+        form = TeamForm(request.POST, instance=team)
+        if form.is_valid():
+            form.save()
+            print('saving team')  
+            form = TeamForm(instance=team) 
+            return HttpResponseRedirect(reverse('dash:assign_team', kwargs={'pk': pk}))
+    else:
+        form = TeamForm(instance=team)
+
+    return render(request, 'dash/responsable/modify_team.html', {'form': form})
+
+
+@responsible_required
 def assign_schedule(request, pk):
 
-    if 'term' in request.GET: 
-        employes = Employe.objects.filter(team=None, user__last_name__istartswith=request.GET.get('term'))
+    if 'term' in request.GET:
+        term = request.GET.get('term')
+        employes = Employe.objects.filter(Q(user__last_name__istartswith=term) | Q(user__first_name__istartswith=term))
         employes_list = list()
         for employe in employes:
             employes_list.append(employe.user.last_name+' '+employe.user.first_name)
@@ -319,7 +337,7 @@ def delete_employe_team(request, pk):
     employe.team = None
     employe.save()
     # Redirect with reverse 
-    return HttpResponseRedirect(reverse('dash:modify_team', kwargs={'pk': pk}))
+    return HttpResponseRedirect(reverse('dash:assign_team', kwargs={'pk': pk}))
 
 @responsible_required
 def delete_employe_schedule(request, pk):
@@ -333,4 +351,82 @@ def delete_employe_schedule(request, pk):
     employe.save()
     # Redirect with reverse 
     return HttpResponseRedirect(reverse('dash:assign_schedule', kwargs={'pk': pk}))
+
+@responsible_required
+def delete_schedule(request, pk):
+    try:
+        schedule = Planing.objects.get(id=pk).delete()
+    except:
+        print("None schedule to delete")
+    return HttpResponseRedirect(reverse('dash:schedules'))
+
+@responsible_required
+def delete_team(request, pk):
+    try:
+        team = Team.objects.get(id=pk).delete()
+    except:
+        print("None team to delete")
+    return HttpResponseRedirect(reverse('dash:my_teams'))
+
+
+    
+
+
+@responsible_required
+def mes_employes(request):
+    # Get responsable
+    responsable = Employe.objects.filter(user=request.user).get()
+    # Exclude from list
+    list_emp = Employe.objects.exclude(id=responsable.id)
+        # Check if request method is GET
+    if request.GET:
+        # Get str data from fields nom
+        nom = request.GET.get('nom')
+        status = request.GET.get('status')
+        # Check if not None or ''
+        if is_valid(nom):
+            # Filter list_emp with lastame
+            list_emp = list_emp.filter(Q(user__last_name__istartswith=nom) | Q(user__first_name__istartswith=nom))
+                    
+        if is_valid(status):
+            if status == '1':
+                list_emp = list_emp.filter(iwssad=True)
+            else:
+                list_emp = list_emp.filter(iwssad=False)
+
+    return render(request, 'dash/mes_collaborateurs.html', {'employes':list_emp})
+
+@responsible_required
+def fiche_pointage_all(request):
+    # Get responsable
+    responsable = Employe.objects.filter(user=request.user).get()
+    # Exclude from list
+    list_emp = Employe.objects.exclude(id=responsable.id)
+    # if he is the team manager we get all employe of this team except the manager 
+    for emp in list_emp:
+        shifts = emp.get_last_shift()           
+        if shifts:
+            emp.he = shifts.he
+            emp.hs = shifts.hs
+        else:
+            emp.he = None
+            emp.hs = None
+    # Check if request method is GET
+    if request.GET:
+        # Get str data from fields nom
+        nom = request.GET.get('nom')
+        status = request.GET.get('status')
+        # Check if not None or ''
+        if is_valid(nom):
+            # Filter list_emp with lastame
+            list_emp = list_emp.filter(Q(user__last_name__istartswith=nom) | Q(user__first_name__istartswith=nom))
+        if is_valid(status):
+            if status == '1':
+                list_emp = list_emp.filter(iwssad=True)
+            else:
+                emp.he = None
+                emp.hs = None
+                
+                
+    return render(request, 'dash/fiche_pointage.html',{'shifts':list_emp})
 
