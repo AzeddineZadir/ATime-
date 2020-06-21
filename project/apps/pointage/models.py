@@ -197,7 +197,6 @@ class Day(models.Model):
         return str(self.jds)
 
 
-
 class Planing (models.Model):
     titre = models.CharField(
         max_length=150, unique=True, blank=False, null=False)
@@ -205,3 +204,7 @@ class Planing (models.Model):
 
     def __str__(self):
         return str(self.titre)
+
+
+class affectation(models.Model):
+    employe= models.ForeignKey()

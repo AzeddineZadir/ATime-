@@ -5,7 +5,7 @@
 #include <HTTPClient.h>
 
 const char *ssid = "TP-LINK_9C42F4";
-const char *password = "22a4fc567a26D*";
+const char *password = "26839158";
 
 String postData;                                            // post array that will be send to the website
 String linkee = "http://192.168.1.222:8000/pointage/getid"; //computer IP or the server domain
