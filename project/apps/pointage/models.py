@@ -73,8 +73,8 @@ class Employe(models.Model):
         blank=True, null=True,
         verbose_name="Genre"
     )
-    fonction =models.CharField(max_length=200, blank=True, null=True,
-                              verbose_name="Fonction",default=".")
+    fonction = models.CharField(max_length=200, blank=True, null=True,
+                                verbose_name="Fonction", default=".")
     objects = models.Manager()
     manager = EmployeManManager()
 
@@ -145,7 +145,8 @@ class Employe(models.Model):
 class Team(models.Model):
     titre = models.CharField(
         max_length=150, default='team', blank=True, null=True, verbose_name="Nom de l'équipe", unique=True)
-    description = models.CharField(max_length=400, blank=True, null=True, verbose_name="Déscription de l'équipe")
+    description = models.CharField(
+        max_length=400, blank=True, null=True, verbose_name="Déscription de l'équipe")
     manager = models.ForeignKey(
         'Employe', verbose_name="manager de l'équipe", on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_team')
 
@@ -181,15 +182,16 @@ class Day(models.Model):
                    (1, 'Mardi'), (2, 'Mercredi'), (3, 'Jeudi'), (4, 'Vendredi'))
     #titre = models.CharField(max_length=150)
 
-    jds = models.PositiveIntegerField(choices=DAY_OF_WEEK,blank=True, null=True)
+    jds = models.PositiveIntegerField(
+        choices=DAY_OF_WEEK, blank=True, null=True)
     he1 = models.TimeField(auto_now=False, auto_now_add=False,
-                                          blank=True, null=True)
+                           blank=True, null=True)
     hs1 = models.TimeField(auto_now=False, auto_now_add=False,
-                                          blank=True, null=True)
+                           blank=True, null=True)
     he2 = models.TimeField(auto_now=False, auto_now_add=False,
-                                          blank=True, null=True)
+                           blank=True, null=True)
     hs2 = models.TimeField(auto_now=False, auto_now_add=False,
-                                          blank=True, null=True)
+                           blank=True, null=True)
     planing = models.ForeignKey(
         'Planing', on_delete=models.SET_NULL, blank=True, null=True, related_name='planing_days')
 
@@ -206,5 +208,16 @@ class Planing (models.Model):
         return str(self.titre)
 
 
-# class affectation(models.Model):
-#     employe= models.ForeignKey()
+class Affectation(models.Model):
+    employe = models.ForeignKey(
+        'Employe', on_delete=models.CASCADE, blank=True, null=True, related_name='affected_set')
+    team = models.ForeignKey(
+        'Team', on_delete=models.CASCADE, blank=True, null=True,)
+    enter_day= models.DateField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)    
+    exit_day= models.DateField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
+
+
+    def __str__(self):
+        return str(f"{self.employe} a etais affecté a {self.team} le {self.enter_day}")
