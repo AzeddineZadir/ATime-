@@ -165,8 +165,46 @@ body {
     padding-left: 20px;
     .card-b-mydash {
         text-align: center;
+        h4{
+            white-space : nowrap;
+            text-align : right;
+        }
     }
 }
+//nbr employé manager dashbored card 
+.row{
+    .card-b-mydash{
+        
+           
+        .right{
+
+            h4{
+                position: absolute;
+                right: 55px;
+                bottom: 3px;
+                text-align: right;
+                display:inline-block;  
+               
+                  
+            }
+            i{
+                position: absolute;
+                right: 23px;
+                bottom: 15px;
+                text-align: right;
+                
+            }
+        }
+        
+    
+    
+    }
+}
+
+
+// Size of graph
+
+
 
 .card {
     border-radius: 6px;
@@ -352,6 +390,24 @@ body {
                     color: #2D3E50;
                 }
             }
+
+            .presence{
+                .a{
+                    display: inline-block;
+                    border-radius: 100%;
+                    height: 10px;
+                    width: 10px;
+                    background-color: red;
+                }
+    
+                .p{
+                    display: inline-block;
+                    border-radius: 100%;
+                    height: 10px;
+                    width: 10px;
+                    background-color: green;
+                }
+            }
         }
     }
 }
@@ -372,6 +428,7 @@ body {
                 margin-right: 36px;
                 position: static !important;
             }
+
             
         }
     }
@@ -426,6 +483,8 @@ body {
                     color: #2D3E50;
                 }
             }
+
+            
         }
     }
 }

@@ -137,8 +137,15 @@
                             </td>
 
                             <td>
-                                {% if coleague.iwssad %} Present {% else %} Sortie {% endif%}
-
+                                {% if coleague.iwssad %} 
+                                    <div class="presence">
+                                        <div class="p"></div> Present 
+                                    </div>
+                                {% else %}  
+                                    <div class="presence">
+                                        <div class="a"></div> Sortie 
+                                    </div>
+                                {% endif%}
                             </td>
                         </tr>
                         {% endfor %}
