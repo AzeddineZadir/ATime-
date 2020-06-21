@@ -187,7 +187,12 @@ def mes_equipes(request):
     man = Employe.objects.filter(user=request.user).get()
     teams = Team.objects.filter(manager=man)
     teams_nbr = teams.count()
-    print(teams)
+    if(teams_nbr == 1):
+        team=teams.get()
+        print(team)
+        return HttpResponseRedirect(reverse('dash:equipe_view', kwargs= {'pk':team.id,}))
+    
+        
 
     return render(request, 'dash/mes_equipes.html', locals())
 

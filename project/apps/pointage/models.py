@@ -206,5 +206,5 @@ class Planing (models.Model):
         return str(self.titre)
 
 
-class affectation(models.Model):
-    employe= models.ForeignKey()
+# class affectation(models.Model):
+#     employe= models.ForeignKey()
