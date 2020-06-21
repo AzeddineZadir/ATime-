@@ -1,15 +1,18 @@
-{% extends "base_generic.html" %} {% block nav %} {% endblock %} {% block title %}Manager dashbored {% endblock %} {% block content %}
+{% extends "base_generic.html" %}
+{% block nav %} {% endblock %}
+{% block title %} my team  {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
 
-<!--Tabs-->
-<div class="container-fluid tabs">
     
-    
-    
-    
+    <div class="container-fluid">
+            <div class="title">
+                <div class="ligne">
+                    <h1>{{team.titre}}</h1>
 
-        <!--Onglet mon équipe-->
-      
-            <div class="cointainer-fluid">
+                </div>
+                <div class="trait"></div>
+            </div>
                 <div class="row">
                     <div class="col-xl-4 col-md-6 col-sm-6">
                         <div class="card team text-justify " >
@@ -124,14 +127,10 @@
                     
                 
             
-            </div>
-        
-       
+            
+    </div>
 
-    
-</div>
-
-{% block scripts %}
+ {% block scripts %}
 {% comment %} employe gender chart {% endcomment %}
 <script>
     data1 = {
@@ -180,4 +179,7 @@
         }
     });
 </script>
-{% endblock scripts %} {% endblock %}
+{% endblock scripts %}
+    
+{% endblock %}
+
