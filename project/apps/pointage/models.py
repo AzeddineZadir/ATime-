@@ -220,4 +220,4 @@ class Affectation(models.Model):
 
 
     def __str__(self):
-        return str(f"{self.employe} a etais affecté a {self.team} le {self.enter_day}")
+        return str(f"ID {self.id} {self.employe} a etais affecté a {self.team} le {self.enter_day} a quité le {self.exit_day}")

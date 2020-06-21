@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from apps.dash.decorators import employe_required, manger_required, responsible_required
 from django.contrib.auth.decorators import login_required
-from apps.pointage.models import Employe, User, Planing, Shift, Team, Day
+from apps.pointage.models import Employe, User, Planing, Shift, Team, Day,Affectation
 from django.core.exceptions import ObjectDoesNotExist
 from apps.dash.forms import UserForm, TeamForm, DayForm, PlanningForm
 from django.urls import reverse
@@ -272,7 +272,12 @@ def assign_team(request, pk):
                 employe = Employe.objects.filter(user__last_name=employe[0], user__first_name=employe[1]).get()
                 if employe.team == None:
                     employe.team = team
-                    employe.save()           
+                    employe.save()   
+                    # init a affectation line with enter day to today     
+                    affectation =Affectation(employe=employe,team=team,enter_day=timezone.now().date())   
+                    print(affectation)
+                    
+                    affectation.save()
             except ObjectDoesNotExist:
                 print("Employe does not exist")  
 
@@ -336,6 +341,13 @@ def delete_employe_team(request, pk):
     # Delete employe from team
     employe.team = None
     employe.save()
+    # add exit date to hise affectation 
+        # get the laste affectation of the employe *
+    last_affectation=Affectation.objects.filter(employe=employe).last()
+    print (f" dans la suppression {last_affectation}")
+    last_affectation.exit_day=timezone.now().date()
+    last_affectation.save()
+    print (f" dans la suppression {last_affectation}")
     # Redirect with reverse 
     return HttpResponseRedirect(reverse('dash:assign_team', kwargs={'pk': pk}))
 
@@ -367,11 +379,7 @@ def delete_team(request, pk):
     except:
         print("None team to delete")
     return HttpResponseRedirect(reverse('dash:my_teams'))
-
-
-    
-
-
+   
 @responsible_required
 def mes_employes(request):
     # Get responsable
@@ -430,3 +438,4 @@ def fiche_pointage_all(request):
                 
     return render(request, 'dash/fiche_pointage.html',{'shifts':list_emp})
 
+# def affected_to(employe,team):
