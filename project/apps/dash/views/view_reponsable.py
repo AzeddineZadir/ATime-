@@ -329,6 +329,7 @@ def assign_schedule(request, pk):
 @responsible_required
 def delete_employe_team(request, pk):
     # Get employe with the pk in url
+    print('id',pk)
     user = User.objects.get(id=pk)
     employe = Employe.objects.filter(user=user).get()
     # Get team id for redirect to the modification interface after delete employe
