@@ -16,7 +16,7 @@
             </li>
             <li class="nav-item">
                 <a href="{% url 'dash:ma_fiche_pointage' pk=request.user.id %}" class="nav-link">
-                    <i class="icon far fa-calendar-alt"></i>
+                    <i class="icon fas fa-hourglass-half"></i>
                     <span class="text">Ma fiche de pointage</span>
                 </a>
             </li>
@@ -78,14 +78,35 @@
                     <span class="text">Ma fiche de pointage</span>
                 </a>
             </li>
-            <li class="nav-item dropdown">
+
+            <li class="nav-item">
+                <a href="{% url 'dash:mon_equipe'  %}" class="nav-link">
+                    <i class="icon fas fa-users"></i>
+                    <span class="text">Mon équipe</span>
+                </a>
+
+            </li><li class="nav-item">
+                <a href="{% url 'dash:fiche_pointage' %}" class="nav-link">
+                    <i class="icon fas fa-clock"></i>
+                    <span class="text">pointage</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url  'dash:mes_collaborateurs'%}" class="nav-link">
+                    <i class="icon fas fa-address-book"></i>
+                    <span class="text">Mes collaboratteurs</span>
+                </a>
+            </li>
+
+            {% comment %} <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon fas fa-users"></i>
                     <span class="text">Mon équipe</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a href="{% url 'dash:fiche_pointage' %}" class="nav-link">
-                        <i class="icon far fa-calendar-alt"></i>
+                        <i class="icon fas fa-hourglass-half"></i>
                         <span class="text">Fiche de pointage</span>
                     </a>
 
@@ -93,7 +114,7 @@
                         <i class="icon far fa-calendar-alt"></i>
                         <span class="text">Mes collaboratteurs</span>
                     </a>
-            </li>
+            </li> {% endcomment %}
             <li class="nav-item liToggle fixed-bottom">
                 <a href="#" class="nav-link sideMenuToggler" id='sideMenuToggler'>
                 <i class="icon fas fa-chevron-circle-left"></i>
@@ -120,7 +141,7 @@
             </li>
             <li class="nav-item">
                 <a href="{% url 'dash:ma_fiche_pointage' pk=request.user.id %}" class="nav-link">
-                    <i class="icon far fa-calendar-alt"></i>
+                    <i class="icon fas fa-hourglass-half"></i>
                     <span class="text">Ma fiche de pointage</span>
                 </a>
             </li>
@@ -129,6 +150,22 @@
                 <i class="icon fas fa-chevron-circle-left"></i>
                 </a>
             </li>
+             <li class="nav-item">
+                {% if request.user.employe.planing.id  %}
+                    <a href="{% url 'dash:my_schedule' pk=request.user.employe.planing.id %}" class="nav-link">
+                    <i class="icon far fa-calendar-alt"></i>
+                    <span class="text">Mon planning</span>
+                </a>
+                {% else %}
+                {% endif %}
+                
+            </li>
+            <li class="nav-item liToggle fixed-bottom">
+                <a href="#" class="nav-link sideMenuToggler" id='sideMenuToggler'>
+                <i class="icon fas fa-chevron-circle-left"></i>
+                </a>
+            </li>
+            
         </ul>
         </div>
     </div>

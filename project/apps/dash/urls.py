@@ -14,6 +14,7 @@ urlpatterns = [
     path('my_teams', views.my_teams , name='my_teams'),
     path('schedules', views.schedules , name='schedules'),
     path('schedule/<str:pk>', views.schedule , name='schedule'),
+    path('my_schedule/<str:pk>', views.my_schedule , name='my_schedule'),
     path('modify_schedule/<str:pk>', views.modify_schedule , name='modify_schedule'),
     path('assign_schedule/<str:pk>', views.assign_schedule , name='assign_schedule'),
     path('create_schedule', views.create_schedule , name='create_schedule'),
@@ -26,5 +27,7 @@ urlpatterns = [
     path('delete_employe_team/<str:pk>', views.delete_employe_team , name='delete_employe_team'),
     path('mes_employes', views.mes_employes , name='mes_employes'),
     path('fiche_pointage_all/', views.fiche_pointage_all , name='fiche_pointage_all'),
+    path('mon-equipe/', views.mon_equipe , name='mon_equipe'),
+
     
 ]
