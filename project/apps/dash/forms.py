@@ -5,9 +5,78 @@ from django.db.models import Q
 from crispy_forms.helper import FormHelper
 
 class UserForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['role'].widget = HiddenInput()
+
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email','role' ]
+        fields = ['id', 'username', 'first_name', 'last_name', 'email','role' ]
+        help_texts = {
+            'username': None,
+        }
+        widgets = {
+        'username': forms.TextInput(attrs={'readonly': 'readonly'}),
+        'last_name': forms.TextInput(attrs={'readonly': 'readonly'}),
+        'first_name': forms.TextInput(attrs={'readonly': 'readonly'}),
+        'email': forms.TextInput(attrs={'readonly': 'readonly'}),
+        'role': forms.TextInput(attrs={'readonly': 'readonly'}),
+        }
+
+class EditUserForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(EditUserForm, self).__init__(*args, **kwargs)
+        self.fields['role'].widget = HiddenInput()
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'email','role' ]
+        widgets = {
+        'last_name': forms.TextInput(attrs={'readonly': 'readonly'}),
+        'first_name': forms.TextInput(attrs={'readonly': 'readonly'}),
+        'role': forms.TextInput(attrs={'readonly': 'readonly'}),
+        }
+        help_texts = {
+            'username': None,
+        }
+        
+
+class EmployeForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(EmployeForm, self).__init__(*args, **kwargs)
+        self.fields['planing'].widget = HiddenInput()
+
+    class Meta:
+        model = Employe
+        fields = ['user', 'birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'description', 'gender','planing', 'observation']
+        widgets = {
+            'user': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'birthdate': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'birthplace': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'address': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'phone1': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'phone2': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'description': forms.Textarea(attrs={'readonly': 'readonly','rows': 3}),
+            'gender': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'planing': forms.TextInput(attrs={'readonly': 'readonly'}),  
+            }
+
+class EditEmployeForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(EditEmployeForm, self).__init__(*args, **kwargs)
+        self.fields['planing'].widget = HiddenInput()
+
+    class Meta:
+        model = Employe
+        fields = ['user', 'birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'description', 'picture', 'gender','planing', 'observation']
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3}), 
+        }
+
 
 
 class TeamForm(forms.ModelForm):

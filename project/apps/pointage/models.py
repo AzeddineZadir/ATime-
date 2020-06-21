@@ -59,7 +59,7 @@ class Employe(models.Model):
                               verbose_name="Téléphone professionnel")
     phone2 = models.CharField(max_length=200, blank=True, null=True,
                               verbose_name="Téléphone personnel")
-    observation = models.CharField(
+    description = models.CharField(
         max_length=300, blank=True, verbose_name="Description")
     picture = models.ImageField(
         upload_to='images/', default='images/nounours.png', verbose_name="Photo de profil")
@@ -75,6 +75,8 @@ class Employe(models.Model):
     )
     fonction =models.CharField(max_length=200, blank=True, null=True,
                               verbose_name="Fonction",default=".")
+    observation = models.CharField(max_length=300, blank=True, null=True,
+                              verbose_name="Remarque") 
     objects = models.Manager()
     manager = EmployeManManager()
 

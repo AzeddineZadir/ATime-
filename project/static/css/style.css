@@ -241,20 +241,26 @@ body :focus {
   padding-top: 10px;
 }
 
-.employe .card-employe {
+.employe .card-employe-a {
   border: 8px;
   margin-bottom: 16px;
-  border-left: 8px solid #2D3E50;
+  border-left: 8px solid red;
 }
 
-.employe .card-employe .employe-pic {
+.employe .card-employe-p {
+  border: 8px;
+  margin-bottom: 16px;
+  border-left: 8px solid green;
+}
+
+.employe .employe-pic {
   margin-top: 10px;
   margin-left: 20px;
   width: 46px;
   height: 46px;
 }
 
-.employe .card-employe .heure-e {
+.employe .heure-e {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -263,23 +269,23 @@ body :focus {
   font-weight: bold;
 }
 
-.employe .card-employe .description-employe {
+.employe .description-employe {
   margin-top: 10px;
   margin-left: 20px;
   margin-bottom: 14px;
 }
 
-.employe .card-employe .description-employe h5 {
+.employe .description-employe h5 {
   font-size: 1rem;
   font-weight: bold;
 }
 
-.employe .card-employe .description-employe p {
+.employe .description-employe p {
   font-size: 0.75rem;
   line-height: 0.1;
 }
 
-.employe .card-employe .more {
+.employe .more {
   bottom: 20px;
 }
 

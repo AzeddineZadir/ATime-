@@ -109,11 +109,13 @@ $(window).on('resizeEnd', function() {
             <div class="ligne">
                 <h1>Le planning</h1>
                 <div class="div">
-                    <a class="btn btn-primary" href="{% url 'dash:assign_schedule' pk=schedule.id %}" role="button" aria-pressed="true">Affecter le planning</a>
-                    <a class="btn btn-primary" href="{% url 'dash:modify_schedule' pk=schedule.id %}" role="button" aria-pressed="true"><i class="far fa-edit"></i></a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteScheduleModal">
-                        <i class="far fa-trash-alt"></i>
-                    </button>
+                    {% if request.user.role == 3 %}
+                        <a class="btn btn-primary" href="{% url 'dash:assign_schedule' pk=schedule.id %}" role="button" aria-pressed="true">Affecter le planning</a>
+                        <a class="btn btn-primary" href="{% url 'dash:modify_schedule' pk=schedule.id %}" role="button" aria-pressed="true"><i class="far fa-edit"></i></a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteScheduleModal">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    {% endif %}
                 </div>
             </div>
             <div class="trait"></div>

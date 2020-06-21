@@ -3,7 +3,7 @@ from apps.dash.decorators import employe_required, manger_required, responsible_
 from django.contrib.auth.decorators import login_required
 from apps.pointage.models import Employe, User, Planing, Shift
 from django.core.exceptions import ObjectDoesNotExist
-from apps.dash.forms import UserForm
+from apps.dash.forms import UserForm, EmployeForm, EditUserForm, EditEmployeForm
 from django.urls import reverse
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -166,7 +166,6 @@ def profile(request):
 @login_required
 def view_profile(request, pk):
     # Get the user
-    check = 1
     user = User.objects.get(id=pk)
     emp = Employe.objects.filter(user=user).get()
     try:
@@ -176,16 +175,12 @@ def view_profile(request, pk):
     # Prepopulate UserForm with data
     user_form = UserForm(instance=user)
     # Create grouped form User/Employe
-    EmployeFormset = inlineformset_factory(User, Employe, fields=(
-        'birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'observation', 'picture', 'gender','planing'), can_delete=False)
+    EmployeFormset = inlineformset_factory(User, Employe, form=EmployeForm, can_delete=False)
     # Prepopulate EmployeForm with user pk
     formset = EmployeFormset(instance=user)
     
+    
     if request.user.id == user.id or request.user.role == 3 or request.user.role == 2:
-        
-        if request.user.role == 2:
-            if str(request.user.pk) != str(pk):  
-                check = 2
 
         if request.method == "POST":
             # get data from POST method
@@ -216,13 +211,53 @@ def view_profile(request, pk):
                 "user_form": user_form,
                 "formset": formset,
                 "picture": emp.picture,
-                "check": check,
+                "check": True,
                 "planing_pk":planing_pk,
             })
 
     else:
         return HttpResponseRedirect(reverse('authentification:logout'))
 
+@login_required
+def edit_profile(request, pk):
+    # Get the user
+    user = User.objects.get(id=pk)
+    emp = Employe.objects.filter(user=user).get()  
+    # Prepopulate UserForm with data
+    user_form = EditUserForm(instance=user)
+    # Create grouped form User/Employe
+    EmployeFormset = inlineformset_factory(User, Employe, form=EditEmployeForm, can_delete=False)
+    # Prepopulate EmployeForm with user pk
+    formset = EmployeFormset(instance=user)
+    
+    
+    if request.user.id == user.id or request.user.role == 3:
+
+        if request.method == "POST":
+            # get data from POST method
+            user_form = EditUserForm(request.POST, request.FILES, instance=user)
+            formset = EmployeFormset(
+                request.POST, request.FILES, instance=user)
+            # If user_form is valide save data
+            if user_form.is_valid():
+                created_user = user_form.save(commit=False)
+                formset = EmployeFormset(
+                    request.POST, request.FILES, instance=created_user)
+                if formset.is_valid():
+                    created_user.save()
+                    formset.save()
+                    
+                    return HttpResponseRedirect(reverse('dash:view_profile', kwargs={'pk': pk}))
+
+        return render(request, "dash/edit_profile.html", {
+                "user_form": user_form,
+                "formset": formset,
+                "picture": emp.picture,
+                "check": False,
+            })
+
+    else:
+        return HttpResponseRedirect(reverse('authentification:logout'))
 
 @login_required
 def ma_fiche_pointage(request, pk):

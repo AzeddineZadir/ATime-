@@ -239,40 +239,46 @@ body {
     padding-right: 40px;
     padding-top: 10px;
     // Card employe
-    .card-employe {
+    .card-employe-a {
         border: 8px;
         margin-bottom: 16px;
-        border-left: 8px solid #2D3E50;
-        .employe-pic {
-            margin-top: 10px;
-            margin-left: 20px;
-            width: 46px;
-            height: 46px;
-        }
-        .heure-e {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            line-height: 0.2;
-            font-size: rem(12px);
+        border-left: 8px solid red;
+    }
+    .card-employe-p {
+        border: 8px;
+        margin-bottom: 16px;
+        border-left: 8px solid green;
+    }
+
+    .employe-pic {
+        margin-top: 10px;
+        margin-left: 20px;
+        width: 46px;
+        height: 46px;
+    }
+    .heure-e {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        line-height: 0.2;
+        font-size: rem(12px);
+        font-weight: bold;
+    }
+    .description-employe {
+        margin-top: 10px;
+        margin-left: 20px;
+        margin-bottom: 14px;
+        h5 {
+            font-size: rem(16px);
             font-weight: bold;
         }
-        .description-employe {
-            margin-top: 10px;
-            margin-left: 20px;
-            margin-bottom: 14px;
-            h5 {
-                font-size: rem(16px);
-                font-weight: bold;
-            }
-            p {
-                font-size: rem(12px);
-                line-height: 0.1;
-            }
+        p {
+            font-size: rem(12px);
+            line-height: 0.1;
         }
-        .more {
-            bottom: 20px;
-        }
+    }
+    .more {
+        bottom: 20px;
     }
 }
 
