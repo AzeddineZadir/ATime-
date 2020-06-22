@@ -15,12 +15,12 @@ from django.db.models import Q
 
 
 def get_coleagues(employe):
-    if(employe.team):
-        team = employe.team
-        coleagues = Employe.objects.filter(team=team).exclude(id=employe.id)
-        return coleagues
-
-
+    managed_teams =employe.managed_team.all()
+    #print(f"in get coleagues {managed_teams}")
+    coleagues=Employe.objects.filter(team__in=managed_teams)
+    #coleagues_nbr=coleagues.count()
+    #print(f"in get coleagues {coleagues_nbr}")
+    return coleagues
 def get_employes(team, ):
     # get the employes of the team in
     colaborators = Employe.objects.filter(team=team,)
@@ -49,7 +49,25 @@ def dash_man(request):
         todays_hours = [t_h.he1, t_h.hs1, t_h.he2, t_h.hs2, ]
     except:
         todays_hours = ['H:M', 'H:M', 'H:M', 'H:M']
-    coleagues = get_coleagues(man)
+
+    collaborateurs = get_coleagues(man)
+    if (collaborateurs):
+    
+        colaborators_all_nbr = collaborateurs.count()
+        print(colaborators_all_nbr)
+        colaborators_in_nbr =collaborateurs.filter(iwssad=True).count()
+        print(colaborators_in_nbr)
+        colaborators_out_nbr = collaborateurs.filter(iwssad=False).count()
+        print(colaborators_out_nbr)
+
+        male_collabortors_nbr=collaborateurs.filter(gender='H').count()
+        female_collabortors_nbr=collaborateurs.filter(gender='F').count()
+        # recapitulatif_présence = [colaborators_in,colaborators_out,colaborators_all]
+    else :
+        colaborators_all_nbr = 0
+        colaborators_in_nbr = 0
+        colaborators_out_nbr = 0
+        
     # if(coleagues):
     #     for co in coleagues:
     #         print(co)
@@ -181,7 +199,7 @@ def fiche_pointage(request):
 
     return render(request, 'dash/fiche_pointage.html', {'shifts': list_emp})
 
-
+@manger_required
 def mes_equipes(request):
     # Get employe with id
     man = Employe.objects.filter(user=request.user).get()
@@ -196,7 +214,7 @@ def mes_equipes(request):
 
     return render(request, 'dash/mes_equipes.html', locals())
 
-
+@manger_required
 def equipe_view(request,pk):
     # Get employe with id
     man = Employe.objects.filter(user=request.user).get()
