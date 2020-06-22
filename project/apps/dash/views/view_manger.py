@@ -14,8 +14,8 @@ from apps.dash.views import get_now_t, convert_time, is_valid, hours_dif, get_la
 from django.db.models import Q
 
 
-def get_coleagues(employe):
-    managed_teams =employe.managed_team.all()
+def get_coleagues(employe,managed_teams):
+    
     #print(f"in get coleagues {managed_teams}")
     coleagues=Employe.objects.filter(team__in=managed_teams)
     #coleagues_nbr=coleagues.count()
@@ -50,7 +50,9 @@ def dash_man(request):
     except:
         todays_hours = ['H:M', 'H:M', 'H:M', 'H:M']
 
-    collaborateurs = get_coleagues(man)
+    managed_teams =man.managed_team.all()
+    managed_teams_nbr=managed_teams.count()
+    collaborateurs = get_coleagues(man,managed_teams)
     if (collaborateurs):
     
         colaborators_all_nbr = collaborateurs.count()
@@ -68,56 +70,7 @@ def dash_man(request):
         colaborators_in_nbr = 0
         colaborators_out_nbr = 0
         
-    # if(coleagues):
-    #     for co in coleagues:
-    #         print(co)
-
-    # the team dashbored part
-    # # get the team manged by the actuel employe
-    # try :
-    #     team = Team.objects.filter(manager=man).get()
-    #     print(team)
-    # # get the employes of the team
-    # except :
-    #     pass
-    # if(team):
-    #     colaborators=get_employes(team)
-    #     colaborators_all_nbr = colaborators.count()
-    #     print(colaborators_all_nbr)
-    #     colaborators_in_nbr = get_employes_by_presence(team, True).count()
-    #     print(colaborators_in_nbr)
-    #     colaborators_out_nbr = get_employes_by_presence(team, False).count()
-    #     print(colaborators_out_nbr)
-
-    #     male_collabortors_nbr=colaborators.filter(gender='H').count()
-    #     female_collabortors_nbr=colaborators.filter(gender='F').count()
-    #     # recapitulatif_présence = [colaborators_in,colaborators_out,colaborators_all]
-
-    # else:
-    #     colaborators_all_nbr = 0
-    #     colaborators_in_nbr = 0
-    #     colaborators_out_nbr = 0
-
-    # # get colabotators
-    # if(colaborators):
-    #     for col in colaborators:
-    #         shift=col.get_last_shift()
-    #         if (shift):
-    #             col.laste_entry=shift.he
-    #             col.in_post_time=get_inpost_t(col)
-    #         else:
-    #             col.laste_entry=None
-    #             col.in_post_time=None
-
-    # for c in col :
-    #     shift=c.get_last_shift()
-    #     entryes=entryes.append(get_laste_entry(shift))
-    #     print(entryes)
-
-    # get the number of the employes in the team
-    # get the the number of the employes presentes
-
-    # return template with context after convert work_time to hours and min
+    
     return render(request, 'dash/dash_man.html', locals())
 
 
@@ -127,31 +80,31 @@ def mes_collaborateurs(request):
     manger = Employe.objects.filter(user=request.user).get()
     # Get manager team
     try:
-        team = Team.objects.filter(manager=manger).get()
+        managed_teams =manger.managed_team.all()
     except:
-        print("No team")
+        print("No teams")
     # if he is the team manager we get all employe of this team except the manager
-    try:
-        if manger == team.manager:
-            list_emp = Employe.manager.get_my_employe(team, request.user)
-            # Check if request method is GET
-            if request.GET:
-                # Get str data from fields nom
-                nom = request.GET.get('nom').lower()
-                status = request.GET.get('status')
-                # Check if not None or ''
-                if is_valid(nom):
-                    # Filter list_emp with lastame
-                    list_emp = list_emp.filter(Q(user__last_name__istartswith=nom) | Q(
-                        user__first_name__istartswith=nom))
-
-                if is_valid(status):
-                    if status == '1':
-                        list_emp = list_emp.filter(iwssad=True)
-                    else:
-                        list_emp = list_emp.filter(iwssad=False)
-
-            return render(request, 'dash/mes_collaborateurs.html', {'employes': list_emp, 'team': True})
+    try:    
+        collaborateurs = get_coleagues(manger,managed_teams)
+        print(collaborateurs)
+        
+        # search function by f_name and l_name  
+        # Check if request method is GET
+        if request.GET:
+            # Get str data from fields nom
+            nom = request.GET.get('nom').lower()
+            status = request.GET.get('status')
+            # Check if not None or ''
+            if is_valid(nom):
+                # Filter list_emp with lastame
+                collaborateurs = collaborateurs.filter(Q(user__last_name__istartswith=nom) | Q(
+                    user__first_name__istartswith=nom))
+            if is_valid(status):
+                if status == '1':
+                    collaborateurs = collaborateurs.filter(iwssad=True)
+                else:
+                    collaborateurs = collaborateurs.filter(iwssad=False)
+        return render(request, 'dash/mes_collaborateurs.html', {'employes': collaborateurs, 'team': True})
     except:
         print('except')
         return render(request, 'dash/mes_collaborateurs.html', {'team': False})
@@ -161,43 +114,44 @@ def mes_collaborateurs(request):
 def fiche_pointage(request):
     # Get manager
     manger = Employe.objects.filter(user=request.user).get()
-    # Get manager team
+    # Get managed teams
+    managed_teams =manger.managed_team.all()
     try:
-        team = Team.objects.filter(manager=manger).get()
+        collaborateurs = get_coleagues(manger,managed_teams)
     except:
         print("No team")
     # if he is the team manager we get all employe of this team except the manager
     try:
-        if manger == team.manager:
-            list_emp = Employe.manager.get_my_employe(team, request.user)
-            for emp in list_emp:
-                shifts = emp.get_last_shift()
-                if shifts:
-                    emp.he = shifts.he
-                    emp.hs = shifts.hs
+        
+        #managed_teams = Employe.manager.get_my_employe(team, request.user)
+        for emp in collaborateurs:
+            shifts = emp.get_last_shift()
+            if shifts:
+                emp.he = shifts.he
+                emp.hs = shifts.hs
+            else:
+                emp.he = None
+                emp.hs = None
+        # Check if request method is GET
+        if request.GET:
+            # Get str data from fields nom
+            nom = request.GET.get('nom').lower()
+            status = request.GET.get('status')
+            # Check if not None or ''
+            if is_valid(nom):
+                # Filter list_emp with lastame
+                collaborateurs = collaborateurs.filter(Q(user__last_name__istartswith=nom) | Q(
+                    user__first_name__istartswith=nom))
+            if is_valid(status):
+                if status == '1':
+                    collaborateurs = collaborateurs.filter(iwssad=True)
                 else:
                     emp.he = None
                     emp.hs = None
-            # Check if request method is GET
-            if request.GET:
-                # Get str data from fields nom
-                nom = request.GET.get('nom').lower()
-                status = request.GET.get('status')
-                # Check if not None or ''
-                if is_valid(nom):
-                    # Filter list_emp with lastame
-                    list_emp = list_emp.filter(Q(user__last_name__istartswith=nom) | Q(
-                        user__first_name__istartswith=nom))
-                if is_valid(status):
-                    if status == '1':
-                        list_emp = list_emp.filter(iwssad=True)
-                    else:
-                        emp.he = None
-                        emp.hs = None
     except:
         list_emp = None
 
-    return render(request, 'dash/fiche_pointage.html', {'shifts': list_emp})
+    return render(request, 'dash/fiche_pointage.html', {'shifts': collaborateurs})
 
 @manger_required
 def mes_equipes(request):
