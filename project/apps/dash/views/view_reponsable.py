@@ -455,18 +455,17 @@ def export_shift(request):
 
 def import_shift(request):
     if request.method == 'POST':
-        #file_format = request.POST['file-format-import']
         shift_resource = ShiftResource()
         dataset = Dataset()
         shifts = request.FILES['ShiftData']
 
         imported_data = dataset.load(shifts.read())
-        result = shift_resource.import_data(dataset, dry_run=True)  # Test the data import
-
-        
+        result = shift_resource.import_data(dataset, dry_run=True)  
 
         if not result.has_errors():
             # Import now
             shift_resource.import_data(dataset, dry_run=False)
+    
+    return HttpResponseRedirect(reverse('dash:fiche_pointage_all'))
 
 
