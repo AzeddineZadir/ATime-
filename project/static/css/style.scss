@@ -233,6 +233,10 @@ body {
     height: 120px;
 }
 
+.table-responsive {
+    white-space: nowrap
+}
+
 // Conteneur employe
 .employe {
     padding-left: 40px;
@@ -381,11 +385,21 @@ body {
 
 .table-my-collaborator {
     margin-top: rem(20px);
+
     tbody {
-        
         .employe-name {
+            vertical-align: top;
+            .profile-pic{
+                width: rem(42px);
+                height: rem(42px);
+                margin-top: rem(6px);
+                margin-bottom: rem(6px);
+            }
             p {
                 display: inline-block;
+                vertical-align: middle;
+                margin-top: rem(6px);
+                margin-bottom: rem(6px);
                 padding-left: 10px;
             }
         }
@@ -393,7 +407,8 @@ body {
             vertical-align: middle;
             a {
                 float: right;
-                margin-right: 36px;
+                margin-right: rem(36px);
+                margin-left: rem(18px);
                 i {
                     font-size: rem(24px);
                     color: #2D3E50;
@@ -419,6 +434,7 @@ body {
             }
         }
     }
+    
 }
 
 .table-my-collaborator-responsable{

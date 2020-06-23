@@ -235,6 +235,10 @@ body :focus {
   height: 120px;
 }
 
+.table-responsive {
+  white-space: nowrap;
+}
+
 .employe {
   padding-left: 40px;
   padding-right: 40px;
@@ -397,8 +401,22 @@ body :focus {
   margin-top: 1.25rem;
 }
 
+.table-my-collaborator tbody .employe-name {
+  vertical-align: top;
+}
+
+.table-my-collaborator tbody .employe-name .profile-pic {
+  width: 2.625rem;
+  height: 2.625rem;
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
 .table-my-collaborator tbody .employe-name p {
   display: inline-block;
+  vertical-align: middle;
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
   padding-left: 10px;
 }
 
@@ -408,7 +426,8 @@ body :focus {
 
 .table-my-collaborator tbody td a {
   float: right;
-  margin-right: 36px;
+  margin-right: 2.25rem;
+  margin-left: 1.125rem;
 }
 
 .table-my-collaborator tbody td a i {

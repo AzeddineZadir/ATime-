@@ -405,15 +405,6 @@ def fiche_pointage_all(request):
     responsable = Employe.objects.filter(user=request.user).get()
     # Exclude from list
     list_emp = Employe.objects.exclude(id=responsable.id)
-    # if he is the team manager we get all employe of this team except the manager 
-    for emp in list_emp:
-        shifts = emp.get_last_shift()           
-        if shifts:
-            emp.he = shifts.he
-            emp.hs = shifts.hs
-        else:
-            emp.he = None
-            emp.hs = None
     # Check if request method is GET
     if request.GET:
         # Get str data from fields nom
@@ -427,9 +418,17 @@ def fiche_pointage_all(request):
             if status == '1':
                 list_emp = list_emp.filter(iwssad=True)
             else:
-                emp.he = None
-                emp.hs = None
+                list_emp = list_emp.filter(iwssad=False)
                 
+    # if he is the team manager we get all employe of this team except the manager 
+    for emp in list_emp:
+        shifts = emp.get_last_shift()           
+        if shifts:
+            emp.he = shifts.he
+            emp.hs = shifts.hs
+        else:
+            emp.he = None
+            emp.hs = None
                 
     return render(request, 'dash/fiche_pointage.html',{'shifts':list_emp})
 
