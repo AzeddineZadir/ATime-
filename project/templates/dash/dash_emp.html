@@ -111,11 +111,12 @@
             <table class="table table-striped table-my-collaborator">
                 <thead>
                     <tr>
-                        <th scope="row">photo</th>
-                        <th scope="row">Nom-Prénom</th>
+                        <th scope="row">#</th>
+                        <th scope="row">Nom</th>
+                        <th scope="row">Role</th>
                         <th scope="row">Genre</th>
                         <th scope="row">Téléphone</th>
-                        <th scope="row">Présence</th>
+                        <th scope="row">Status</th>
                     </tr>
                 </thead>
 
@@ -126,31 +127,31 @@
                         {% for coleague in coleagues %}
                         <tr>
                             <td class="employe-name">
-                                <img src="{{ coleague.picture.url }}" class="profile-pic rounded-circle" alt="">
+                                {{ coleague.id }} 
 
                             </td>
                             <td class="employe-name">
-                                <p>{{ coleague.user.last_name|upper }} </p>
-                                <p>{{ coleague.user.first_name|capfirst }} </p>
+                                <img src="{{ coleague.picture.url }}" class="profile-pic rounded-circle" alt="">
+                                <p>{{ coleague.user.last_name|upper }} {{ coleague.user.first_name|capfirst }}  </p>
+                            </td>
+
+                            <td>
+                                {{ coleague.user.get_role_display }}
                             </td>
 
                             <td>
                                 {% if coleague.gender != F %} Homme {% else %} Femme {% endif%}
                             </td>
                             <td>
-                                {% if coleague.phone1 != None %} coleague.phone1 {% else %} / {% endif%}
+                                {% if coleague.phone1 != None %} {{coleague.phone1}} {% else %} / {% endif%}
 
                             </td>
 
                             <td>
                                 {% if coleague.iwssad %} 
-                                    <div class="presence">
-                                        <div class="p"></div> Present 
-                                    </div>
+                                    <h6><span class="badge badge-success">Present</span></h6>
                                 {% else %}  
-                                    <div class="presence">
-                                        <div class="a"></div> Sortie 
-                                    </div>
+                                    <h6><span class="badge badge-danger">Absent</span></h6>                                
                                 {% endif%}
                             </td>
                         </tr>

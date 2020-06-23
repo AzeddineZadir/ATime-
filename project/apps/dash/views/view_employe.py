@@ -11,6 +11,8 @@ from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count
+from django.contrib import messages
+
 
 
 # Create your views here.
@@ -195,19 +197,9 @@ def view_profile(request, pk):
                 if formset.is_valid():
                     created_user.save()
                     formset.save()
+                    messages.success(request, 'Votre observation a était enregistrer')
                     
-                    return HttpResponseRedirect(reverse('dash:view_profile', kwargs={'pk': pk}))
-
-        if request.GET.get('edit_profile') != None:
-            return render(request, "dash/profile.html", {
-                "user_form": user_form,
-                "formset": formset,
-                "picture": emp.picture,
-                "check": False,
-                 "planing_pk":planing_pk,
-            })
-        else:
-            return render(request, "dash/profile.html", {
+        return render(request, "dash/profile.html", {
                 "user_form": user_form,
                 "formset": formset,
                 "picture": emp.picture,

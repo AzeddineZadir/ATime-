@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 {% block nav %} {% endblock %}
 {% block title %}Mon profile{% endblock %}
+
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="profile container-fluid">
@@ -118,8 +119,20 @@
                     {% if request.user.role == 2 and request.user.id != form.user.value %}
                         <h6>Note du manager</h6>
                         <div class="card">
+                            {% if messages %}
+                            
+                                {% for m in messages %}
+                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ m }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                {% endfor %}
+                            
+                            {% endif %}
                             {{ form.observation|as_crispy_field }}
-                            <button type="submit" class="btn btn-success">Ajouter une observation</button> 
+                            <button type="submit" id="add-obs" class="btn btn-success">Ajouter une observation</button> 
                         </div>
                     {% endif %}    
                 </div>
@@ -136,4 +149,12 @@
           
     </div>
 
+
 {% endblock %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+

@@ -29,6 +29,8 @@ urlpatterns = [
     path('mes_employes', views.mes_employes , name='mes_employes'),
     path('fiche_pointage_all/', views.fiche_pointage_all , name='fiche_pointage_all'),
     path('mon-equipe/', views.mon_equipe , name='mon_equipe'),
+    path('export_shift/', views.export_shift , name='export_shift'),
+    path('import_shift/', views.import_shift , name='import_shift'),
 
     
 ]

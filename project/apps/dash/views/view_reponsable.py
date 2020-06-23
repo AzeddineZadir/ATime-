@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from apps.dash.decorators import employe_required, manger_required, responsible_required
 from django.contrib.auth.decorators import login_required
 from apps.pointage.models import Employe, User, Planing, Shift, Team, Day
@@ -18,6 +18,8 @@ from apps.dash.views import get_now_t, convert_time, is_valid, hours_dif, get_la
 
 from django.db.models import Count
 from django.forms import inlineformset_factory
+from apps.pointage.resources import ShiftResource
+from tablib import Dataset
 
 # Return the sum of hours in day
 def sum_hours_planning_day(day):
@@ -430,4 +432,41 @@ def fiche_pointage_all(request):
                 
                 
     return render(request, 'dash/fiche_pointage.html',{'shifts':list_emp})
+
+
+def export_shift(request):
+    if request.method == 'POST':
+        # Get selected option from form
+        file_format = request.POST['file-format']
+        shift_resource = ShiftResource()
+        dataset = shift_resource.export()
+        if file_format == 'CSV':
+            response = HttpResponse(dataset.csv, content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.csv"'
+            return response        
+        elif file_format == 'JSON':
+            response = HttpResponse(dataset.json, content_type='application/json')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.json"'
+            return response
+        elif file_format == 'XLS (Excel)':
+            response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.xls"'
+            return response   
+
+def import_shift(request):
+    if request.method == 'POST':
+        #file_format = request.POST['file-format-import']
+        shift_resource = ShiftResource()
+        dataset = Dataset()
+        shifts = request.FILES['ShiftData']
+
+        imported_data = dataset.load(shifts.read())
+        result = shift_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+        
+
+        if not result.has_errors():
+            # Import now
+            shift_resource.import_data(dataset, dry_run=False)
+
 

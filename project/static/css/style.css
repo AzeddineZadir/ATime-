@@ -244,13 +244,13 @@ body :focus {
 .employe .card-employe-a {
   border: 8px;
   margin-bottom: 16px;
-  border-left: 8px solid red;
+  border-left: 10px solid red;
 }
 
 .employe .card-employe-p {
   border: 8px;
   margin-bottom: 16px;
-  border-left: 8px solid green;
+  border-left: 10px solid green;
 }
 
 .employe .employe-pic {
