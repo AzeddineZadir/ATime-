@@ -1,0 +1,117 @@
+{% extends "base_generic.html" %}
+{% block nav %} {% endblock %}
+{% block title %}Mon profile{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="profile container-fluid">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="title" >
+                <div class="ligne">
+                    <h1>Modifier Profile</h1>     
+                </div>
+                <div class="trait"></div>
+            </div>
+            <div class="media">
+                <img src="{{ picture.url }}" class="profile-pic rounded-circle" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">{{ user_form.first_name.value }} {{ user_form.last_name.value }}</h5>
+                    {% if user_form.role.value == 1 %}
+                        <p> Employé</p>
+                    {% else %}
+                        {% if  user_form.role.value == 2 %}
+                            <p> Manager </p>
+                        {% else %}
+                            <p> Responsable</p>
+                        {% endif %}
+                    {% endif %}
+                
+                </div>
+            </div>
+        
+        
+        
+            <div class="row">
+                {% csrf_token %}
+                <!--Information personnel-->
+                <div class="col-sm-12 col-md-6">
+                    <h6>Information personnel</h6>
+                    <div class="card">
+                        {{ user_form.role|as_crispy_field }}             
+                        {{ user_form.username|as_crispy_field }} 
+                        <div class="form-row">
+                            <div class="form-group col-md-5 mb-0">
+                                {{ user_form.last_name|as_crispy_field }}
+                            </div> 
+                            <div class="form-group col-md-7 mb-0">
+                                {{ user_form.first_name|as_crispy_field }}
+                            </div>
+                        </div>
+                        {{ formset.management_form }}
+                        {% for form in formset %}
+                        {{ form.id|as_crispy_field }}
+                        <div class="form-row">
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.birthdate|as_crispy_field }}
+                            </div> 
+
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.gender|as_crispy_field }}
+                            </div> 
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--Coordonnées-->
+                <div class="col-sm-12 col-md-6">
+                    <h6>Coordonées</h6>
+                    <div class="card">
+                        {{ form.planing|as_crispy_field }}
+                        {{ form.address|as_crispy_field }}
+                        <div class="form-row">
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.phone1|as_crispy_field }}
+                            </div>
+
+                            <div class="form-group col-md-6 mb-0">
+                                {{ form.phone2|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        {{ user_form.email|as_crispy_field }} 
+                        
+
+                    </div>
+                    
+
+
+                </div>
+                
+
+                <!--Information public-->
+                <div class="col-12 col-md-6">
+                    <h6>Information public</h6>
+                    <div class="card">
+                        {{ form.description|as_crispy_field }}
+                        {{ form.picture|as_crispy_field }}
+                    </div> 
+                                     
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <button type="submit" class="btn btn-success btn-block">Enregistrer les modifications</button> 
+                </div>
+                {% endfor %}  
+                
+
+            </div>
+            
+        </form>    
+        
+
+        
+       
+          
+    </div>
+
+{% endblock %}

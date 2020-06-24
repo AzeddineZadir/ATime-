@@ -104,7 +104,7 @@
                                                 </td>
                                                 <td>
                                                     {% if employe.phone1 != None %}
-                                                        employe.phone1
+                                                        {{ employe.phone1 }}
                                                     {% else %}
                                                         /
                                                     {% endif%}
@@ -118,7 +118,7 @@
                                                           <a class="dropdown-item" href="{% url 'dash:view_profile' pk=employe.user.pk %}">Voir le profile</a>
                                                           <a class="dropdown-item" href="{% url 'dash:ma_fiche_pointage' pk=employe.user.pk %}">Voir la fiche de pointage</a>
                                                           <div class="dropdown-divider"></div>
-                                                          <a class="dropdown-item" value="delete" data-toggle="modal" data-target="#deleteTEmploye">Supprimer de l'équipe</a>
+                                                          <a class="dropdown-item" value="delete" data-toggle="modal" data-target="#deleteTEmploye{{employe.user.pk}}">Supprimer de l'équipe</a>
                                                         </div>
                                                       </div>
                                                     
@@ -127,7 +127,7 @@
                                             </tr>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="deleteTEmploye" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal fade" id="deleteTEmploye{{employe.user.pk}}" tabindex="-1" role="dialog" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">

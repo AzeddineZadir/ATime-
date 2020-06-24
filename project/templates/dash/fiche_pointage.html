@@ -9,23 +9,89 @@
                         <h5>Mes collaborateurs</h5>
                     </div>
                     <div class="col-sm-12 col-lg-12 col-xl-8">
-                            <form class="form-inline filtre  float-right" method="GET">  
-                                {% csrf_token %}
-                                <input type="text" class="form-control mr-1" id="inlineFormInputName2" name="nom" placeholder="Nom de l'employé">
-                                <select class="custom-select mr-2" id="inlineFormCustomSelectPref" name="status">
+                        <form class="form-inline filtre  float-right" method="GET">  
+                            {% csrf_token %}
+                            <input type="text" class="form-control mr-2 mb-2" id="inlineFormInputName2" name="nom" placeholder="Nom de l'employé">
+                            <select class="custom-select mr-2 mb-2" id="inlineFormCustomSelectPref" name="status">
                                 <option selected value="">Filtre...</option>
                                 <option value="1">Présent</option>
                                 <option value="2">Sortie</option>
-                                </select>
-                                <button type="submit" class="btn btn-primary">Chercher</button>
+                            </select>
+                            <button type="submit" class="btn btn-primary mb-2">Chercher</button>  
+
+                            <button type="button" class="btn btn-primary ml-2 mb-2" data-toggle="modal" data-target="#exportShift">
+                                <i class="fas fa-file-export"></i> Exporter
+                            </button>
                             
-                            </form>
+                            <button type="button" class="btn btn-primary ml-2 mb-2" data-toggle="modal" data-target="#importShift">
+                                <i class="fas fa-file-import"></i> Importer
+                            </button>                          
+                        </form>
+
+                        
+                        
+                        <div class="modal fade" id="exportShift" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="importModalLabel">Exporter le fichier</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form method="post" action="{% url 'dash:export_shift' %}" enctype="multipart/form-data">
+                                    <div class="modal-body">                       
+                                            {% csrf_token %}
+                                            <select name="file-format" class="form-control">
+                                                <option selected>Chosisez le format</option>
+                                                <option>CSV</option>
+                                                <option>JSON</option>
+                                                <option>XLS (Excel)</option>
+                                            </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-primary">Exporter</button>
+                                    </div>
+                                </form>
+                              </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="modal fade" id="importShift" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="importModalLabel">Importer le fichier</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form method="post" action="{% url 'dash:import_shift' %}" enctype="multipart/form-data">
+                                    <div class="modal-body">                       
+                                            {% csrf_token %}
+                                            
+                                                <div class="custom-file">
+                                                    <input type="file" name="ShiftData" class="custom-file-input" >
+                                                    <label class="custom-file-label" for="inputGroupFileImportShift">Choisiez le fichier</label>
+                                                </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-primary">Importer</button>
+                                    </div>
+                                </form>
+                              </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="table-responsive">
-                        <table class="table table-striped table-my-collaborator">
+                        <table class="table table-sm table-striped table-my-collaborator">
                             <thead>
                             <tr>
                                 <th scope="row">ID</th>
@@ -33,6 +99,7 @@
                                 <th scope="row">Status</th>
                                 <th scope="row">Entrer</th>
                                 <th scope="row">Sortie</th>
+                                <th scope="row"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,8 +134,10 @@
                                                 {% else %}
                                                     /
                                                 {% endif%}
-                                                <a href="{% url 'dash:ma_fiche_pointage' pk=shift.user.pk %}"> <i class="fa fa-angle-right" aria-hidden="true"></i> </a>        
                                             </td> 
+                                            <td>
+                                                <a href="{% url 'dash:ma_fiche_pointage' pk=shift.user.pk %}"> <i class="fa fa-angle-right" aria-hidden="true"></i> </a>        
+                                            </td>
                                          
                                         </tr>
                                        

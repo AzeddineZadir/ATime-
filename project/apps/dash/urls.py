@@ -8,6 +8,7 @@ urlpatterns = [
     path('dashboard_responsible', views.dash_responsible, name='responsible_dashbored'),
     path('profile', views.profile , name='profile'),
     path('profile/<str:pk>', views.view_profile , name='view_profile'),
+    path('edit_profile/<str:pk>', views.edit_profile , name='edit_profile'),
     path('ma_fiche_pointage/<str:pk>', views.ma_fiche_pointage , name='ma_fiche_pointage'),
     path('fiche_pointage/', views.fiche_pointage , name='fiche_pointage'),
     path('mes_collaborateurs', views.mes_collaborateurs , name='mes_collaborateurs'),
@@ -29,5 +30,9 @@ urlpatterns = [
     path('fiche_pointage_all/', views.fiche_pointage_all , name='fiche_pointage_all'),
     path('mes_equipes/', views.mes_equipes , name='mes_equipes'),
     path('equipe_view/<str:pk>', views.equipe_view , name='equipe_view'), 
+    path('mon-equipe/', views.mon_equipe , name='mon_equipe'),
+    path('export_shift/', views.export_shift , name='export_shift'),
+    path('import_shift/', views.import_shift , name='import_shift'),
+
     
 ]

@@ -201,6 +201,11 @@ body {
     }
 }
 
+
+// Size of graph
+
+
+
 .card {
     border-radius: 6px;
 }
@@ -228,46 +233,56 @@ body {
     height: 120px;
 }
 
+.table-responsive {
+    white-space: nowrap
+}
+
 // Conteneur employe
 .employe {
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 10px;
     // Card employe
-    .card-employe {
+    .card-employe-a {
         border: 8px;
         margin-bottom: 16px;
-        border-left: 8px solid #2D3E50;
-        .employe-pic {
-            margin-top: 10px;
-            margin-left: 20px;
-            width: 46px;
-            height: 46px;
-        }
-        .heure-e {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            line-height: 0.2;
-            font-size: rem(12px);
+        border-left: 10px solid red;
+    }
+    .card-employe-p {
+        border: 8px;
+        margin-bottom: 16px;
+        border-left: 10px solid green;
+    }
+
+    .employe-pic {
+        margin-top: 10px;
+        margin-left: 20px;
+        width: 46px;
+        height: 46px;
+    }
+    .heure-e {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        line-height: 0.2;
+        font-size: rem(12px);
+        font-weight: bold;
+    }
+    .description-employe {
+        margin-top: 10px;
+        margin-left: 20px;
+        margin-bottom: 14px;
+        h5 {
+            font-size: rem(16px);
             font-weight: bold;
         }
-        .description-employe {
-            margin-top: 10px;
-            margin-left: 20px;
-            margin-bottom: 14px;
-            h5 {
-                font-size: rem(16px);
-                font-weight: bold;
-            }
-            p {
-                font-size: rem(12px);
-                line-height: 0.1;
-            }
+        p {
+            font-size: rem(12px);
+            line-height: 0.1;
         }
-        .more {
-            bottom: 20px;
-        }
+    }
+    .more {
+        bottom: 20px;
     }
 }
 
@@ -366,12 +381,25 @@ body {
     margin-top: rem(20px);
 }
 
+
+
 .table-my-collaborator {
     margin-top: rem(20px);
+
     tbody {
         .employe-name {
+            vertical-align: top;
+            .profile-pic{
+                width: rem(42px);
+                height: rem(42px);
+                margin-top: rem(6px);
+                margin-bottom: rem(6px);
+            }
             p {
                 display: inline-block;
+                vertical-align: middle;
+                margin-top: rem(6px);
+                margin-bottom: rem(6px);
                 padding-left: 10px;
             }
         }
@@ -379,14 +407,34 @@ body {
             vertical-align: middle;
             a {
                 float: right;
-                margin-right: 36px;
+                margin-right: rem(36px);
+                margin-left: rem(18px);
                 i {
                     font-size: rem(24px);
                     color: #2D3E50;
                 }
             }
+
+            .presence{
+                .a{
+                    display: inline-block;
+                    border-radius: 100%;
+                    height: 10px;
+                    width: 10px;
+                    background-color: red;
+                }
+    
+                .p{
+                    display: inline-block;
+                    border-radius: 100%;
+                    height: 10px;
+                    width: 10px;
+                    background-color: green;
+                }
+            }
         }
     }
+    
 }
 
 .table-my-collaborator-responsable{
@@ -405,6 +453,7 @@ body {
                 margin-right: 36px;
                 position: static !important;
             }
+
             
         }
     }
@@ -459,6 +508,8 @@ body {
                     color: #2D3E50;
                 }
             }
+
+            
         }
     }
 }

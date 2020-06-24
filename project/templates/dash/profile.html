@@ -1,12 +1,32 @@
 {% extends "base_generic.html" %}
 {% block nav %} {% endblock %}
 {% block title %}Mon profile{% endblock %}
+
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="profile container-fluid">
          <div class="title" >
             <div class="ligne">
-                <h1>Profile</h1>       
+                <h1>Profile</h1>  
+                <div>
+                     <!-- the employe dont have a planing  -->
+                    {% if planing_pk == -1 %}
+                        {% if request.user.role != 1 and request.user.role != 2   %}
+                            <a  href="{% url 'dash:schedules'%}" class=" btn btn-primary">Affecter un  Planing</a> 
+                        {% endif %}
+                    {% else %}
+                        <!-- if it a simple employé  -->
+                        {% if request.user.id == form.user.value  %}
+                            <a  href="{% url 'dash:my_schedule' %}" class=" btn btn-primary">Afficher Mon Planing</a> 
+                        <!-- if it s a manager or a responsible -->
+                        {% else %}
+                            <a  href="{% url 'dash:schedule' pk=planing_pk %}" class=" btn btn-primary">Afficher le Planing</a>
+                        {% endif %}
+                    {% endif %}
+                    {% if request.user.role == 3 or request.user.id == user_form.initial.id  %} 
+                    <a class="btn btn-primary" href="{% url 'dash:edit_profile' pk=user_form.initial.id %}" role="button" aria-pressed="true"><i class="far fa-edit"></i></a>  
+                    {% endif %}
+                </div>
             </div>
             <div class="trait"></div>
         </div>
@@ -14,7 +34,6 @@
             <img src="{{ picture.url }}" class="profile-pic rounded-circle" alt="">
             <div class="media-body">
                 <h5 class="mt-0">{{ user_form.first_name.value }} {{ user_form.last_name.value }}</h5>
-                <p> {{user_form.username.value}}</p>
                 {% if user_form.role.value == 1 %}
                     <p> Employé</p>
                 {% else %}
@@ -35,7 +54,8 @@
                 <!--Information personnel-->
                 <div class="col-sm-12 col-md-6">
                     <h6>Information personnel</h6>
-                    <div class="card">             
+                    <div class="card">
+                        {{ user_form.role|as_crispy_field }} 
                         {{ user_form.username|as_crispy_field }} 
                         <div class="form-row">
                             <div class="form-group col-md-5 mb-0">
@@ -65,6 +85,7 @@
                 <div class="col-sm-12 col-md-6">
                     <h6>Coordonées</h6>
                     <div class="card">
+                        {{ form.planing|as_crispy_field }}
                         {{ form.address|as_crispy_field }}
                         <div class="form-row">
                             <div class="form-group col-md-6 mb-0">
@@ -88,39 +109,35 @@
                 <div class="col-12 col-md-6">
                     <h6>Information public</h6>
                     <div class="card">
-                        {{ form.observation|as_crispy_field }}
-                        {{ form.picture|as_crispy_field }}
+                        {{ form.description|as_crispy_field }}
                     </div>
                     
                 </div>
-                {% endfor %}  
-                <div class="col-sm-12 col-md-6" >
-                <!-- the employe dont have a planing  -->
-                    {% if planing_pk == -1 %}
-                        {% if request.user.role != 1 and request.user.role != 2   %}
-                            <a  href="" class=" btn btn-primary  btn-block  ">Affecter un  Planing</a> 
-                      
-                        {% endif %}
-                        
-                    {% else %}
-                    <!-- if it a simple employé  -->
-                    {% if request.user.role == 1 %}
-                        <a  href="{% url 'dash:my_schedule' pk=request.user.employe.planing.id %}" class=" btn btn-primary  btn-block  ">Afficher Mon Planing</a> 
-                     <!-- if it s a manager or a responsible -->
-                    {% else %}
-                        <a  href="{% url 'dash:schedule' pk=planing_pk %}" class=" btn btn-primary  btn-block  ">Afficher le Planing</a>
-                    {% endif %}
-                    
-                        {% if check != 2 %}
-                            {% if check %}
-                            <a href="?edit_profile={{ check }}" class="btn btn-primary btn-block  ">Modifier mon profile</a>
-                            {% else %}
-                            <button type="submit" class="btn btn-success  btn-block">Enregistrer</button>
-                            {% endif %}   
-                        {% endif %}
-                    {% endif %}
-                    
+
+                <!--Note du manager-->
+                <div class="col-12 col-md-6">
+                    {% if request.user.role == 2 and request.user.id != form.user.value %}
+                        <h6>Note du manager</h6>
+                        <div class="card">
+                            {% if messages %}
+                            
+                                {% for m in messages %}
+                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ m }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                {% endfor %}
+                            
+                            {% endif %}
+                            {{ form.observation|as_crispy_field }}
+                            <button type="submit" id="add-obs" class="btn btn-success">Ajouter une observation</button> 
+                        </div>
+                    {% endif %}    
                 </div>
+                {% endfor %}  
+                
 
             </div>
             
@@ -132,4 +149,12 @@
           
     </div>
 
+
 {% endblock %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+

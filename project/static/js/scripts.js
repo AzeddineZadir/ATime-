@@ -26,7 +26,7 @@ $(document).ready(function (){
     };
     const dateRangePicker = new DateRangePicker(elem, {
         language:'fr',   
-    });     
+    });  
     
 });
 

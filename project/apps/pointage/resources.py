@@ -11,6 +11,7 @@ class ShiftResource(resources.ModelResource):
     number = Field(attribute='number', column_name="numéro")
     nom = Field(attribute='employe__user__first_name', column_name="Nom")
     day = Field(attribute='day', column_name='jours', widget=DateWidget("%d.%m.%Y"))
+    print(nom)
     prénom = Field(attribute='employe__user__last_name', column_name='Prénom')
     id = Field(attribute='id', column_name="identifiant")
     he = Field(attribute='he', column_name="Heure d'entré")
