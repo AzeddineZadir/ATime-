@@ -60,7 +60,7 @@ class Employe(models.Model):
     phone2 = models.CharField(max_length=200, blank=True, null=True,
                               verbose_name="Téléphone personnel")
     description = models.CharField(
-        max_length=300, blank=True, verbose_name="Description")
+        max_length=300, blank=True, null=True, verbose_name="Description")
     picture = models.ImageField(
         upload_to='images/', default='images/nounours.png', verbose_name="Photo de profil")
     team = models.ForeignKey(

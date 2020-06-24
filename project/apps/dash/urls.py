@@ -30,7 +30,7 @@ urlpatterns = [
     path('fiche_pointage_all/', views.fiche_pointage_all , name='fiche_pointage_all'),
     path('mes_equipes/', views.mes_equipes , name='mes_equipes'),
     path('equipe_view/<str:pk>', views.equipe_view , name='equipe_view'), 
-    path('mon-equipe/', views.mon_equipe , name='mon_equipe'),
+    #path('mon-equipe/', views.mon_equipe , name='mon_equipe'),
     path('export_shift/', views.export_shift , name='export_shift'),
     path('import_shift/', views.import_shift , name='import_shift'),
 
