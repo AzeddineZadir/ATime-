@@ -212,12 +212,12 @@ class Affectation(models.Model):
     employe = models.ForeignKey(
         'Employe', on_delete=models.CASCADE, blank=True, null=True, related_name='affected_set')
     team = models.ForeignKey(
-        'Team', on_delete=models.CASCADE, blank=True, null=True,)
+        'Team', on_delete=models.SET_NULL, blank=True, null=True,)
     enter_day= models.DateTimeField(
         auto_now=False, auto_now_add=False, blank=True, null=True)    
     exit_day= models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
-
+    team_name =models.CharField(max_length=250, blank=False, null=True)
 
     def __str__(self):
         return str(f"ID {self.id} {self.employe} a etais affecté a {self.team} le {self.enter_day} a quité le {self.exit_day}")

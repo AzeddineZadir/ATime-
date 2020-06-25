@@ -273,11 +273,11 @@ def assign_team(request, pk):
                 if employe.team == None:
                     employe.team = team
                     employe.save()   
-                    # init a affectation line with enter day to today     
-                    affectation = Affectation(employe=employe,team=team,enter_day=timezone.now().date())   
-                    print(affectation)
+                    # # init a affectation line with enter day to today     
+                    # affectation = Affectation(employe=employe,team=team,enter_day=timezone.now().date())   
+                    # print(affectation)
                     
-                    affectation.save()
+                    # affectation.save()
             except ObjectDoesNotExist:
                 print("Employe does not exist")  
 
@@ -341,14 +341,14 @@ def delete_employe_team(request, pk):
     # Delete employe from team
     employe.team = None
     employe.save()
-    # add exit date to hise affectation 
-        # get the laste affectation of the employe *
-    last_affectation=Affectation.objects.filter(employe=employe).last()
-    print (f" dans la suppression {last_affectation}")
-    last_affectation.exit_day=timezone.now().date()
-    last_affectation.save()
-    print (f" dans la suppression {last_affectation}")
-    # Redirect with reverse 
+    # # add exit date to hise affectation 
+    #     # get the laste affectation of the employe *
+    # last_affectation=Affectation.objects.filter(employe=employe).last()
+    # print (f" dans la suppression {last_affectation}")
+    # last_affectation.exit_day=timezone.now().date()
+    # last_affectation.save()
+    # print (f" dans la suppression {last_affectation}")
+    # # Redirect with reverse 
     return HttpResponseRedirect(reverse('dash:assign_team', kwargs={'pk': pk}))
 
 @responsible_required
