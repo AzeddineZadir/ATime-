@@ -109,3 +109,4 @@ venv/
 uploaded_media/
 .vscode/settings.json
 project/apps/pointage/migrations/0001_initial.py
+
