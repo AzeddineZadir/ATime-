@@ -274,7 +274,7 @@ def assign_team(request, pk):
                     employe.team = team
                     employe.save()   
                     # init a affectation line with enter day to today     
-                    affectation =Affectation(employe=employe,team=team,enter_day=timezone.now().date())   
+                    affectation = Affectation(employe=employe,team=team,enter_day=timezone.now().date())   
                     print(affectation)
                     
                     affectation.save()

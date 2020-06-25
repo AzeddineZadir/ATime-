@@ -215,7 +215,7 @@ class Affectation(models.Model):
         'Team', on_delete=models.CASCADE, blank=True, null=True,)
     enter_day= models.DateTimeField(
         auto_now=False, auto_now_add=False, blank=True, null=True)    
-    exit_day= models.DateTimeField(
+    exit_day= models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
 
 
