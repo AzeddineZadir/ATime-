@@ -107,3 +107,4 @@ venv/
 
 .idea/
 uploaded_media/
+.vscode/settings.json
