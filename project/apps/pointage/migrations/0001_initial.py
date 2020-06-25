@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
                 ('picture', models.ImageField(default='images/nounours.png', upload_to='images/', verbose_name='Photo de profil')),
                 ('gender', models.CharField(blank=True, choices=[('H', 'Homme'), ('F', 'Femme')], max_length=1, null=True, verbose_name='Genre')),
                 ('fonction', models.CharField(blank=True, default='.', max_length=200, null=True, verbose_name='Fonction')),
-                ('observation', models.CharField(blank=True, max_length=300, null=True, verbose_name='Remarque')),
+               
             ],
         ),
         migrations.CreateModel(
