@@ -4,46 +4,64 @@
 {% block content %}
 
     <div class="container-fluid">
-                <div class="title" >
-                    <div class="ligne">
-                    <h1>Les Affercations </h1>
+            <div class="title" >
+            <div class="ligne">
+                <h1>Les Affercations </h1>
                
+            </div>
+            <div class="trait"></div>
+               <div class="row form-filter justify-content-between">
+                    <div class="col-sm-12 col-lg-12 col-xl-4">
+                       
                     </div>
-                <div class="trait"></div>
-               
-              <div class="row">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-my-collaborator">
-                            <thead>
-                            <tr>
-                                <th scope="row">ID</th>
-                                <th scope="row">Employé</th>
-                                <th scope="row">Team</th>
-                                <th scope="row">enter day</th>
-                                <th scope="row">exit day</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                    {% for affectation  in all_affecatations %}
-                                        <tr>
-                                            <td>{{ affectation.pk  }}</td>
-                                            <td>{{ affectation.employe.user.first_name }}  {{ affectation.employe.user.last_name }} ( {{ affectation.employe.user.username }} ) </td>
-                                            {% if  affectation.team %}
-                                            <td>{{ affectation.team.titre }}</td>
-                                            {% else %}
-                                            <td> {{ affectation.team_name }}</td>
-                                            {% endif %}
-                                            
-                                            <td>{{affectation.enter_day}}</td> 
-                                            <td>{{affectation.exit_day}}</td> 
-                                        </tr>
-                                    {% endfor %}
-                            </tbody>
-                        </table>
+                    <div class="col-sm-12 col-lg-12 col-xl-8">
+                            <form class="form-inline filtre  float-right" method="GET">  
+                                {% csrf_token %}
+                                <input type="text" class="form-control mr-1" id="inlineFormInputName2" name="nom_prenom" placeholder="Nom de l'employé">
+                                <input type="text" class="form-control mr-1" id="inlineFormInputName2" name="team_titre" placeholder="Titre de l'équipe">
+                                <button type="submit" class="btn btn-primary">Chercher</button>
+                            
+                            </form>
                     </div>
-                </div>     
+                 </div>    
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-my-collaborator">
+                                <thead>
+                                <tr>
+                                    <th scope="row">ID</th>
+                                    <th scope="row">Employé</th>
+                                    <th scope="row">Team</th>
+                                    <th scope="row">enter day</th>
+                                    <th scope="row">exit day</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        {% for affectation  in all_affecatations %}
+                                            <tr>
+                                                <td>{{ affectation.pk  }}</td>
+                                                <td>{{ affectation.employe.user.first_name }}  {{ affectation.employe.user.last_name }} ( {{ affectation.employe.user.username }} ) </td>
+                                                {% if  affectation.team %}
+                                                <td>{{ affectation.team.titre }}</td>
+                                                {% else %}
+                                                <td> {{ affectation.team_name }}</td>
+                                                {% endif %}
 
-        
+                                                <td>{{affectation.enter_day}}</td> 
+                                                <td>{{affectation.exit_day}}</td> 
+                                            </tr>
+                                        {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>     
+
+               
+    
+    
+    
+    
+    
     </div>
 
 

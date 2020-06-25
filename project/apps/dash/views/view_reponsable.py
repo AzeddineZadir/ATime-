@@ -478,6 +478,13 @@ def import_shift(request):
 def affectations_view(request):
 # get all the affecations 
     all_affecatations=Affectation.objects.all()
+    if (request.GET):
+        nom_prenom = request.GET.get('nom_prenom')
+        team_titre = request.GET.get('team_titre')
+        if is_valid(nom_prenom)  :
+            all_affecatations = all_affecatations.filter(Q(employe__user__last_name__istartswith=nom_prenom)|Q(employe__user__first_name__istartswith=nom_prenom))
+        if is_valid(team_titre) :
+            all_affecatations = all_affecatations.filter(Q(team__titre__istartswith=team_titre)|Q(team_name__istartswith=team_titre))
 
     return render(request, 'dash/responsable/affectations.html',locals())
  
