@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin
-from .models import Employe, Shift, Team, Day, Planing
+from .models import Employe, Shift, Team, Day, Planing,Affectation
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
@@ -103,7 +103,7 @@ class EmployeAdmin(admin.ModelAdmin):
 
 class TeamAdmin(admin.ModelAdmin):
     #actions = ['delete_selected']
-    list_display = ['titre', 'manager', 'description']
+    list_display = ['titre', 'manager', 'description',]
 
 
 class DayInline(admin.TabularInline):
@@ -121,10 +121,12 @@ class PlaningAdmin(admin.ModelAdmin):
     list_display = ('titre', 'description')
     inlines = [DayInline]
 
-
+class AffectationAdmin(admin.ModelAdmin):
+    list_display = ('id','employe', 'team','enter_day','exit_day','team_name')
 admin.site.register(User, UserAdmin)
 admin.site.register(Employe, EmployeAdmin)
 admin.site.register(Shift, ShiftAdmin)
 admin.site.register(Team, TeamAdmin)
 admin.site.register(Planing, PlaningAdmin)
 admin.site.register(Day, DayAdmin)
+admin.site.register(Affectation,AffectationAdmin)

@@ -5,5 +5,5 @@ class PointageConfig(AppConfig):
     name = 'apps.pointage'
 
     def ready(self):
-        #import apps.pointage.signals
-        pass
+        import apps.pointage.signals
+           

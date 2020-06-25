@@ -9,7 +9,7 @@
         </li>
 
         <li class="nav-item " role="presentation">
-            <a class="nav-link " id="contact-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mon équipe</a>
+            <a class="nav-link " id="contact-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mes équipe</a>
         </li>
        
 
@@ -135,7 +135,7 @@
                             <tbody>
                                 <div class="col">
 
-                                    {% if coleagues%} {% for coleague in coleagues %}
+                                    {% if collaborateurs%} {% for coleague in collaborateurs %}
                                     <tr>
                                         <td class="employe-name">
                                             <img src="{{ coleague.picture.url }}" class="profile-pic rounded-circle" alt="">
@@ -198,21 +198,25 @@
 
         </div>
 
-        <!--Onglet mon équipe-->
+        <!--Onglet mes  équipe-->
         <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="cointainer-fluid">
                 <div class="row">
                     <div class="col-xl-4 col-md-6 col-sm-6">
                         <div class="card team text-justify " >
                             <div class="card-body card-b-mydash ">
-                                <h2 class="card-title">{{team.titre}}</h2>
-                                <h4 class="card-title"> {{team.manager}}</h4>
-                                <p> {{team.description}}</p>
-                                <div class="right">
+                                <h1 class="center">Mes collaborateurs </h1>  
+                                <h2 class="center"> {{colaborators_all_nbr}}</h2>
+                                <h1 class="center">Mes Équipes </h1>  
+                                <h2 class="center"> {{managed_teams_nbr}}</h2>
+                                
+                               
+                                    
+                                {% comment %} <div class="right">
                                     <h4>{{colaborators_all_nbr}}</h4>
                                     <i class="fas fa-users"></i>
                                 
-                                </div>
+                                </div> {% endcomment %}
                                 
                             </div>
                         </div>
@@ -277,10 +281,10 @@
                
                 <div class="employe">
                     <!--Lignes card des employés-->
-                    <h5>Mes employés</h5>
+                    <h5>Mes collaborateurs</h5>
                     <div class="row row-employe ">
-                        {% if colaborators %}
-                        {% for col  in colaborators  %}
+                        {% if collaborateurs %}
+                        {% for col  in collaborateurs  %}
                             {% if col.user.id != request.user.id %}
                             
                                 <div class="col-xl-3 col-md-4 col-sm6">
