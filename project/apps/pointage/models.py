@@ -60,7 +60,7 @@ class Employe(models.Model):
     phone2 = models.CharField(max_length=200, blank=True, null=True,
                               verbose_name="Téléphone personnel")
     observation = models.CharField(
-        max_length=300, blank=True, verbose_name="Description")
+        max_length=300, blank=True, verbose_name="Description",null=True)
     picture = models.ImageField(
         upload_to='images/', default='images/nounours.png', verbose_name="Photo de profil")
     team = models.ForeignKey(
@@ -213,9 +213,9 @@ class Affectation(models.Model):
         'Employe', on_delete=models.CASCADE, blank=True, null=True, related_name='affected_set')
     team = models.ForeignKey(
         'Team', on_delete=models.CASCADE, blank=True, null=True,)
-    enter_day= models.DateField(
+    enter_day= models.DateTimeField(
         auto_now=False, auto_now_add=False, blank=True, null=True)    
-    exit_day= models.DateField(
+    exit_day= models.DateTimeField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
 
 
