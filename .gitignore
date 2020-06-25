@@ -109,5 +109,7 @@ venv/
 uploaded_media/
 .vscode/settings.json
 project/apps/pointage/migrations/
+project/apps/dash/migrations/
+project/apps/authentification/migrations/
 
 
