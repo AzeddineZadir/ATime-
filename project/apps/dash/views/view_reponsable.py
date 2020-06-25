@@ -253,7 +253,7 @@ def assign_team(request, pk):
         employes_list = list()
         print(employes)
         for employe in employes:
-            employes_list.append(employe.user.last_name+' '+employe.user.first_name)
+            employes_list.append(employe.user.last_name+' '+employe.user.first_name+' ('+employe.user.username+')')
 
         return JsonResponse(employes_list, safe=False)
 
@@ -311,7 +311,7 @@ def assign_schedule(request, pk):
         employes = Employe.objects.filter(Q(user__last_name__istartswith=term) | Q(user__first_name__istartswith=term))
         employes_list = list()
         for employe in employes:
-            employes_list.append(employe.user.last_name+' '+employe.user.first_name)
+            employes_list.append(employe.user.last_name+' '+employe.user.first_name+' ('+employe.user.username+')')
         return JsonResponse(employes_list, safe=False)
 
     schedule = Planing.objects.filter(id=pk).get()

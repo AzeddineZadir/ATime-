@@ -61,8 +61,6 @@ class Employe(models.Model):
                               verbose_name="Téléphone personnel")
     description = models.CharField(
         max_length=300, blank=True, null=True, verbose_name="Description")
-    observation = models.CharField(
-        max_length=300, blank=True, verbose_name="remarque",null=True)
     picture = models.ImageField(
         upload_to='images/', default='images/nounours.png', verbose_name="Photo de profil")
     team = models.ForeignKey(
