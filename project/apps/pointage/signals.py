@@ -81,5 +81,5 @@ def team_is_deleted(sender, instance,**kwargs):
     # get all the assignments the concernes the the deleted team and witch are not closed  
     affectations=Affectation.objects.filter(team=instance,exit_day=None)
     #print(affectations)
-    affectations.update(exit_day=timezone.now().date())
+    affectations.update(exit_day=timezone.now().date(),team_name=instance.titre)
 

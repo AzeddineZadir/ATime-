@@ -28,7 +28,12 @@
                                         <tr>
                                             <td>{{ affectation.pk  }}</td>
                                             <td>{{ affectation.employe.user.first_name }}  {{ affectation.employe.user.last_name }} ( {{ affectation.employe.user.username }} ) </td>
-                                            <td> {{ affectation.team.titre }}</td>
+                                            {% if  affectation.team %}
+                                            <td>{{ affectation.team.titre }}</td>
+                                            {% else %}
+                                            <td> {{ affectation.team_name }}</td>
+                                            {% endif %}
+                                            
                                             <td>{{affectation.enter_day}}</td> 
                                             <td>{{affectation.exit_day}}</td> 
                                         </tr>
