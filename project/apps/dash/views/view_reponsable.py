@@ -475,5 +475,10 @@ def import_shift(request):
     
     return HttpResponseRedirect(reverse('dash:fiche_pointage_all'))
 
+def affectations_view(request):
+# get all the affecations 
+    all_affecatations=Affectation.objects.all()
 
+    return render(request, 'dash/responsable/affectations.html',locals())
+ 
 # def affected_to(employe,team):
