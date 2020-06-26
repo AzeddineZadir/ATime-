@@ -125,6 +125,7 @@ def dash_emp(request):
         for co in coleagues:
             print(co)
 
+    
         # return template with context after convert work_time to hours and min
     return render(request, 'dash/dash_emp.html', {'in_post_t': in_post_t, 'time_left': time_left, 'shift': shift, 'todays_hours': todays_hours, 'coleagues': coleagues})
 
@@ -273,6 +274,8 @@ def ma_fiche_pointage(request, pk):
             # Get str data from fields start and end
             start = request.GET.get('start')
             end = request.GET.get('end')
+            nbr = request.GET.get('nbr')
+            print(nbr)
             # Check if not None or ''
             if is_valid(start) and is_valid(end):
                 # Convert str to datetime
@@ -280,8 +283,20 @@ def ma_fiche_pointage(request, pk):
                 end = datetime.datetime.strptime(end, "%d/%m/%Y")
                 # Filter shift_list with date params
                 first_shifts = first_shifts.filter(Q(day__gte=start), Q(day__lte=end))
+            if is_valid(nbr)   :
+                if (nbr == '1') :
+                    print("in par semaine")
+                    days =get_previous_days(7)
+                    first_shifts =first_shifts.filter(day__in =days)
+                    print(first_shifts)
+
+                if (nbr == '2') :
+                    print("in par mois")
+                    days =get_previous_days(30)
+                    first_shifts =first_shifts.filter(day__in =days)
+                    print(first_shifts)    
         # Pagginite my list by 7
-        paginator = Paginator(first_shifts, 7)
+        paginator = Paginator(first_shifts, 20)
 
         # Get id of page from link if empty --> default=1
         page = request.GET.get('page', 1)
@@ -358,4 +373,17 @@ def my_schedule(request,pk):
 
  
     return render(request, 'dash/responsable/my_schedule.html',{'row':row, 'schedule':schedule, 'pk':pk })
+
+def get_previous_days(n):
+    print("from get last week")
+    today = timezone.now().date()
+    print(today)
+    r = range(n)
+    last_days=[]
+    for i in r :
+       last_days.append( today - datetime.timedelta(days=i))
+       print (last_days[i])
+    
+    return last_days
+
 
