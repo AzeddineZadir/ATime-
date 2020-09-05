@@ -2,10 +2,17 @@ $(document).ready(function (){
     $(".sideMenuToggler").on("click", function(){
         
         $(".wrapper").toggleClass("active"); 
-        icon = $(this).find("i")
-        if(icon.hasClass("fa-chevron-circle-left")){
+        icon = $(this).find("i");
+        var element = document.getElementById("test");
+        var logoL = document.getElementById("logoL");
+        var nomApp = document.getElementById("nomapp");
+        if(icon.hasClass("fa-chevron-circle-left")){           
+            nomApp.style.display = 'block';
+            logoL.style.display = 'none';
             icon.removeClass("fa-chevron-circle-left").toggleClass("fa-chevron-circle-right");
         }else{
+            nomApp.style.display = 'none';
+            logoL.style.display = 'inline';
             icon.removeClass("fa-chevron-circle-right").toggleClass("fa-chevron-circle-left");
         }
     });

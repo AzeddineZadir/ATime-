@@ -174,11 +174,14 @@ def equipe_view(request,pk):
     man = Employe.objects.filter(user=request.user).get()
     team = Team.objects.get(id=pk)
     print(team)
-    coleagues = get_coleagues(man)
-    if(coleagues):
-        for co in coleagues:
-            print(co)
-
+    try:
+        coleagues = get_coleagues(man)
+    
+        if(coleagues):
+            for co in coleagues:
+                print(co)
+    except:
+        print("error")
     # the team dashbored part
     # get the team manged by the actuel employe
     try :

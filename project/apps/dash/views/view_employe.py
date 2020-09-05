@@ -117,7 +117,7 @@ def dash_emp(request):
         time_left = "H:M"
     try:
         t_h = emp.get_today_hours()
-        todays_hours = [t_h.he1, t_h.hs1, t_h.he2, th.h_s2, ]
+        todays_hours = [t_h.he1, t_h.hs1, t_h.he2, t_h.hs2, ]
     except:
         todays_hours = ['H:M', 'H:M', 'H:M', 'H:M']
     coleagues = get_coleagues(emp)

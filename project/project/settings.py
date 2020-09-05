@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'apps.dash',
 
     'import_export',
+
+    'django_extensions',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

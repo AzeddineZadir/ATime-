@@ -4,7 +4,7 @@
 
 $easeTime: 0.1s;
 $margin-top: 56px;
-$colors: ( "primaryy": "#1BBC9B", "secondaryy": "#2D3E50", "background": "#EFF0F3");
+$colors: ( "primaryy": "#FE5F55", "secondaryy": "#2A333C", "background": "#F7F7FF");
 @each $colorName,
 $colorValue in $colors {
     .bg-#{$colorName} {
@@ -14,12 +14,27 @@ $colorValue in $colors {
         color: #{$colorValue};
     }
 }
+.navbar-custom{
+    background-color: #F5F4F9;
+}
+
+#test{
+    display: none;
+}
+
+#nomapp{
+    display: none;
+    width: rem(82px)
+}
+
 
 body {
     @extend .bg-background;
      :focus {
         outline: 0 !important;
     }
+
+    
 }
 
 .wrapper {
@@ -32,13 +47,24 @@ body {
         transition: all ease $easeTime;
         transform: translateX(-100%);
         z-index: 2000;
+        .logoL{
+            width: 100px;
+            margin-right: rem(40px);
+            margin-left: rem(40px);
+            margin-top: rem(12px);
+        }
+        .logoS{
+            display: none;
+        }
+
         .nav-link {
             .text {
                 display: none;
             }
         }
         .navbar-nav {
-            margin-top: 56px;
+            margin-top: 16px;
+
         }
         .dropdown {
             outline: 0;
@@ -67,6 +93,13 @@ body {
     &.active {
         .sideMenu {
             width: 70px;
+            .logoS{
+                width: 46px;
+                display: inline;
+                margin-right: rem(10px);
+                margin-left: rem(10px);
+                margin-top: rem(6px);
+            }
             .nav-link {
                 text-align: center;
                 .text {
