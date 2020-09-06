@@ -3,18 +3,16 @@
 {% block nav %} {% endblock %}
 {% block title %}Ma page d'accueil{% endblock %}
 {% block content %}
-    <h1>
-        <center>AUTHENTIFICATION YA JEDEK</center>
-    </h1>
 
-    <div>
-        <form method="POST" action="{% url 'authentification:login' %}">
+    <div class="form">
+        <form class="form-signin mt-5" method="POST" action="{% url 'authentification:login' %}">
+            <img class="mb-4" src="/media/images/attime.png" alt="" width="140">
+            <h1 class="h4 mb-3 font-weight-normal">Veuillez vous authentifier</h1>
             {% csrf_token %}
-            {{ form|crispy }}
-            
-            <button type="submit" class="btn btn-primary"> se connecter</button>  
+            {{ form }}
+            <a class="mdpl" href="{% url 'authentification:password_reset' %}"> Mot de passe oublié ? </a>
+            <button type="submit" class="btn btn-lg mt-2 btn-primary btn-block"> se connecter</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>  
         </form>
-        
-        <a href="{% url 'authentification:password_reset' %}"> j'ai oublier mon mot de passe </a>
     </div>
 {% endblock %}
