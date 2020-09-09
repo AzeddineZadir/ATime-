@@ -42,8 +42,7 @@
         </div>
 
     </div>
-    <br>
-    <h3>Votre planning du jour</h3>
+    <h4 class="pt-2">Votre planning du jour</h4>
     <!-- ptodays planing hours -->
     <div class="row">
         <div class="col-3 ">
@@ -103,9 +102,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <br>
-    <h3>Vos Collaborateurs</h3>
+    <h4 class="pt-3">Vos collaborateurs</h4>
     <!-- cloleagues table -->
     <div class="row">
         <div class="table-responsive">
@@ -122,8 +119,6 @@
                 </thead>
 
                 <tbody>
-                    <div class="col">
-                
                         {% if coleagues%}
                         {% for coleague in coleagues %}
                         <tr>
@@ -140,7 +135,7 @@
                             </td>
 
                             <td>
-                                {% if coleague.gender != F %} Homme {% else %} Femme {% endif%}
+                                {% if coleague.gender != 'F' %} Homme {% else %} Femme {% endif%}
                             </td>
                             <td>
                                 {% if coleague.phone1 != None %} {{coleague.phone1}} {% else %} / {% endif%}

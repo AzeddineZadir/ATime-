@@ -13,13 +13,13 @@
                 </div>
                 <div class="trait"></div>
             </div>
-                <div class="row">
+                <div class="row row-stats">
                     <div class="col-xl-4 col-md-6 col-sm-6">
                         <div class="card team text-justify " >
                             <div class="card-body card-b-mydash ">
                                 <h2 class="card-title">{{team.titre}}</h2>
                                 <h4 class="card-title"> {{team.manager}}</h4>
-                                <p> {{team.description}}</p>
+                                <p> {{team.description|truncatechars:36}}</p>
                                 <div class="right">
                                     <h4>{{colaborators_all_nbr}}</h4>
                                     <i class="fas fa-users"></i>
@@ -37,21 +37,23 @@
                         <div class="card team">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-8">
+                                    <div class="col-6">
 
-                                        <div class="myChartDiv " style="width:260px ;">
+                                        <div class="myChartDiv " style="width:120px ;">
                                             <canvas id="employe_gender_chart"></canvas>
                                         </div>
 
                                     </div>
 
-                                    <div class="col-4">
-                                        <h6 class="title-f">Homme</h6>
-                                        <p class="description">{{male_collabortors_nbr}} employés</p>
-                                        <h6 class="title-h">Femme</h6>
-                                        <p class="description">{{female_collabortors_nbr}} employés</p>
-                                        <h6 class="title-t">Total</h6>
-                                        <p class="description">{{colaborators_all_nbr}} employés</p>
+                                    <div class="col-6 d-flex">
+                                        <div class="ml-auto mr-2">
+                                            <h6 class="title-f">Homme</h6>
+                                            <p class="description">{{male_collabortors_nbr}} employés</p>
+                                            <h6 class="title-h">Femme</h6>
+                                            <p class="description">{{female_collabortors_nbr}} employés</p>
+                                            <h6 class="title-t">Total</h6>
+                                            <p class="description">{{colaborators_all_nbr}} employés</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -60,25 +62,25 @@
                     
                     <!--Card stats employés présence-->
                     <div class="col-xl-4 col-md-6 col-sm-6">
-                    
                         <div class="card team">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-8">
 
-                                        <div class="myChartDiv " style="width:260px ;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="myChartDiv " style="width:120px ;">
                                             <canvas id="employe_présence_chart"></canvas>
                                         </div>
-
                                     </div>
 
-                                    <div class="col-4">
-                                        <h6 class="title-f">Entrée</h6>
-                                        <p class="description">{{colaborators_in_nbr}} employés</p>
-                                        <h6 class="title-h">Sortie</h6>
-                                        <p class="description">{{colaborators_out_nbr}} employés</p>
-                                        <h6 class="title-t">Total</h6>
-                                        <p class="description">{{colaborators_all_nbr}} employés</p>
+                                    <div class="col-6 d-flex">
+                                        <div class="ml-auto mr-2">
+                                            <h6 class="title-f">Entrée</h6>
+                                            <p class="description">{{colaborators_in_nbr}} employés</p>
+                                            <h6 class="title-h">Sortie</h6>
+                                            <p class="description">{{colaborators_out_nbr}} employés</p>
+                                            <h6 class="title-t">Total</h6>
+                                            <p class="description">{{colaborators_all_nbr}} employés</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +88,8 @@
                     </div>
 
                 </div>
-               
+                
+
                 <div class="employe">
                     <!--Lignes card des employés-->
                     <h5>Mes employés</h5>
@@ -99,15 +102,23 @@
     
                                     <div class="card card-employe{% if col.iwssad %}-p{% else %}-a{% endif %}">
     
-                                        <img src="/media/images/nounours.png" class="employe-pic rounded-circle" alt="">
+                                        <img src="{{ col.picture.url }}" class="employe-pic rounded-circle" alt="">
                                         <div class="description-employe">
                                             <h5>{{col.user.first_name}} {{col.user.last_name}}</h5>
                                             <p>{{col.fonction}}</p>
                                         </div>
-                                        <div class="heure-e">
-                                            <p>{{col.laste_entry}}</p>
-                                            <p>{{col.in_post_time}}</p>
-                                        </div>
+                                        {% if col.iwssad %}
+                                            <div class="heure-e">
+                                                <p><i class="fas fa-sign-out-alt" style="font-size: 14px;"></i>  {{col.laste_entry}}</p>
+                                                <p><i class="fas fa-clock" tyle="font-size: 14px;"></i> {{col.in_post_time}}</p>
+                                            </div>
+                                        {% else %}
+                                            <div class="heure-e">
+                                                
+                                                <p> </p>
+                                                <p> </p>
+                                            </div>
+                                        {% endif %}
     
                                         <a class="btn more" href="{% url 'dash:view_profile' pk=col.user.id %}">
                                             <i class="fas fa-chevron-right more-icon"></i>
@@ -123,11 +134,7 @@
                               
                     </div>
                 </div>  
-               
-                    
-                
-            
-            
+      
     </div>
 
  {% block scripts %}
@@ -137,7 +144,7 @@
         labels: ["Homme {{male_collabortors_nbr}} ", "Femme {{female_collabortors_nbr}}", ],
         datasets: [{
             label: "Population (millions)",
-            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            backgroundColor: ["#2A333C", "#FE5F55"],
             data: [{{male_collabortors_nbr}}, {{female_collabortors_nbr}}, ]
         }]
     }
@@ -146,22 +153,34 @@
         type: 'doughnut',
         data: data1,
         options: {
-            title: {
-                display: false,
-                text: 'récapitulatife de présence '
-            },
-            responsive:true,
-            maintainAspectRatio:false,
-        }
+                aspectRatio: 1,
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                    }
+                },
+                responsive: true,
+                cutoutPercentage: 60,
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: false,
+                },
+            }
     });
 </script>
+
 {% comment %} employe présence chart  {% endcomment %}
 <script>
     data = {
         labels: ["Entrée {{colaborators_in_nbr}} ", "Sortie {{colaborators_out_nbr}}", ],
         datasets: [{
             label: "Population (millions)",
-            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            backgroundColor: ["#2A333C", "#FE5F55"],
             data: [{{colaborators_in_nbr}}, {{colaborators_out_nbr}}, ]
         }]
     }
@@ -170,13 +189,24 @@
         type: 'doughnut',
         data: data,
         options: {
-            title: {
-                display: false,
-                text: 'récapitulatife de présence '
-            },
-            responsive:true,
-            maintainAspectRatio:false,
-        }
+                aspectRatio: 1,
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                    }
+                },
+                responsive: true,
+                cutoutPercentage: 60,
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: false,
+                },
+            }
     });
 </script>
 {% endblock scripts %}

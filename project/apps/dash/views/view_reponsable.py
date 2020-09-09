@@ -319,7 +319,7 @@ def assign_schedule(request, pk):
 
     if 'add' in request.POST:
         employe = request.POST.get('employe')
-        employe=employe.split(" ", 1)
+        employe=employe.split(" ", 2)
         if len(employe) > 1:
             try:
                 employe = Employe.objects.filter(user__last_name=employe[0], user__first_name=employe[1]).get()

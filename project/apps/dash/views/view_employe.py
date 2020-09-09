@@ -265,9 +265,9 @@ def ma_fiche_pointage(request, pk):
         print("Le user n'a aucune team")
     if request.user.id == user_asked.id or request.user.role == 3 or user_asker.id == manager:
         # Get shifts of the current employe
-        first_shifts = Shift.objects.filter(employe=emp, number=1).values_list(
+        first_shifts = Shift.objects.filter(employe=emp, number=0).values_list(
             'day', 'number', 'he', 'hs').order_by('-day', 'number')
-        other_shifts = Shift.objects.exclude(number=1).filter(employe=emp).values_list(
+        other_shifts = Shift.objects.exclude(number=0).filter(employe=emp).values_list(
             'day', 'number', 'he', 'hs').order_by('-day', 'number')
         # Check if request method is GET
         if request.GET:
@@ -296,7 +296,7 @@ def ma_fiche_pointage(request, pk):
                     first_shifts =first_shifts.filter(day__in =days)
                     print(first_shifts)    
         # Pagginite my list by 7
-        paginator = Paginator(first_shifts, 20)
+        paginator = Paginator(first_shifts, 9)
 
         # Get id of page from link if empty --> default=1
         page = request.GET.get('page', 1)

@@ -65,7 +65,7 @@ class UserAdmin(UserAdmin):
     delete_employe.short_description = "Supprimer les empreintes des employes sélectionnés"
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True
 
 
 class ShiftAdmin(ImportExportModelAdmin):
@@ -98,7 +98,7 @@ class EmployeAdmin(admin.ModelAdmin):
         return employe.user.username
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True
 
 
 class TeamAdmin(admin.ModelAdmin):

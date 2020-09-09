@@ -54,6 +54,15 @@ def dash_man(request):
     managed_teams_nbr=managed_teams.count()
     collaborateurs = get_coleagues(man,managed_teams)
     if (collaborateurs):
+
+        for col in collaborateurs:
+            shift=col.get_last_shift()
+            if (shift):
+                col.laste_entry=shift.he
+                col.in_post_time=get_inpost_t(col)
+            else:
+                col.laste_entry=None
+                col.in_post_time=None
     
         colaborators_all_nbr = collaborateurs.count()
         print(colaborators_all_nbr)

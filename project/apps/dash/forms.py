@@ -62,6 +62,7 @@ class EmployeForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'readonly': 'readonly','rows': 3}),
             'gender': forms.TextInput(attrs={'readonly': 'readonly'}),
             'planing': forms.TextInput(attrs={'readonly': 'readonly'}),  
+            
             }
 
 class EditEmployeForm(forms.ModelForm):
@@ -74,7 +75,8 @@ class EditEmployeForm(forms.ModelForm):
         model = Employe
         fields = ['user', 'birthdate', 'birthplace', 'address', 'phone1', 'phone2', 'description', 'picture', 'gender','planing', 'observation']
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}), 
+            'description': forms.Textarea(attrs={'rows': 3}),
+            'picture':forms.FileInput(attrs={'class':'custom-file-input' }) 
         }
 
 

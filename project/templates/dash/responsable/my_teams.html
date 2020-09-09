@@ -19,14 +19,14 @@
                     {% for team in teams %}
                         <div class="col-xl-3 col-md-4 col-sm6">
                             <div class="card card-team">     
-                                <h3 class="title-team">{{ team.titre }}</h3>
+                                <h3 class="title-team">{{ team.titre|truncatechars:16  }}</h3>
                                 <div class="description-team">
                                     {% if team.manager.user.first_name %}
                                         <h5>{{ team.manager.user.first_name }} {{ team.manager.user.last_name }}</h5>
                                     {% else %}
                                         <h5>Aucun manager</h5>
                                     {% endif %}
-                                    <p>{{ team.description|truncatechars:22  }}</p>
+                                    <p>{{ team.description|truncatechars:28  }}</p>
                                 </div>
                                 <div class="heure-e">
                                     <p>{{ team.nb_emp }}</p>
